@@ -23,8 +23,22 @@ class CeremoniaEvento(models.Model):
 	Ministro=models.ForeignKey(Ministro, on_delete=models.SET_NULL, null=True, blank=True, default=None)
 	Musica=models.ForeignKey(Musica, on_delete=models.SET_NULL, null=True, blank=True, default=None)
 	Fotos=models.ForeignKey(Fotos, on_delete=models.SET_NULL, null=True, blank=True, default=None)
+	precio=models.IntegerField(default=0)
 	
+
+class DecoracionCeremonia(models.Model):
+	nombre=models.CharField(max_length=50, null=True, blank=True, default=None)
+	descripcion=models.CharField(max_length=50, null=True, blank=True, default=None)
+	imagen=models.ImageField(null=True, blank=True, default=None)
+	precio=models.IntegerField(default=0)
+	class Meta:
+		verbose_name = "Decoración"
+		verbose_name_plural = "Decoraciones"
+	
+	def __str__(self):
+		return self.nombre
+
 class DecoracionCeremoniaCarrito(models.Model):
-	Decoracion=models.ForeignKey(Decoracion, on_delete=models.CASCADE)
+	Decoracion=models.ForeignKey(DecoracionCeremonia, on_delete=models.CASCADE)
 	CeremoniaEvento=models.ForeignKey(CeremoniaEvento, on_delete=models.CASCADE)
 	cantidad=models.IntegerField()

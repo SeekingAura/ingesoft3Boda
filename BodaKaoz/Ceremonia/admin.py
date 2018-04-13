@@ -5,4 +5,5 @@ from .models import *
 admin.site.register(Ministro)
 admin.site.register(Musica)
 admin.site.register(CeremoniaEvento)
+admin.site.register(DecoracionCeremonia)
 admin.site.register(DecoracionCeremoniaCarrito)

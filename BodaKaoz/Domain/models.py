@@ -16,19 +16,7 @@ def numeric_validator(value):
 	else:
 		raise ValidationError('este campo debe ser solamente númerico')
 
-# General Models
-class Decoracion(models.Model):
-	nombre=models.CharField(max_length=50, null=True, blank=True, default=None)
-	descripcion=models.CharField(max_length=50, null=True, blank=True, default=None)
-	imagen=models.ImageField(null=True, blank=True, default=None)
-	precio=models.IntegerField(default=0)
-	class Meta:
-		verbose_name = "Decoración"
-		verbose_name_plural = "Decoraciones"
-	
-	def __str__(self):
-		return self.nombre
-	
+# General Models	
 class Fotos(models.Model):
 	nombre=models.CharField(max_length=50, null=True, blank=True, default=None)
 	descripcion=models.CharField(max_length=50, null=True, blank=True, default=None)
