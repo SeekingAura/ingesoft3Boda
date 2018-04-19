@@ -37,11 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'Domain',
-	'Pareja',
-	'Ceremonia',
-	'Fiesta',
-	'LunaMiel',
+    'Domain',
+    'Pareja',
+    'Ceremonia',
+    'Fiesta',
+    'LunaMiel',
 ]
 
 MIDDLEWARE = [
@@ -77,24 +77,24 @@ WSGI_APPLICATION = 'BodaKaoz.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-}
+}'''
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'ingesoft3Kaoz',
-#         'USER': 'postgres',
-#         'PASSWORD': 'ingesoft2018',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'ingesoft3Kaoz',
+         'USER': 'postgres',
+         'PASSWORD': 'ingesoft2018',
+         'HOST': '127.0.0.1',
+         'PORT': '5432',
+     }
+ }
 
 
 

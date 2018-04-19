@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+  	{% load staticfiles %}
+
+    <title>Sistema de administración de multas</title>
+
+  </head>
+
+  <body class="login-bg">
+
+
+
+
+	{% if error.0 %}
+
+		<div class="alert alert-warning">{{error.1}}</div>
+
+	{% endif %}
+
+	<form method = 'POST'>{% csrf_token %}
+
+		<input class="form-control" name="username" type="text" placeholder="Nombre de usuario" required>
+
+		<input class="form-control" name="password" type="password" placeholder="Contraseña" required>
+
+		<div class="action">
+
+			<button type="submit" class="btn btn-primary login">Iniciar sesión</button>
+
+			<a class="btn btn-secundary login" href="/">Volver al inicio</a>
+
+		</div>
+
+	</form>
+
+  </body>
+
+</html>
