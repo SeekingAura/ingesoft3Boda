@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	{% load staticfiles %}
+	{% block title %}
+	{% endblock title %}
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+
+</head>
+<body style="height: 100%;">
+	<div style="background-color:#03A9F4;height:50px;width:auto;border: 1px solid">
+		<!-- NAV BAR -->
+	</div>
+	<div class="row">a
+		<div class="col-2"
+			style="background-color:#03A9F4;height:-webkit-fill-available;width:100%;border: 1px solid;padding:30px;">
+			col-4
+		</div>
+		<div class="col-10">
+			<div class="content"
+				style="background-color:#03A9F4;height:-webkit-fill-available;width:100%;border: 1px solid;padding:30px;">
+				{% block content %}
+				{% endblock content %}
+			</div>
+		</div>
+	</div>
+
+	<script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="{% static "js/bootstrap.min.js" %}"></script>
+
+	{% block scripts %}
+	{% endblock scripts %}
+</body>
+</html>

@@ -21,6 +21,6 @@ urlpatterns = [
     # path('', include('Domain.urls')), #contenedor de urls principal
     # path('Pareja/', include('Pareja.urls', namespace="Pareja")),
     # path('Ceremonia/', include('Ceremonia.urls', namespace="Ceremonia")),
-    # path('Fiesta/', include('Fiesta.urls', namespace="Fiesta")),
+    path('fiesta/', include('Fiesta.urls', namespace="Fiesta")),
     # path('LunaMiel/', include('LunaMiel.urls', namespace="LunaMiel")),
 ]
