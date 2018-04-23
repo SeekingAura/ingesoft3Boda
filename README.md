@@ -3,11 +3,11 @@
 Tutorial de adecuación de entorno de desarrollo para proyecto BodaKaos Ingeniería de Software IIi
 
 ## Requerimientos de instalación
-  - Python 3.5+
+  - Python 3.6+
   - Windows/Linux
 
 ## Pasos de instalación
-  - Instalación Python 3.5+
+  - Instalación Python 3.6+
   - Instalación pip
   - Instalación virtualenv 
   - Generación de entorno virtual con virtualenv
@@ -17,7 +17,7 @@ Tutorial de adecuación de entorno de desarrollo para proyecto BodaKaos Ingenier
   - Cambiar de rama del repositorio al respectivo modulo
   - Ejecución de proyecto
 
-### Instalación Python 3.5+
+### Instalación Python 3.6+
 ##### Windows
   - Descargar instalador y ejecutador como administrador de la [página oficial](https://www.python.org/ftp/python/3.6.5/python-3.6.5.exe)
 ##### Linux (Ubuntu 16.04 LTS+)
