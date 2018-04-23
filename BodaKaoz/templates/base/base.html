@@ -10,10 +10,17 @@
 
 </head>
 <body style="height: 100%;">
+	<script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="{% static "js/bootstrap.min.js" %}"></script>
+
+	{% block scripts %}
+	{% endblock scripts %}
+	
 	<div style="background-color:#03A9F4;height:50px;width:auto;border: 1px solid">
 		<!-- NAV BAR -->
 	</div>
-	<div class="row">a
+	<div class="row">
 		<div class="col-2"
 			style="background-color:#03A9F4;height:-webkit-fill-available;width:100%;border: 1px solid;padding:30px;">
 			col-4
@@ -26,12 +33,5 @@
 			</div>
 		</div>
 	</div>
-
-	<script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="{% static "js/bootstrap.min.js" %}"></script>
-
-	{% block scripts %}
-	{% endblock scripts %}
 </body>
 </html>
