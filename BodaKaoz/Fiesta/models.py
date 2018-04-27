@@ -18,6 +18,7 @@ class Alimento(models.Model):
 class AlimentoCarrito(models.Model):
 	FiestaEvento=models.ForeignKey(FiestaEvento, on_delete=models.CASCADE)
 	Alimento=models.ForeignKey(Alimento, on_delete=models.CASCADE)
+	Cantidad = models.IntegerField(default=1)
 		
 class Entretenimiento(models.Model):
 	nombre=models.CharField(max_length=50)
