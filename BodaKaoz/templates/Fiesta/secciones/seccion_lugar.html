@@ -1,6 +1,6 @@
 <h1>SECCIÓN LUGAR</h1>
 
-{% if flag %}
+{% if flag_place %}
 <form method="POST"> {% csrf_token %}
 	<div class="container" align="center">
 		<h6>{{fiesta.Lugar.nombre}}</h6>
@@ -14,6 +14,7 @@
 			<div class="container" align="center">
 				<h6>{{lugar.nombre}}</h6>
 				<h6>{{lugar.direccion}}</h6>
+				<h6>${{lugar.precio}}</h6>
 				<input name="id_place" value="{{lugar.id}}" hidden>
 				<button type="submit" class="btn btn-primary" value="add_place" name="btn_value">Agregar</button>
 			</div>

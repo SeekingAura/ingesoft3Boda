@@ -10,13 +10,19 @@ def fiestaDashboardView(request):
 	fiesta = FiestaEvento.objects.get(Boda_id=boda_id)
 
 	if fiesta.Lugar != None:
-		flag = True
+		flag_place = True
 	else:
-		flag = False
+		flag_place = False
+
+	if fiesta.Fotos != None:
+		flag_foto = True
+	else:
+		flag_foto = False
+
 	Fiesta = None
 	if request.method == 'GET':
 		boda_id = request.GET.get('boda_id')
-		Foto = Fotos.objects.all()
+		Foto = Fotos.objects.filter(tipo='fiesta')
 		Lugares = Lugar.objects.all()
 		
 		if len(boda_id) > 0:
@@ -26,7 +32,8 @@ def fiestaDashboardView(request):
 		context = {
 			'Fotos' : Foto,
 			'Lugares' : Lugares,
-			'flag' : flag,
+			'flag_place' : flag_place,
+			'flag_foto' : flag_foto,
 			'fiesta' : fiesta,
 		}
 		return HttpResponse(template.render(context, request))
@@ -35,31 +42,38 @@ def fiestaDashboardView(request):
 		boda_id = request.GET.get('boda_id')
 		fiesta = FiestaEvento.objects.get(Boda_id=boda_id)
 		value_btn = request.POST.get('btn_value')
-		print("valor boton ", value_btn)
 		
 		if value_btn == "add_place":
 			id_place = request.POST.get('id_place')
 			fiesta.Lugar_id = id_place
-			flag = True
+			flag_place = True
 			fiesta.save()
 
 		if value_btn == "add_foto":
 			id_foto = request.POST.get('id_foto')
-			print("id foto " , id_foto)
+			fiesta.Fotos_id = id_foto
+			flag_foto = True
+			fiesta.save()
 
 		if value_btn == "delete_lugar":
 			fiesta.Lugar = None
-			flag = False
+			flag_place = False
 			fiesta.save()
 
-		Foto = Fotos.objects.all()
+		if value_btn == "delete_foto":
+			fiesta.Fotos = None
+			flag_foto = False
+			fiesta.save()
+
+		Foto = Fotos.objects.filter(tipo__exact='fiesta')
 		Lugares = Lugar.objects.all()
 		
 		template = get_template('Fiesta/fiesta.html')
 		context = {
 			'Fotos' : Foto,
 			'Lugares' : Lugares,
-			'flag' : flag,
+			'flag_place' : flag_place,
+			'flag_foto' : flag_foto,
 			'fiesta' : fiesta,
 		}
 		return HttpResponse(template.render(context, request))
