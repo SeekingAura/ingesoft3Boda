@@ -1,1 +1,13 @@
 <h1>SECCIÓN FOTOGRAFÍA</h1>
+
+{% for foto in Fotos %}
+	<form method="POST">{% csrf_token %}
+		<div class="container" align="center">
+			<h6>{{foto.nombre}}</h6>
+			<h6>{{foto.descripcion}}</h6>
+			<input name="id_foto" value="{{foto.id}}" hidden>
+			<button type="submit" class="btn btn-primary" value="add_foto" name="btn_value">Agregar</button>
+		</div>
+	</form>
+	
+{% endfor %}

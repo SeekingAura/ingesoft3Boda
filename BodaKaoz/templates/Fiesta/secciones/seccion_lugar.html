@@ -1,1 +1,23 @@
 <h1>SECCIÓN LUGAR</h1>
+
+{% if flag %}
+<form method="POST"> {% csrf_token %}
+	<div class="container" align="center">
+		<h6>{{fiesta.Lugar.nombre}}</h6>
+		<h6>{{fiesta.Lugar.direccion}}</h6>
+		<button class="btn btn-danger" name="btn_value" value="delete_lugar">Eliminar</button>
+	</div>
+</form>
+{% else %}
+	{% for lugar in Lugares %}
+		<form method="POST">{% csrf_token %}
+			<div class="container" align="center">
+				<h6>{{lugar.nombre}}</h6>
+				<h6>{{lugar.direccion}}</h6>
+				<input name="id_place" value="{{lugar.id}}" hidden>
+				<button type="submit" class="btn btn-primary" value="add_place" name="btn_value">Agregar</button>
+			</div>
+		</form>
+		
+	{% endfor %}
+{% endif %}
