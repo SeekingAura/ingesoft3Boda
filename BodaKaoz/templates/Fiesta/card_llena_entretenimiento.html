@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+	<script src="js/bootstrap.js"></script>
+
+   	<title>¡Entretenimiento!</title>
+
+  </head>
+  <body>
+
+	  <div class="card text-center">
+	  	<h5 class="card-header">Entretenimiento para tu fiesta</h5>
+	  </div>
+
+	  <div class="card card-llena-entretenimiento">
+		    <img class="llena-img-entretenimiento" src="static/img/lugar.jpg" alt="Card image cap">
+		    <div class="card-body card-body-entretenimiento">
+		     <h4 class="card-title; font-wight-bold">Música en vivo</h4>
+			<p class="card-text"><strong>Descripción:</strong> Lugar hogareño cómodo</p>
+			<p class="card-text"><strong>Precio:</strong> $700.000 </p> 
+			<button type="button" class="btn btn-danger btn-lg">Eliminar</button>
+		    </div>
+		</div>
+
+		<div class="card card-llena-entretenimiento">
+	    <img class="llena-img-entretenimiento" src="static/img/paymag.jpg" alt="Card image cap">
+		    <div class="card-body card-body-entretenimiento">
+			<h4 class="card-title; font-wight-bold">Diversión niños</h4>
+			<p class="card-text"><strong>Descripción:</strong>Payasos y magos</p>
+			<p class="card-text"><strong>Precio:</strong> $1.700.000</p> 
+			<button type="button" class="btn btn-danger btn-lg">Eliminar</button>
+		    </div>
+		</div>
+
+
+    <div class="card text-center">
+  		<div class="card-body">
+    		<h4 class="card-title, tittle-center, font-weight-bold">¿Deseas agregar algo más?</h4>
+    		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EntretenimientoModal">Añadir</button>
+
+    		<div class="modal" id="EntretenimientoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" text-align="left">Seleccionar entretenimiento</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <div class="card card-entretenimiento">
+						    <img class="img-entretenimiento" src="static/img/lugar.jpg" alt="Card image cap">
+						    <div class="card-body card-body-entretenimiento">
+						      <h4 class="card-title; font-wight-bold">Música en vivo</h4>
+						      <p class="card-text"><strong>Descripción:</strong> Lugar hogareño cómodo</p>
+						      <p class="card-text"><strong>Precio:</strong> $700.000 </p> 
+						      <button type="button" class="btn btn-success btn-lg">Agregar</button>
+						    </div>
+					</div>
+
+						<div class="card card-entretenimiento">
+					    <img class="img-entretenimiento" src="static/img/paymag.jpg" alt="Card image cap">
+					    <div class="card-body card-body-entretenimiento">
+					      <h4 class="card-title; font-wight-bold">Diversión niños</h4>
+					      <p class="card-text"><strong>Descripción:</strong>Payasos y magos</p>
+					      <p class="card-text"><strong>Precio:</strong> $1.700.000</p> 
+					      <button type="button" class="btn btn-success btn-lg">Agregar</button>
+					    </div>
+						</div>
+			      </div>
+			      <div class="modal-footer; align-center">
+			        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+  		</div>
+  		
+	</div>
+
+	</body>	
+</html>
