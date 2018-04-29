@@ -18,9 +18,7 @@ a{
 }
 
 .contenedor-menu {
-	width: 15%;
-	display: inline-block;
-	line-height: 18px;
+	background-color: white;
 }
 
 .contenedor-menu .menu{		
@@ -55,7 +53,7 @@ a{
 }
 
 img {
-	width: 15%;		
+	width: 100%;	
 }
 
 .header{
