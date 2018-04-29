@@ -10,6 +10,7 @@ body {
 	line-height: 18px;
 	padding: 0;
 	margin: 0;
+	overflow-x: hidden;
 }
 
 a{
@@ -58,12 +59,16 @@ img {
 
 .header{
 	width: 100%; 
-	height: 35px;
+	height: 40px;
 	background-color: #005f93;
 }
 
+.profileImage {
+	height: 100%;
+}
+
 .header img {
-	margin-left:94%;
-	margin-top: .3%;
-	width: 2%	
+	height: 30px;
+	width: auto;
+	margin: 5px;	
 }

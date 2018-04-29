@@ -12,17 +12,20 @@
 
 </head>
 <body style="height: 100%;">
-	<div class="header">
-		<div><img src="{% static 'images/base/icon.png' %}"></div>
-	</div>
 	<script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="{% static "js/bootstrap.min.js" %}"></script>
 
+	<div class="header">
+		<div class="float-right profileImage text-center">
+			<img src="{% static 'images/base/icon.png' %}">
+		</div>
+	</div>
+
 	{% block scripts %}
 	{% endblock scripts %}
 	<div class="row">
-		<div class="col-2">
+		<div class="col-3">
 			<div class="contenedor-menu">
 				<div class="corazon">
 					<img src="{% static 'images/base/corazon.jpg' %}">
@@ -60,9 +63,8 @@
 				</ul>
 			</div>
 		</div>
-		<div class="col-10">
-			<div class="content"
-				style="background-color:#03A9F4;height:-webkit-fill-available;width:100%;border: 1px solid;padding:30px;">
+		<div class="col-9">
+			<div class="content">
 				{% block content %}
 				{% endblock content %}
 			</div>
