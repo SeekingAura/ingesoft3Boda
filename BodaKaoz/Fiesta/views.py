@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.template.loader import get_template
 
-# Create your views here.
+def fiestaDashboardView(request):
+	template = get_template('Fiesta/fiesta.html')
+	context = {}
+	return HttpResponse(template.render(context, request))
