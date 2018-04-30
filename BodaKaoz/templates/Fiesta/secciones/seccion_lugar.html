@@ -33,7 +33,7 @@
 
 </style>
 
-{% if false %} {% comment %} Card para agregar Lugar {% endcomment %}
+{% if False %} {% comment %} Card para agregar Lugar {% endcomment %}
 <div class="card">
 	<div class="card-header">
 		<h5 class="card-header-text">¿En donde sera tu fiesta?</h5>
@@ -47,7 +47,7 @@
 {% else %} {% comment %} Card para cambiar el lugar de la fiesta {% endcomment %}
 <div class="card">
 	<div class="card-header">
-		<h5 class="card-header-text">¿En donde sera tu fiesta?</h5>
+		<h5 class="card-header-text">¿En dónde sera tu fiesta?</h5>
 	</div>
 	<div class="card-body">
 		<div class="row">
@@ -69,3 +69,5 @@
 	</div>
 </div>
 {% endif %}
+
+{% include "Fiesta/secciones/card_lugar.html" %}
