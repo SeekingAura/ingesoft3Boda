@@ -18,8 +18,6 @@
 			{% if comida.id not in indices_alimentos %}
 				<form method="POST">{% csrf_token %}
 					<div class="container" align="center">
-
-						<img src="{{comida.imagen.url}}"> 
 						<h6>{{comida.nombre}}</h6>
 						<h6>{{comida.descripcion}}</h6>
 						<h6>${{comida.precio}}</h6>
