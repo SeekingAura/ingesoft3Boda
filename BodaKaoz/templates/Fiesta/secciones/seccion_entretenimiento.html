@@ -1,1 +1,31 @@
 <h1>SECCIÓN ENTRETENIMIENTO</h1>
+
+{% for e in entretenimiento %}
+	<form method="POST"> {% csrf_token %}
+		<div class="container" align="center">
+			<h6>{{e.Entretenimiento.nombre}}</h6>
+			<h6>{{e.Entretenimiento.descripcion}}</h6>
+			<input name="entretenimiento_carrito_id" value="{{e.id}}" hidden>
+			<input name="entretenimiento_id" value="{{e.Entretenimiento.id}}" hidden>
+			<button class="btn btn-danger" name="btn_value" value="delete_entretenimiento">Eliminar</button>
+		</div>
+	</form>
+	<br>
+{% endfor %}
+
+{% for entre in Entretenimientos %}
+			
+			{% if entre.id not in indices_entretenimientos %}
+				<form method="POST">{% csrf_token %}
+					<div class="container" align="center">
+						<h6>{{entre.nombre}}</h6>
+						<h6>{{entre.descripcion}}</h6>
+						<h6>${{entre.precio}}</h6>
+						<input name="id_entretenimiento" value="{{entre.id}}" hidden>
+						<button type="submit" class="btn btn-primary" value="add_entretenimiento" name="btn_value">Agregar</button>
+					</div>
+				</form>
+			{% endif %}
+			<br>
+	
+{% endfor %}	

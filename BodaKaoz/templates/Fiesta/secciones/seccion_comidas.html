@@ -1,1 +1,35 @@
 <h1>SECCIÓN COMIDA</h1>
+
+{% for a in alimento %}
+	<form method="POST"> {% csrf_token %}
+		<div class="container" align="center">
+			<h6>{{a.Alimento.nombre}}</h6>
+			<h6>{{a.Alimento.descripcion}}</h6>
+			<input name="alimento_carrito_id" value="{{a.id}}" hidden>
+			<input name="comida_id" value="{{a.Alimento.id}}" hidden>
+			<button class="btn btn-danger" name="btn_value" value="delete_comida">Eliminar</button>
+		</div>
+	</form>
+	<br>
+{% endfor %}
+
+{% for comida in Alimentos %}
+			
+			{% if comida.id not in indices_alimentos %}
+				<form method="POST">{% csrf_token %}
+					<div class="container" align="center">
+						<h6>{{comida.nombre}}</h6>
+						<h6>{{comida.descripcion}}</h6>
+						<h6>${{comida.precio}}</h6>
+						<label for="cantidad_comida">Cantidad</label>
+						<input name="cantidad_comida" type="number">
+						<input name="id_comida" value="{{comida.id}}" hidden>
+						<button type="submit" class="btn btn-primary" value="add_comida" name="btn_value">Agregar</button>
+					</div>
+				</form>
+			{% endif %}
+			<br>
+	
+{% endfor %}	
+
+ 
