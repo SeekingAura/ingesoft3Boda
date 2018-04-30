@@ -7,14 +7,14 @@
 			<h6>{{a.Alimento.descripcion}}</h6>
 			<input name="alimento_carrito_id" value="{{a.id}}" hidden>
 			<input name="comida_id" value="{{a.Alimento.id}}" hidden>
+			<input name="price" value="{{a.Alimento.precio}}" hidden>
 			<button class="btn btn-danger" name="btn_value" value="delete_comida">Eliminar</button>
 		</div>
 	</form>
 	<br>
 {% endfor %}
 
-{% for comida in Alimentos %}
-			
+{% for comida in Alimentos %}	
 			{% if comida.id not in indices_alimentos %}
 				<form method="POST">{% csrf_token %}
 					<div class="container" align="center">
@@ -24,6 +24,7 @@
 						<label for="cantidad_comida">Cantidad</label>
 						<input name="cantidad_comida" type="number">
 						<input name="id_comida" value="{{comida.id}}" hidden>
+						<input name="price" value="{{comida.precio}}" hidden>
 						<button type="submit" class="btn btn-primary" value="add_comida" name="btn_value">Agregar</button>
 					</div>
 				</form>

@@ -62,6 +62,7 @@ def fiestaDashboardView(request):
 			'entretenimiento' : entretenimiento,
 			'Entretenimientos' : Entretenimientos,
 			'indices_entretenimientos' : indices_entretenimientos,
+			'precio' : fiesta.precio
 		}
 		return HttpResponse(template.render(context, request))
 
@@ -86,21 +87,28 @@ def fiestaDashboardView(request):
 		
 		if value_btn == "add_place":
 			id_place = request.POST.get('id_place')
+			price = request.POST.get('price')
 			fiesta.Lugar_id = id_place
+			fiesta.precio = fiesta.precio + int(price)
 			flag_place = True
 			fiesta.save()
 
 		if value_btn == "add_foto":
 			id_foto = request.POST.get('id_foto')
+			price = request.POST.get('price')
 			fiesta.Fotos_id = id_foto
+			fiesta.precio = fiesta.precio + int(price)
 			flag_foto = True
 			fiesta.save()
 
 		if value_btn == "add_comida":
 			cantidad_comida = request.POST.get('cantidad_comida')
 			id_comida = request.POST.get('id_comida')
+			price = request.POST.get('price')
 			comida_inst = Alimento.objects.filter(id__exact=id_comida)
 			comida = AlimentoCarrito(FiestaEvento = fiesta , Alimento = comida_inst[0], Cantidad = cantidad_comida)
+			fiesta.precio = fiesta.precio + (int(price) * int (cantidad_comida))
+			fiesta.save()
 			comida.save()
 			alimento = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 
@@ -112,11 +120,13 @@ def fiestaDashboardView(request):
 
 		if value_btn == "add_entretenimiento":
 			id_entre = request.POST.get('id_entretenimiento')
+			price = request.POST.get('price')
+			fiesta.precio = fiesta.precio + int(price)
+			fiesta.save()
 			entre_inst = Entretenimiento.objects.filter(id__exact=id_entre)
 			entre = EntretenimientoCarrito(FiestaEvento = fiesta , Entretenimiento = entre_inst[0])
 			entre.save()
 			entretenimiento = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
-
 			indices_entretenimientos.clear()
 
 			if entretenimiento.count() > 0:
@@ -127,11 +137,15 @@ def fiestaDashboardView(request):
 
 		if value_btn == "delete_lugar":
 			fiesta.Lugar = None
+			price = request.POST.get('price')
+			fiesta.precio = fiesta.precio - int(price)
 			flag_place = False
 			fiesta.save()
 
 		if value_btn == "delete_foto":
 			fiesta.Fotos = None
+			price = request.POST.get('price')
+			fiesta.precio = fiesta.precio - int(price)
 			flag_foto = False
 			fiesta.save()
 
@@ -139,9 +153,13 @@ def fiestaDashboardView(request):
 			comida_id = request.POST.get('comida_id')
 			alimento_carrito_id = request.POST.get('alimento_carrito_id')
 			alimentocarrito = AlimentoCarrito.objects.filter(id__exact=alimento_carrito_id)
+			cantidad = alimentocarrito[0].Cantidad
 			alimentocarrito.delete()
 			alimento = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 			indices_alimentos.clear()
+			price = request.POST.get('price')
+			fiesta.precio = int(fiesta.precio) - (cantidad  * int(price))
+			fiesta.save()
 
 			if alimento.count() > 0:
 				for a in alimento:
@@ -154,6 +172,9 @@ def fiestaDashboardView(request):
 			entretenimientocarrito.delete()
 			entretenimiento = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 			indices_entretenimientos.clear()
+			price = request.POST.get('price')
+			fiesta.precio = int(fiesta.precio) - int(price)
+			fiesta.save()
 
 			if entretenimiento.count() > 0:
 				for e in entretenimiento:
@@ -178,6 +199,7 @@ def fiestaDashboardView(request):
 			'entretenimiento' : entretenimiento,
 			'Entretenimientos' : Entretenimientos,
 			'indices_entretenimientos' : indices_entretenimientos,
+			'precio' : fiesta.precio
 		}
 		return HttpResponse(template.render(context, request))
 

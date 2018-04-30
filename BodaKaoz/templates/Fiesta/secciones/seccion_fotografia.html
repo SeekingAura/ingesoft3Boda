@@ -5,6 +5,7 @@
 	<div class="container" align="center">
 		<h6>{{fiesta.Fotos.nombre}}</h6>
 		<h6>{{fiesta.Fotos.descripcion}}</h6>
+		<input name="price" value="{{fiesta.Fotos.precio}}" hidden>
 		<button class="btn btn-danger" name="btn_value" value="delete_foto">Eliminar</button>
 	</div>
 </form>
@@ -16,6 +17,7 @@
 				<h6>{{foto.descripcion}}</h6>
 				<h6>${{foto.precio}}</h6>
 				<input name="id_foto" value="{{foto.id}}" hidden>
+				<input name="price" value="{{foto.precio}}" hidden>
 				<button type="submit" class="btn btn-primary" value="add_foto" name="btn_value">Agregar</button>
 			</div>
 		</form>
