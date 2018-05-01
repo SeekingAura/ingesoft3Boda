@@ -14,29 +14,7 @@
 
   <body class="login-bg">
 
-  	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
 
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item dropdown">
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item" href="#">Action</a>
-	          <a class="dropdown-item" href="#">Another action</a>
-	          <div class="dropdown-divider"></div>
-	          <a class="dropdown-item" href="#">Something else here</a>
-	        </div>
-	      </li>
-	    </ul>
-	    <form class="form-inline my-2 my-lg-0">
-	      <input class="form-control" name="username" type="text" placeholder="Nombre de usuario" required>
-	      <input class="form-control" name="password" type="password" placeholder="Contraseña" required>
-	      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Iniciar Sesion</button>
-	    </form>
-	  </div>
-	</nav>
 
 
 	{% if error.0 %}
@@ -47,7 +25,11 @@
 
 	<form method = 'POST'>{% csrf_token %}
 		<div class="action">
-
+		    <form class="form-inline my-2 my-lg-0">
+		      <input class="form-control" name="username" type="text" placeholder="Nombre de usuario" required>
+		      <input class="form-control" name="password" type="password" placeholder="Contraseña" required>
+		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Iniciar Sesion</button>
+		    </form>
 			<!--<button type="submit" class="btn btn-primary login">Iniciar sesión</button>-->
 
 			<a class="btn btn-secundary login" href="/">Volver al inicio</a>
