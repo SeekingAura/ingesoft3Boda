@@ -39,6 +39,7 @@ def Logout(request):
 def Login(request):
 
     error = (False, "")
+    user=None 
 
     if request.method == "POST":
 
@@ -57,7 +58,11 @@ def Login(request):
             if user is not None:
 
                 login(request, user)
+                ctx = {
 
+                        'error': error, 'user': user,
+
+                }
                 return redirect('/Pareja/tablero-resumen')
 
             else:
