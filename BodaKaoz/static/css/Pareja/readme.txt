@@ -1,1 +1,0 @@
-En esta carpeta será añadido los archivos css que usará el modulo especifico

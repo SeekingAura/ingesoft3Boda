@@ -1,1 +1,0 @@
-En esta carpeta será añadido los archivos html (templates) que se usarán de forma general del modulo
