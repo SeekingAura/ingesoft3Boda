@@ -1,29 +1,3 @@
-<!--h1>SECCIÓN LUGAR</h1>
-
-{% if flag_place %}
-<form method="POST"> {% csrf_token %}
-	<div class="container" align="center">
-		<h6>{{fiesta.Lugar.nombre}}</h6>
-		<h6>{{fiesta.Lugar.direccion}}</h6>
-		<input name="price" value="{{fiesta.Lugar.precio}}" hidden>
-		<button class="btn btn-danger" name="btn_value" value="delete_lugar">Eliminar</button>
-	</div>
-</form>
-{% else %}
-	{% for lugar in Lugares %}
-		<form method="POST">{% csrf_token %}
-			<div class="container" align="center">
-				<h6>{{lugar.nombre}}</h6>
-				<h6>{{lugar.direccion}}</h6>
-				<h6>${{lugar.precio}}</h6>
-				<input name="id_place" value="{{lugar.id}}" hidden>
-				<input name="price" value="{{lugar.precio}}" hidden>
-				<button type="submit" class="btn btn-primary" value="add_place" name="btn_value">Agregar</button>
-			</div>
-		</form>
-		
-	{% endfor %}
-{% endif %} -->
 <style type="text/css">
   .card{
     margin: 20px;
@@ -89,7 +63,7 @@
 {% else %} {% comment %} Card para cambiar el lugar de la fiesta {% endcomment %}
 	<div class="card">
 		<div class="card-header">
-			<h5 class="card-header-text">¿             En donde sera tu fiesta?</h5>
+			<h5 class="card-header-text">¿En donde sera tu fiesta?</h5>
 		</div>
 		<div class="card-body">
 			<h5 class="card-title">Aún no tienes agregado un lugar para tu fiesta</h5>
@@ -100,3 +74,5 @@
 {% endif %}
 
 {% include "Fiesta/secciones/card_lugar.html" %}
+
+
