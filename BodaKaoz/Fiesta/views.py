@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template.loader import get_template
 from Domain.models import Boda
-from Domain.models import Lugar , Fotos
+from Domain.models import Lugar
 from .models import FiestaEvento, AlimentoCarrito, Alimento, EntretenimientoCarrito, Entretenimiento
 
 
@@ -32,7 +32,7 @@ def fiestaDashboardView(request):
 	else:
 		flag_place = False
 
-	if fiesta.Fotos != None:
+	if fiesta.Fotos:
 		flag_foto = True
 	else:
 		flag_foto = False
@@ -40,7 +40,6 @@ def fiestaDashboardView(request):
 	Fiesta = None
 	if request.method == 'GET':
 		boda_id = request.GET.get('boda_id')
-		Foto = Fotos.objects.filter(tipo='fiesta')
 		Lugares = Lugar.objects.all()
 		Alimentos = Alimento.objects.all()
 		Entretenimientos = Entretenimiento.objects.all()
@@ -63,7 +62,6 @@ def fiestaDashboardView(request):
 
 			template = get_template('Fiesta/fiesta.html')
 		context = {
-			'Fotos' : Foto,
 			'Lugares' : Lugares,
 			'flag_place' : flag_place,
 			'flag_foto' : flag_foto,
@@ -108,11 +106,8 @@ def fiestaDashboardView(request):
 			fiesta.save()
 
 		if value_btn == "add_foto":
-			id_foto = request.POST.get('id_foto')
-			price = request.POST.get('price')
-			fiesta.Fotos_id = id_foto
-			fiesta.precio = fiesta.precio + int(price)
 			flag_foto = True
+			fiesta.Fotos=True
 			fiesta.save()
 
 		if value_btn == "add_comida":
@@ -159,11 +154,10 @@ def fiestaDashboardView(request):
 			fiesta.save()
 
 		if value_btn == "delete_foto":
-			fiesta.Fotos = None
-			price = request.POST.get('price')
-			fiesta.precio = fiesta.precio - int(price)
+			fiesta.Fotos=False
 			flag_foto = False
 			fiesta.save()
+			
 
 		if value_btn == "delete_comida":
 			comida_id = request.POST.get('comida_id')
@@ -203,12 +197,11 @@ def fiestaDashboardView(request):
 			
 
 
-		Foto = Fotos.objects.filter(tipo__exact='fiesta')
+		
 		Lugares = Lugar.objects.all()
 		
 		template = get_template('Fiesta/fiesta.html')
 		context = {
-			'Fotos' : Foto,
 			'Lugares' : Lugares,
 			'flag_place' : flag_place,
 			'flag_foto' : flag_foto,
