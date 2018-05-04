@@ -12,8 +12,20 @@ def fiestaDashboardView(request):
 	alimento = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 	entretenimiento = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 	indices_alimentos = []
-	indices_entretenimientos = []	
+	indices_entretenimientos = []
 
+	count_entre = EntretenimientoCarrito.objects.all()
+	count_comida = AlimentoCarrito.objects.all()	
+
+	if len(count_entre) > 0:
+		flag_entre = True
+	else:
+		flag_entre = False
+
+	if len(count_comida) > 0:
+		flag_comida = True
+	else:
+		flag_comida = False
 
 	if fiesta.Lugar != None:
 		flag_place = True
@@ -55,6 +67,8 @@ def fiestaDashboardView(request):
 			'Lugares' : Lugares,
 			'flag_place' : flag_place,
 			'flag_foto' : flag_foto,
+			'flag_entre' : flag_entre,
+			'flag_comida' : flag_comida,
 			'fiesta' : fiesta,
 			'alimento' : alimento,
 			'Alimentos' : Alimentos,
@@ -103,6 +117,7 @@ def fiestaDashboardView(request):
 
 		if value_btn == "add_comida":
 			cantidad_comida = request.POST.get('cantidad_comida')
+			flag_comida = True
 			id_comida = request.POST.get('id_comida')
 			price = request.POST.get('price')
 			comida_inst = Alimento.objects.filter(id__exact=id_comida)
@@ -119,6 +134,7 @@ def fiestaDashboardView(request):
 					indices_alimentos.append(a.Alimento.id)
 
 		if value_btn == "add_entretenimiento":
+			flag_entre = True
 			id_entre = request.POST.get('id_entretenimiento')
 			price = request.POST.get('price')
 			fiesta.precio = fiesta.precio + int(price)
@@ -160,6 +176,7 @@ def fiestaDashboardView(request):
 			price = request.POST.get('price')
 			fiesta.precio = int(fiesta.precio) - (cantidad  * int(price))
 			fiesta.save()
+			flag_comida = False
 
 			if alimento.count() > 0:
 				for a in alimento:
@@ -168,13 +185,16 @@ def fiestaDashboardView(request):
 		if value_btn == "delete_entretenimiento":
 			entretenimiento_id = request.POST.get('entretenimiento_id')
 			entretenimiento_carrito_id = request.POST.get('entretenimiento_carrito_id')
+			entre = Entretenimiento.objects.get(id=entretenimiento_id)
 			entretenimientocarrito = EntretenimientoCarrito.objects.filter(id__exact=entretenimiento_carrito_id)
 			entretenimientocarrito.delete()
+
 			entretenimiento = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 			indices_entretenimientos.clear()
 			price = request.POST.get('price')
 			fiesta.precio = int(fiesta.precio) - int(price)
 			fiesta.save()
+			flag_entre = False
 
 			if entretenimiento.count() > 0:
 				for e in entretenimiento:
@@ -192,6 +212,8 @@ def fiestaDashboardView(request):
 			'Lugares' : Lugares,
 			'flag_place' : flag_place,
 			'flag_foto' : flag_foto,
+			'flag_entre' : flag_entre,
+			'flag_comida' : flag_comida,
 			'fiesta' : fiesta,
 			'alimento' : alimento,
 			'Alimentos' : Alimentos,
