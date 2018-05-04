@@ -1,4 +1,10 @@
 {% extends "base/base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+<link href="{% static 'css/Fiesta/style_entretenimiento.css' %}" rel="stylesheet" />
+<link href="{% static 'css/Fiesta/style_comidas.css' %}" rel="stylesheet" />
+{% endblock title %}
 
 {% block content %}
 	{% include "Fiesta/secciones/seccion_lugar.html" %}

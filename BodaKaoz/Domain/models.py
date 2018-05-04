@@ -22,7 +22,7 @@ class Fotos(models.Model):
 	descripcion=models.CharField(max_length=50, null=True, blank=True, default=None)
 	tipo=models.CharField(max_length=50, null=True, blank=True, default=None)
 	imagen=models.ImageField(null=True, blank=True, default=None)
-	precio=models.IntegerField(default=0)
+	precio=models.BigIntegerField(default=0)
 	class Meta:
 		verbose_name = "Fotos"
 		verbose_name_plural = "Fotos"
@@ -35,7 +35,7 @@ class Lugar(models.Model):
 	direccion=models.CharField(max_length=50)
 	capacidad=models.IntegerField()
 	imagen=models.ImageField(null=True, blank=True, default=None)
-	precio=models.IntegerField(default=0)
+	precio=models.BigIntegerField(default=0)
 	class Meta:
 		verbose_name = "Lugar"
 		verbose_name_plural = "Lugares"
@@ -49,12 +49,12 @@ class Lugar(models.Model):
 class Boda(models.Model):
 	Enamorado1=models.ForeignKey(Enamorado, on_delete=models.CASCADE, null=True, blank=True, default=None, related_name='Enamorado1')
 	Enamorado2=models.ForeignKey(Enamorado, on_delete=models.CASCADE, null=True, blank=True, default=None, related_name='Enamorado2')
-	precio=models.IntegerField(default=0)
+	precio=models.BigIntegerField(default=0)
 	
 class Transporte(models.Model):
 	nombre=models.CharField(max_length=50)
 	tipo=models.CharField(max_length=50)
-	precio=models.IntegerField(default=0)
+	precio=models.BigIntegerField(default=0)
 	
 class TransporteCarrito(models.Model):
 	Transporte=models.ForeignKey(Transporte, on_delete=models.CASCADE)
