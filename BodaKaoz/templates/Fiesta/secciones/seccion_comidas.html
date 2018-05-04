@@ -1,0 +1,110 @@
+<!-- h1>SECCIÓN COMIDA</h1>
+
+{% for a in alimento %}
+	<form method="POST"> {% csrf_token %}
+		<div class="container" align="center">
+			<h6>{{a.Alimento.nombre}}</h6>
+			<h6>{{a.Alimento.descripcion}}</h6>
+			<input name="alimento_carrito_id" value="{{a.id}}" hidden>
+			<input name="comida_id" value="{{a.Alimento.id}}" hidden>
+			<input name="price" value="{{a.Alimento.precio}}" hidden>
+			<button class="btn btn-danger" name="btn_value" value="delete_comida">Eliminar</button>
+		</div>
+	</form>
+	<br>
+{% endfor %}
+
+{% for comida in Alimentos %}	
+			{% if comida.id not in indices_alimentos %}
+				<form method="POST">{% csrf_token %}
+					<div class="container" align="center">
+						<h6>{{comida.nombre}}</h6>
+						<h6>{{comida.descripcion}}</h6>
+						<h6>${{comida.precio}}</h6>
+						<label for="cantidad_comida">Cantidad</label>
+						<input name="cantidad_comida" type="number">
+						<input name="id_comida" value="{{comida.id}}" hidden>
+						<input name="price" value="{{comida.precio}}" hidden>
+						<button type="submit" class="btn btn-primary" value="add_comida" name="btn_value">Agregar</button>
+					</div>
+				</form>
+			{% endif %}
+			<br>
+	
+{% endfor %} -->	
+
+{% if flag_comida  %}
+	<div class="card text-center">
+	    <h5 class="card-header">¿Qué servirás en tu fiesta?</h5>
+	</div>
+	{% for a in alimento  %}
+		<div class="card card-llena-comidas">
+		    <img class="llena-img-comida" src="{{a.Alimento.imagen.url}}" alt="Card image cap">
+		    <div class="card-body card-body-comidas">
+		    	<form method="POST">{% csrf_token %}
+			        <h4 class="card-title; font-wight-bold">{{a.Alimento.nombre}}</h4>
+			        <p class="card-text"><strong>Descripción:</strong>{{a.Alimento.descripcion}}</p>
+			        <p class="card-text"><strong>Precio:</strong> ${{a.Alimento.precio}}</p>
+			        <input name="alimento_carrito_id" value="{{a.id}}" hidden>
+					<input name="comida_id" value="{{a.Alimento.id}}" hidden>
+					<input name="price" value="{{a.Alimento.precio}}" hidden>
+			        <button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="delete_comida">Eliminar</button>
+		        </form>
+		    </div>
+		</div>
+	{% endfor %}
+	<div class="card text-center">
+	    <div class="card-body">
+	        <h4 class="card-title, tittle-center, font-weight-bold">¿Deseas agregar algo más?</h4>
+	        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ComidaModal">Añadir</button>
+	    </div>
+
+	</div>
+{% else %}
+	<div class="card text-center">
+  		<h5 class="card-header">¿Qué servirás en tu fiesta?</h5>
+  		<div class="card-body">
+    		<h4 class="card-title, tittle-center, font-weight-bold">Debes atender a tus invitados con comida de élite</h4>
+    		<p class="card-text, text-center">Aún no has agredado la comida que ofrecerás durante el evento. Presiona añadir para agregar alguna.</p>
+    		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ComidaModal">Añadir</button>
+  		</div>
+  		
+	</div>
+{% endif %}
+
+    <div class="modal" id="ComidaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" text-align="left">Agrega las comidas</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	{% for  comida in Alimentos %}
+	      		{% if comida.id not in indices_alimentos %}
+			        <div class="card card-comidas">
+					    <img class="img-comida" src="{{comida.imagen.url}}" alt="Card image cap">
+					    <div class="card-body card-body-comidas">
+					      <form method="POST">{% csrf_token %}
+						      <h4 class="card-title; font-wight-bold">{{comida.nombre}}</h4>
+						      <p class="card-text"><strong>Descripción:</strong>{{comida.descripcion}}</p>
+						      <p class="card-text"><strong>Precio:</strong> ${{comida.precio}}</p>
+						      <label for="cantidad_comida">Cantidad</label>
+							  <input name="cantidad_comida" type="number">
+							  <input name="id_comida" value="{{comida.id}}" hidden>
+							  <input name="price" value="{{comida.precio}}" hidden> 
+						      <button type="submit" class="btn btn-success btn-lg" value="add_comida" name="btn_value">Agregar</button>
+					      </form>
+					    </div>
+					</div>
+				{% endif %}
+			{% endfor %}
+	      </div>
+	      <div class="modal-footer; align-center">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
