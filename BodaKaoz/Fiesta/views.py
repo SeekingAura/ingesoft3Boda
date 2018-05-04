@@ -61,6 +61,22 @@ def fiestaDashboardView(request):
 			boda = Boda.objects.filter(id__exact=boda_id)
 
 			template = get_template('Fiesta/fiesta.html')
+
+		size_alimentos = len(indices_alimentos)
+		size_entre = len(indices_entretenimientos)
+		print(size_entre)
+		limite = 0
+
+		if size_alimentos > limite:
+			flag_comida = True
+		else:
+			flag_comida = False
+
+		if size_entre > limite:
+			flag_entre = True
+		else:
+			flag_entre = False
+
 		context = {
 			'Lugares' : Lugares,
 			'flag_place' : flag_place,
@@ -170,7 +186,6 @@ def fiestaDashboardView(request):
 			price = request.POST.get('price')
 			fiesta.precio = int(fiesta.precio) - (cantidad  * int(price))
 			fiesta.save()
-			flag_comida = False
 
 			if alimento.count() > 0:
 				for a in alimento:
@@ -188,7 +203,6 @@ def fiestaDashboardView(request):
 			price = request.POST.get('price')
 			fiesta.precio = int(fiesta.precio) - int(price)
 			fiesta.save()
-			flag_entre = False
 
 			if entretenimiento.count() > 0:
 				for e in entretenimiento:
@@ -199,6 +213,19 @@ def fiestaDashboardView(request):
 
 		
 		Lugares = Lugar.objects.all()
+		size_alimentos = len(indices_alimentos)
+		size_entre = len(indices_entretenimientos)
+		limite = 0
+
+		if size_alimentos > limite:
+			flag_comida = True
+		else:
+			flag_comida = False
+
+		if size_entre > limite:
+			flag_entre = True
+		else:
+			flag_entre = False
 		
 		template = get_template('Fiesta/fiesta.html')
 		context = {
