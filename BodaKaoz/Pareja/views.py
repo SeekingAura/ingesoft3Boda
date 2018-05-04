@@ -19,11 +19,14 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/Pareja/inicia-sesion')
+
 def TableroResumen(request):
+
     ctx={}
     template = loader.get_template('TableroResumen.html')
 
     return HttpResponse(template.render(ctx, request))
+
 
 def Index(request):
     ctx={}
@@ -36,6 +39,136 @@ def Logout(request):
 
         logout(request)
     return redirect('/Pareja/inicia-sesion')
+
+def Pareja(request):  
+
+    template = loader.get_template('Pareja/pareja.html')
+    if request.method == 'GET':
+
+        print(request.user)
+        user_id= request.user
+
+        user = User.objects.filter(username=user_id)
+        print(user)
+
+        enamorado1 = Enamorado.objects.get(User_id=user_id)
+
+        print(enamorado1)    
+
+        user_id= request.user
+
+        Bellezas = Belleza.objects.all()
+
+        Prendas = Prenda.objects.all()
+
+        Accesorios = Accesorio.objects.all()
+
+
+        belleza = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+
+        prenda = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+
+        accesorio=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)
+
+
+
+        
+
+        context = {
+
+
+
+            'enamorado' : enamorado1,
+
+            'belleza' : belleza,
+
+            'Bellezas' : Bellezas,
+
+            'prenda' : prenda,
+
+            'Prendas' : Prendas,
+
+            'accesorio' : accesorio,
+
+            'Accesorios' : Accesorios,
+
+            'precio' : enamorado1.precio
+
+        }
+        print ("contexto", context)
+
+        return HttpResponse(template.render(context, request))    
+    
+
+
+    if request.method == 'POST':
+        
+        print(request.user)
+        user_id= request.user
+
+        user = User.objects.filter(username=user_id)
+        print(user)
+
+        enamorado1 = Enamorado.objects.get(User_id=user_id)
+
+        print(enamorado1)    
+
+        user_id= request.user
+
+        Bellezas = Belleza.objects.all()
+
+        Prendas = Prenda.objects.all()
+
+        Accesorios = Accesorio.objects.all()
+
+
+        belleza = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.cedula)
+
+        prenda = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.cedula)
+
+        accesorio=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.cedula)
+        boda_id = request.GET.get('boda_id')
+
+        value_btn = request.POST.get('btn_value')
+
+
+
+
+
+        if value_btn == "delete_prenda":
+
+            prenda_id = request.POST.get('prenda_id')
+
+            carrito_prenda_id = request.POST.get('carrito_prenda_id')
+
+            prendacarrito = PrendaCarrito.objects.filter(id__exact=carrito_prenda_id)
+            print ("Prendaaaaaaaaaaaaaa",prendacarrito)
+            prendacarrito.delete()
+ 
+        context = {
+
+
+
+            'enamorado' : enamorado1,
+
+            'belleza' : belleza,
+
+            'Bellezas' : Bellezas,
+
+            'prenda' : prenda,
+
+            'Prendas' : Prendas,
+
+            'accesorio' : accesorio,
+
+            'Accesorios' : Accesorios,
+
+            'precio' : enamorado1.precio
+
+        }           
+        return HttpResponse(template.render(context, request))       
+    
+   
 def Login(request):
 
     error = (False, "")
