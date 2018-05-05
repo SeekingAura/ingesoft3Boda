@@ -1,23 +1,24 @@
-{% if flag_entre %}
-	<div class="card text-center">
-	    <h5 class="card-header">Entretenimiento para tu fiesta</h5>
+<div class="card text-center">
+    <h5 class="card-header">Entretenimiento para tu fiesta</h5>
+</div>
+{% for e in entretenimiento %}
+	<div class="card card-llena-entretenimiento">
+	    <img class="llena-img-entretenimiento" src="{{e.Entretenimiento.imagen.url}}" alt="Card image cap">
+	    <div class="card-body card-body-entretenimiento">
+	    	<form method="POST">{% csrf_token %}
+		        <h4 class="card-title; font-wight-bold">{{e.Entretenimiento.nombre}}</h4>
+		        <p class="card-text"><strong>Descripción:</strong>{{e.Entretenimiento.descripcion}}</p>
+		        <p class="card-text"><strong>Precio:</strong> ${{e.Entretenimiento.precio}}</p>
+		        <input name="entretenimiento_carrito_id" value="{{e.id}}" hidden>
+		        <input name="entretenimiento_id" value="{{e.Entretenimiento.id}}" hidden>
+				<input name="price" value="{{e.Entretenimiento.precio}}" hidden>
+		        <button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="delete_entretenimiento">Eliminar</button>
+	        </form>
+	    </div>
 	</div>
-	{% for e in entretenimiento %}
-		<div class="card card-llena-entretenimiento">
-		    <img class="llena-img-entretenimiento" src="{{e.Entretenimiento.imagen.url}}" alt="Card image cap">
-		    <div class="card-body card-body-entretenimiento">
-		    	<form method="POST">{% csrf_token %}
-			        <h4 class="card-title; font-wight-bold">{{e.Entretenimiento.nombre}}</h4>
-			        <p class="card-text"><strong>Descripción:</strong>{{e.Entretenimiento.descripcion}}</p>
-			        <p class="card-text"><strong>Precio:</strong> ${{e.Entretenimiento.precio}}</p>
-			        <input name="entretenimiento_carrito_id" value="{{e.id}}" hidden>
-			        <input name="entretenimiento_id" value="{{e.Entretenimiento.id}}" hidden>
-					<input name="price" value="{{e.Entretenimiento.precio}}" hidden>
-			        <button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="delete_entretenimiento">Eliminar</button>
-		        </form>
-		    </div>
-		</div>
-	{% endfor %}
+{% endfor %}
+
+{% if flag_entre %}
 	<div class="card text-center">
 	    <div class="card-body">
 	        <h4 class="card-title, tittle-center, font-weight-bold">¿Deseas agregar algo más?</h4>
@@ -25,8 +26,6 @@
 	    </div>
 	</div>
 {% else %} {% comment %}Cuando no tiene seleccionado uno o más entretenimientos{% endcomment %}
-<div class="card text-center">
-   <h5 class="card-header">Entretenimiento para tu fiesta</h5>
    <div class="card-body">
       <h4 class="card-title, tittle-center, font-weight-bold">Aún no tienes agregado algún entretenimiento para tu fiesta.</h4>
       <p class="card-text, text-center">¡Presiona en agregar para escoger entretenimiento para tu fiesta!</p>
