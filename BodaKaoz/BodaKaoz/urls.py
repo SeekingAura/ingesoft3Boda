@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Pareja.views import Index
+from Pareja.views import Login
 
 from django.conf import settings
 
@@ -24,7 +24,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('Domain.urls')), #contenedor de urls principal
-    path('', Index , name='index' ),
+    path('', Login , name='index' ),
     path('Pareja/', include('Pareja.urls', namespace="Pareja")),
     # path('Ceremonia/', include('Ceremonia.urls', namespace="Ceremonia")),
     # path('Fiesta/', include('Fiesta.urls', namespace="Fiesta")),

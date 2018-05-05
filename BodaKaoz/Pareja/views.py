@@ -18,7 +18,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url='/Pareja/inicia-sesion')
+@login_required(login_url='/')
 
 def TableroResumen(request):
 
@@ -38,8 +38,8 @@ def Logout(request):
     if request.user is not None:
 
         logout(request)
-    return redirect('/Pareja/inicia-sesion')
-
+    return redirect('/')
+@login_required(login_url='/')
 def Pareja(request):  
 
     template = loader.get_template('Pareja/pareja.html')
@@ -208,7 +208,7 @@ def Login(request):
 
 
 
-    template = loader.get_template('Pareja/login.html')
+    template = loader.get_template('Pareja/index.html')
 
     ctx = {
 
