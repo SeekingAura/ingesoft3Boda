@@ -27,7 +27,7 @@
 
 			<form method = 'POST'>{% csrf_token %}
 				{% if user.is_authenticated %}
-				<meta http-equiv="refresh" content="0; url=/Pareja/tablero-resumen">
+				<meta http-equiv="refresh" content="0; url={% url 'tableroResumen' %}">
 			
 				{% else %}
 				<div class="action">
