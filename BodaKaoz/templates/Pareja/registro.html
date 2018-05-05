@@ -22,8 +22,8 @@
         }
 
         .logo_footer{
-        	width: 100px;
-        	height: auto;
+            width: 100px;
+            height: auto;
         }
 
       
@@ -35,7 +35,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #005f93;">
         <a class="navbar-brand">
-            <img src="{% static 'img/KBLogo_header.png' %}" width="60" height="60" class="d-inline-block align-top" alt="">
+            <img src="{% static 'img/KBLogo_header.png' %}" width="80" height="60" class="d-inline-block align-top" alt="">
         </a>
 
     </nav>
@@ -49,7 +49,7 @@
 
                         <label for="nombreMEN">Nombre</label>
 
-                        <input type="text" name="nombreMEN" class="form-control" id="nombreMEN" / placeholder="Nombre Hombre">
+                        <input type="text" name="nombreMEN" class="form-control" id="nombreMEN" / placeholder="Nombre Persona 1" required>
 
                     </div>
 
@@ -57,7 +57,7 @@
 
                         <label for="apellidoMEN">Apellido</label>
 
-                        <input type="text" name="apellidoMEN" class="form-control" id="apellidoMEN" / placeholder="Apellido Hombre">
+                        <input type="text" name="apellidoMEN" class="form-control" id="apellidoMEN" / placeholder="Apellido Persona 1" required>
 
                     </div>
 
@@ -65,7 +65,7 @@
 
                         <label for="identificacionMEN">Identificación</label>
 
-                        <input type="text" name="identificacionMEN" class="form-control" id="identificacionMEN" / placeholder="Identificación Hombre">
+                        <input type="number" name="identificacionMEN" class="form-control" id="identificacionMEN" / placeholder="Identificación Persona 1" required>
 
                     </div>
 
@@ -73,7 +73,7 @@
 
                         <label for="telefonoMEN">Teléfono</label>
 
-                        <input type="text" name="telefonoMEN" class="form-control" id="telefonoMEN" / placeholder="Teléfono Hombre">
+                        <input type="number min=1" name="telefonoMEN" class="form-control" id="telefonoMEN" / placeholder="Teléfono Persona 1" required>
 
                     </div>
 
@@ -81,7 +81,7 @@
 
                         <label for="emailMEN">Email</label>
 
-                        <input type="email" name="emailMEN" class="form-control" id="emailMEN" / placeholder="Email Hombre">
+                        <input type="email" name="emailMEN" class="form-control" id="emailMEN" / placeholder="Email Persona 1" required>
 
                     </div>
                 </div>
@@ -90,7 +90,7 @@
 
                         <label for="nombreWOMAN">Nombre</label>
 
-                        <input type="text" name="nombreWOMAN" class="form-control" id="nombreWOMAN" / placeholder="Nombre Mujer">
+                        <input type="text" name="nombreWOMAN" class="form-control" id="nombreWOMAN" / placeholder="Nombre Persona 2" required>
 
                     </div>
 
@@ -98,7 +98,7 @@
 
 
                         <label for="apellidoWOMAN">Apellido</label>
-                        <input type="text" name="apellidoWOMAN" class="form-control" id="apellidoWOMAN" / placeholder="Apellido Mujer">
+                        <input type="text" name="apellidoWOMAN" class="form-control" id="apellidoWOMAN" / placeholder="Apellido Persona 2" required>
 
                     </div>
 
@@ -106,7 +106,7 @@
 
                         <label for="identificacionWOMAN">Identificación</label>
 
-                        <input type="text" name="identificacionWOMAN" class="form-control" id="identificacionWOMAN" / placeholder="Identificación Mujer">
+                        <input type="number" name="identificacionWOMAN" class="form-control" id="identificacionWOMAN" / placeholder="Identificación Persona 2" required>
 
                     </div>
 
@@ -114,7 +114,7 @@
 
                         <label for="telefonoWOMAN">Teléfono</label>
 
-                        <input type="text" name="telefonoWOMAN" class="form-control" id="telefonoWOMAN" / placeholder="Telefono Mujer">
+                        <input type="number min=1" name="telefonoWOMAN" class="form-control" id="telefonoWOMAN" / placeholder="Telefono Persona 2" required >
 
                     </div>
 
@@ -122,14 +122,15 @@
 
                         <label for="emailWOMAN">Email</label>
 
-                        <input type="email" name="emailWOMAN" class="form-control" id="emailWOMAN" / placeholder="Email Mujer">
+                        <input type="email" name="emailWOMAN" class="form-control" id="emailWOMAN" / placeholder="Email Persona 2" required>
                     </div>
 
                     <div class="form-group">
 
                         <label for="password">Contraseña</label>
 
-                        <input type="text" name="password" class="form-control" id="password" / placeholder="Contraseña">
+                        <input  type="password" name="password" class="form-control" id="password" / placeholder="Contraseña" required>
+                        
 
                     </div>
 
