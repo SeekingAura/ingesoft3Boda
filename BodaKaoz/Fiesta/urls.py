@@ -3,5 +3,5 @@ from .views import fiestaDashboardView
 
 app_name = 'Fiesta'
 urlpatterns = [
-	path('', fiestaDashboardView)
+	path('', fiestaDashboardView , name='dashboard')
 ]

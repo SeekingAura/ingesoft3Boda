@@ -3,8 +3,9 @@ from django.template.loader import get_template
 from Domain.models import Boda
 from Domain.models import Lugar
 from .models import FiestaEvento, AlimentoCarrito, Alimento, EntretenimientoCarrito, Entretenimiento
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url='index')
 def fiestaDashboardView(request):
 	boda_id = request.GET.get('boda_id')
 	boda = Boda.objects.filter(id__exact=boda_id)
