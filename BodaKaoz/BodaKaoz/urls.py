@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Pareja.views import Login
+from Pareja.views import Login, TableroResumen
 
 from django.conf import settings
 
@@ -25,9 +25,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('Domain.urls')), #contenedor de urls principal
     path('', Login , name='index' ),
-    path('Pareja/', include('Pareja.urls', namespace="Pareja")),
+    path('resumen', TableroResumen, name='tableroResumen'),# Tablero temporal hecho por pareja
+    path('pareja/', include('Pareja.urls', namespace="Pareja")),
     # path('Ceremonia/', include('Ceremonia.urls', namespace="Ceremonia")),
-    # path('Fiesta/', include('Fiesta.urls', namespace="Fiesta")),
+    path('fiesta/', include('Fiesta.urls', namespace="Fiesta")),
     # path('LunaMiel/', include('LunaMiel.urls', namespace="LunaMiel")),
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

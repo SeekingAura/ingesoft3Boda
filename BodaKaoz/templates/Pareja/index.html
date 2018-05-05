@@ -39,11 +39,11 @@
 				      </div> 
 
 		              <div class="btn-group mr-2" role="group" aria-label="Second group">
-		                    <a class="btn btn-primary " href="/Pareja/registrate/">Registrar</a>
+		                    <a class="btn btn-primary " href="{% url 'Pareja:registro' %}">Registrar</a>
 		              </div>				      
 				    </form>
 					<!--<button type="submit" class="btn btn-primary login">Iniciar sesión</button>-->
-					<a class="btn btn-secundary login" href="/">Volver al inicio</a>
+					<a class="btn btn-secundary login" href="{% url 'index' %}">Volver al inicio</a>
 				</div>
 				{% endif %}
 			</form>

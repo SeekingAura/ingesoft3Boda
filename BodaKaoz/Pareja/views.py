@@ -18,8 +18,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
-@login_required(login_url='/')
-
+@login_required(login_url='index')
 def TableroResumen(request):
 
     ctx={}
@@ -38,8 +37,9 @@ def Logout(request):
     if request.user is not None:
 
         logout(request)
-    return redirect('/')
-@login_required(login_url='/')
+    return redirect('index')
+
+@login_required(login_url='index')
 def Pareja(request):  
 
     template = loader.get_template('Pareja/pareja.html')
@@ -95,7 +95,7 @@ def Pareja(request):
             'precio' : enamorado1.precio
 
         }
-        print ("contexto", context)
+        # print ("contexto", context)
 
         return HttpResponse(template.render(context, request))    
     
@@ -103,15 +103,15 @@ def Pareja(request):
 
     if request.method == 'POST':
         
-        print(request.user)
+        # print(request.user)
         user_id= request.user
 
         user = User.objects.filter(username=user_id)
-        print(user)
+        # print(user)
 
         enamorado1 = Enamorado.objects.get(User_id=user_id)
 
-        print(enamorado1)    
+        # print(enamorado1)    
 
         user_id= request.user
 
@@ -142,7 +142,7 @@ def Pareja(request):
             carrito_prenda_id = request.POST.get('carrito_prenda_id')
 
             prendacarrito = PrendaCarrito.objects.filter(id__exact=carrito_prenda_id)
-            print ("Prendaaaaaaaaaaaaaa",prendacarrito)
+            # print ("Prendaaaaaaaaaaaaaa",prendacarrito)
             prendacarrito.delete()
  
         context = {
@@ -196,7 +196,7 @@ def Login(request):
                         'error': error, 'user': user,
 
                 }
-                return redirect('/Pareja/tablero-resumen')
+                return redirect('tableroResumen')
 
             else:
 
@@ -261,7 +261,7 @@ def Registro(request):
             email2 = request.POST.get("emailWOMAN")
 
             contrasena = request.POST.get("password")
-            print("holaaa")
+            # print("holaaa")
             user1=User.objects.create(first_name=nombre_persona1,last_name=apellido_persona1, email=email1, username=documento_persona1)
                 
             
@@ -289,4 +289,4 @@ def Registro(request):
             
             mensaje = (True, "La persona fue ingresada en el sistema")
 
-            return redirect('/Pareja/inicia-sesion')
+            return redirect('index')
