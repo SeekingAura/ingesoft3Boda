@@ -22,7 +22,7 @@ class Enamorado(models.Model):
 	User=models.OneToOneField(User, on_delete=models.CASCADE)
 	cedula=models.CharField(max_length=50, validators=[numeric_validator])
 	telefono=models.CharField(max_length=50, null=True, blank=True, default=None)
-	precio=models.IntegerField(default=0)
+	precio=models.BigIntegerField(default=0)
 	class Meta:
 		app_label = 'Pareja'
 	def __str__(self):
@@ -32,7 +32,7 @@ class Belleza(models.Model):
 	maquillaje=models.CharField(max_length=50, null=True, blank=True, default=None)
 	peinado=models.CharField(max_length=50)
 	imagen=models.ImageField(null=True, blank=True, default=None)
-	precio=models.IntegerField(default=0)
+	precio=models.BigIntegerField(default=0)
 	class Meta:
 		app_label = 'Pareja'
 
@@ -47,7 +47,7 @@ class Accesorio(models.Model):
 	tipoObjeto=models.CharField(max_length=50)
 	alquilado=models.BooleanField(default=False)
 	imagen=models.ImageField(null=True, blank=True, default=None)
-	precio=models.IntegerField(default=0)
+	precio=models.BigIntegerField(default=0)
 	class Meta:
 		app_label = 'Pareja'
 		
@@ -62,7 +62,7 @@ class Prenda(models.Model):
 	descripcion=models.CharField(max_length=50)
 	talla=models.CharField(max_length=10)
 	imagen=models.ImageField(null=True, blank=True, default=None)
-	precio=models.IntegerField(default=0)
+	precio=models.BigIntegerField(default=0)
 	class Meta:
 		app_label = 'Pareja'
 		

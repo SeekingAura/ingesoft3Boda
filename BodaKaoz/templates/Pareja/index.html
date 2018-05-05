@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	 {% load staticfiles %}
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/Estilo.css">
+    <title>KB Principal</title>
+	
+</head>
+<body> <nav class="navbar fixed-top navbar-light" style="background-color: #005f93;">
+
+            <a  class="navbar-brand">
+                <img id="logop" src="../static/img/KBLogo_header.png" class="rounded mx-auto d-block"  alt="" >
+            </a>
+            <p id="title">Organizar tu matrimonio será más fácil y divertido</p>
+
+
+
+			{% if error.0 %}
+
+				<div class="alert alert-warning">{{error.1}}</div>
+
+			{% endif %}
+
+			<form method = 'POST'>{% csrf_token %}
+				{% if user.is_authenticated %}
+				<meta http-equiv="refresh" content="0; url=/Pareja/tablero-resumen">
+			
+				{% else %}
+				<div class="action">
+				    <form class="form-inline ">
+				      <input class="form-control" name="username" type="text" placeholder="Nombre de usuario" required>
+				      <input class="form-control" name="password" type="password" placeholder="Contraseña" required>
+				      <div class="btn-group mr-2" role="group" aria-label="First group">
+				     	 <button class="btn btn-primary" type="submit">Ingresar</button>
+				      </div> 
+
+		              <div class="btn-group mr-2" role="group" aria-label="Second group">
+		                    <a class="btn btn-primary " href="{% url 'Pareja:registro' %}">Registrar</a>
+		              </div>				      
+				    </form>
+					<!--<button type="submit" class="btn btn-primary login">Iniciar sesión</button>-->
+					<a class="btn btn-secundary login" href="{% url 'index' %}">Volver al inicio</a>
+				</div>
+				{% endif %}
+			</form>
+
+
+        </nav>
+        <div class="container">
+          <div class="row">
+            
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+               <img  id="img" src="{% static "img/pareja.jpg" %}">
+
+            </div>
+            <div  class="col-xs-12 col-sm-12 cpñ-md-4 col-lg-4">
+               <img id="img2" src="{% static "img/torta.jpg" %}">
+
+            </div>
+            <div  class="col-xs-12 col-sm-12 cpñ-md-4 col-lg-4">
+               <img id="img3" src="{% static "img/ceremonia.jpg" %}">
+
+            </div>
+            <p id="text">Encuentra todo lo que necesitas para tu matrimonio</p>
+            
+          </div>
+
+          <nav  id="nav" class="navbar fixed-bottom navbar-light " style="background-color: #005f93;">
+            <p id="anuncio">Recepción, Decoración, Fotógrafos, Música,<br> Carros, Arreglos para matrimonio, Trajes de novios y mucho mas.</p>
+
+
+            <img id="logo" src="../static/img/KBLogo.png"   alt="" >
+
+          
+          </nav>
+
+          <nav  id="der"class="navbar fixed-bottom navbar-light " style="background-color: #00587f;">
+            <p id="textder">KB 2018. TODOS LOS DERECHOS RESERVADOS</p>
+                        
+          </nav>
+
+         </div>
+
+		
+
+		 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+</body>
+</html>
