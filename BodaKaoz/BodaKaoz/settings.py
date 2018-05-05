@@ -64,18 +64,18 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'ingesoft3Kaoz',
-#         'USER': 'postgres',
-#         'PASSWORD': 'ingesoft2018',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
-
+'''
+DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'ingesoft3Kaoz',
+         'USER': 'postgres',
+         'PASSWORD': 'ingesoft2018',
+         'HOST': '127.0.0.1',
+         'PORT': '5432',
+     }
+ }
+'''
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
