@@ -6,8 +6,7 @@ from .models import FiestaEvento, AlimentoCarrito, Alimento, EntretenimientoCarr
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='index')
-def fiestaDashboardView(request):
-	boda_id = request.GET.get('boda_id')
+def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 	boda = Boda.objects.filter(id__exact=boda_id)
 	fiesta = FiestaEvento.objects.get(Boda_id=boda_id)
 	alimento = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
@@ -40,7 +39,6 @@ def fiestaDashboardView(request):
 
 	Fiesta = None
 	if request.method == 'GET':
-		boda_id = request.GET.get('boda_id')
 		Lugares = Lugar.objects.all()
 		Alimentos = Alimento.objects.all()
 		Entretenimientos = Entretenimiento.objects.all()
@@ -58,7 +56,7 @@ def fiestaDashboardView(request):
 			for e in entretenimiento:
 				indices_entretenimientos.append(e.Entretenimiento.id)
 
-		if len(boda_id) > 0:
+		if boda_id != 0:
 			boda = Boda.objects.filter(id__exact=boda_id)
 
 			template = get_template('Fiesta/fiesta.html')
@@ -96,7 +94,6 @@ def fiestaDashboardView(request):
 		return HttpResponse(template.render(context, request))
 
 	if request.method == 'POST':
-		boda_id = request.GET.get('boda_id')
 		fiesta = FiestaEvento.objects.get(Boda_id=boda_id)
 		value_btn = request.POST.get('btn_value')
 		Alimentos = Alimento.objects.all()
