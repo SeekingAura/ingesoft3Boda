@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+<link href="{% static 'css/Fiesta/style_entretenimiento.css' %}" rel="stylesheet" />
+<link href="{% static 'css/Fiesta/style_comidas.css' %}" rel="stylesheet" />
+{% endblock title %}
+
+{% block content %}
+	{% include "Ceremonia/secciones/seccion_lugar.html" %}
+	{% include "Ceremonia/secciones/seccion_ministro.html" %}
+	{% include "Ceremonia/secciones/seccion_fotografia.html" %}
+	{% include "Ceremonia/secciones/seccion_musica.html" %}
+	{% include "Ceremonia/secciones/seccion_decoracion.html" %}
+	{% include "Ceremonia/secciones/seccion_precio.html" %}
+{% endblock content %}	

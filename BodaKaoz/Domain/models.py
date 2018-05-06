@@ -29,6 +29,7 @@ class Lugar(models.Model):
 	direccion=models.CharField(max_length=50)
 	capacidad=models.IntegerField()
 	imagen=models.ImageField(null=True, blank=True, default=None)
+	tipo = models.CharField(choices=TYPE, max_length=50 , default=None)
 	precio=models.BigIntegerField(default=0)
 	class Meta:
 		verbose_name = "Lugar"
