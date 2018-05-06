@@ -4,15 +4,35 @@ from Domain.models import Boda
 from Domain.models import Lugar
 from .models import FiestaEvento, AlimentoCarrito, Alimento, EntretenimientoCarrito, Entretenimiento
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from Domain.models import *
 
 @login_required(login_url='index')
 def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
+
+	print("Request= " , request.user , "user_id= " , user_id)
+	if str(request.user) != str(user_id):
+		logout(request)
+		return redirect('index')
+
+	user_id = request.user
+	enamorado = Enamorado.objects.get(User_id=user_id)
+	boda2 = Boda.objects.get(Enamorado1_id=enamorado.id)
+
+	print("boda2= ", boda2.id ,"boda_id", boda_id)
+	if str(boda2.id) != str(boda_id):
+		return redirect('tableroResumen')
+
 	boda = Boda.objects.filter(id__exact=boda_id)
 	fiesta = FiestaEvento.objects.get(Boda_id=boda_id)
 	alimento = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 	entretenimiento = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 	indices_alimentos = []
 	indices_entretenimientos = []
+
+	if str(fiesta_id) != str(fiesta.id):
+		return redirect('tableroResumen')
 
 	count_entre = EntretenimientoCarrito.objects.all()
 	count_comida = AlimentoCarrito.objects.all()	
