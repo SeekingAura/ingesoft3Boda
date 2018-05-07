@@ -8,10 +8,6 @@ admin.site.register(Transporte)
 admin.site.register(TransporteCarrito)
 
 # 
-@admin.register(Fotos)
-class FotosAdmin(admin.ModelAdmin):
-	list_display = ("id", "nombre", "tipo", "precio",)
-	list_filter = ("nombre", "tipo", "precio",)
 admin.site.register(Lugar)
 
 

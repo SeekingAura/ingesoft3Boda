@@ -15,12 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from Pareja.views import Login, TableroResumen
+
+from django.conf import settings
+
+from django.conf.urls.static import static
 
 urlpatterns = [
-	path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     # path('', include('Domain.urls')), #contenedor de urls principal
-    # path('Pareja/', include('Pareja.urls', namespace="Pareja")),
+    path('', Login , name='index' ),
+    path('resumen', TableroResumen, name='tableroResumen'),# Tablero temporal hecho por pareja
+    path('pareja/', include('Pareja.urls', namespace="Pareja")),
     # path('Ceremonia/', include('Ceremonia.urls', namespace="Ceremonia")),
     path('fiesta/', include('Fiesta.urls', namespace="Fiesta")),
     # path('LunaMiel/', include('LunaMiel.urls', namespace="LunaMiel")),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

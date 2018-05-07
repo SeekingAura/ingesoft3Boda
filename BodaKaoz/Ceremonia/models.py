@@ -22,7 +22,7 @@ class CeremoniaEvento(models.Model):
 	Lugar=models.ForeignKey(Lugar, on_delete=models.SET_NULL, null=True, blank=True, default=None)
 	Ministro=models.ForeignKey(Ministro, on_delete=models.SET_NULL, null=True, blank=True, default=None)
 	Musica=models.ForeignKey(Musica, on_delete=models.SET_NULL, null=True, blank=True, default=None)
-	Fotos=models.ForeignKey(Fotos, on_delete=models.SET_NULL, null=True, blank=True, default=None)
+	Fotos=models.BooleanField(blank=True, default=False)
 	precio=models.BigIntegerField(default=0)
 	
 
@@ -41,4 +41,4 @@ class DecoracionCeremonia(models.Model):
 class DecoracionCeremoniaCarrito(models.Model):
 	Decoracion=models.ForeignKey(DecoracionCeremonia, on_delete=models.CASCADE)
 	CeremoniaEvento=models.ForeignKey(CeremoniaEvento, on_delete=models.CASCADE)
-	precio=models.BigIntegerField(default=0)
+	cantidad=models.IntegerField()

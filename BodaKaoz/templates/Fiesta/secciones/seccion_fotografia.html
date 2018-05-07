@@ -1,3 +1,4 @@
+
 <style type="text/css">
   .card{
     margin: 20px;
@@ -21,15 +22,17 @@
   }
 </style>
 
-{% if false %} {% comment %} Card para agregar fotografias {% endcomment %}
+{% if not flag_foto %} {% comment %} Card para agregar fotografias {% endcomment %}
 <div class="card">
 	<div class="card-header">
 		<h5 class="card-header-text">¿Fotografías en tu fiesta?</h5>
 	</div>
 	<div class="card-body">
-		<h5 class="card-title">Las fotografías para tu fiesta se encuentran desactivadas</h5>
-		<p class="card-text">Si quieres que un fotógrafo esté en tu fiesta capturando cada momento, presiona Añadir.</p>
-		<button class="btn btn-lg btn-primary" name="add_fotos" id="add_fotos">Añadir</button>
+    <form method="POST">{% csrf_token %}
+      <h5 class="card-title">Las fotografías para tu fiesta se encuentran desactivadas</h5>
+      <p class="card-text">Si quieres que un fotógrafo esté en tu fiesta capturando cada momento, presiona Añadir.</p>
+      <button type="submit" class="btn btn-lg btn-primary" name="btn_value" id="add_fotos" value="add_foto">Añadir</button>
+    </form>
 	</div>
 </div>	
 {% else %} {% comment %} Card para quitar las fotografias {% endcomment %}
@@ -38,9 +41,12 @@
 		<h5 class="card-header-text">¿Fotografías en tu fiesta?</h5>
 	</div>
 	<div class="card-body">
-		<h5 class="card-title">Las fotografías para tu fiesta se encuentran activadas</h5>
-		<p class="card-text">Tus recuerdos quedaran plasmados en fotografías de alta calidad.</p>
-		<button class="btn btn-lg btn-danger" name="del_fotos" id="del_fotos">Remover</button>
+    <form method="POST">{% csrf_token %}
+		  <h5 class="card-title">Las fotografías para tu fiesta se encuentran activadas</h5>
+		  <p class="card-text">Tus recuerdos quedaran plasmados en fotografías de alta calidad.</p>
+      <button type="submit" class="btn btn-lg btn-danger" name="btn_value" id="del_fotos" value="delete_foto">Remover</button>
+    </form>
 	</div>
 </div>
 {% endif %}
+
