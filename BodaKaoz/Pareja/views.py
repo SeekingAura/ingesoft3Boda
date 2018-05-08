@@ -10,6 +10,7 @@ from .models import *
 from Domain.models import *
 from Ceremonia.models import *
 from Fiesta.models import *
+from Ceremonia.models import *
 from LunaMiel.models import *
 
 
@@ -20,8 +21,21 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='index')
 def TableroResumen(request):
+    user_id = request.user
+    enamorado = Enamorado.objects.get(User_id=user_id)
+    boda = Boda.objects.filter(Enamorado1_id=enamorado.id)
 
-    ctx={}
+    if len(boda) == 0:
+        boda = Boda.objects.filter(Enamorado2_id=enamorado.id)    
+
+    Ceremonia = CeremoniaEvento.objects.filter(Boda_id=boda[0].id)
+
+   
+    ctx={
+        'user_id': user_id,
+        'boda_id':boda[0].id,
+        'ceremonia_id':Ceremonia[0].id,
+    }
     template = loader.get_template('TableroResumen.html')
 
     return HttpResponse(template.render(ctx, request))

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<h1>Seccion Musica</h1>
+	{% if flag_musica %}
+		<div class="container" align="center">
+			<form method="POST">{% csrf_token %}
+				{{ceremonia.Musica.nombre}}<br>
+				{{ceremonia.Musica.descripcion}}<br>
+				{{ceremonia.Musica.precio}}<br>
+				<input name="id_musica" value="{{ceremonia.Musica.id}}" hidden>
+				<input name="price" value="{{ceremonia.Musica.precio}}" hidden>
+				<button type="submit" class="btn btn-danger" value="delete_musica" name="btn_value">Eliminar</button>
+			</form>
+		</div>
+	{% else %}	
+		<div class="container" align="center">
+			{% for musica in musicas  %}
+				<form method="POST">{% csrf_token %}
+					{{musica.nombre}}<br>
+					{{musica.descripcion}}<br>
+					{{musica.precio}}<br>
+					<input name="id_musica" value="{{musica.id}}" hidden>
+					<input name="price" value="{{musica.precio}}" hidden>
+					<button type="submit" class="btn btn-primary" value="add_musica" name="btn_value">Agregar</button>
+				</form><br>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+</body>
+</html>

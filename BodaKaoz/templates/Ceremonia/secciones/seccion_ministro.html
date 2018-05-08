@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<h1>Seccion Ministro</h1>
+
+	{% if flag_ministro %}
+		<div class="container" align="center">
+			<form method="POST">{% csrf_token %}
+				{{ceremonia.Ministro.nombre}}<br>
+				{{ceremonia.Ministro.tipo}}<br>
+				{{ceremonia.Ministro.precio}}<br>
+				<input name="id_ministro" value="{{ceremonia.Ministro.id}}" hidden>
+				<input name="price" value="{{ceremonia.Ministro.precio}}" hidden>
+				<button type="submit" class="btn btn-danger" value="delete_ministro" name="btn_value">Eliminar</button>
+			</form>
+		</div>
+	{% else %}	
+		<div class="container" align="center">
+			{% for ministro in ministros  %}
+				<form method="POST">{% csrf_token %}
+					{{ministro.nombre}}<br>
+					{{ministro.tipo}}<br>
+					{{ministro.precio}}<br>
+					<input name="id_ministro" value="{{ministro.id}}" hidden>
+					<input name="price" value="{{ministro.precio}}" hidden>
+					<button type="submit" class="btn btn-primary" value="add_ministro" name="btn_value">Agregar</button>
+				</form><br>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+</body>
+</html>

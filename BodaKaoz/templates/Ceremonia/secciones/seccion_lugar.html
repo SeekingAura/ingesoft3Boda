@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<h1>Seccion Lugar</h1>
+
+	{% if flag_lugar %}
+		<div class="container" align="center">
+			<form method="POST">{% csrf_token %}
+				{{ceremonia.Lugar.nombre}}<br>
+				{{ceremonia.Lugar.tipo}}<br>
+				{{ceremonia.Lugar.direccion}}<br>
+				{{ceremonia.Lugar.precio}}<br>
+				<input name="id_lugar" value="{{ceremonia.Lugar.id}}" hidden>
+				<input name="price" value="{{ceremonia.Lugar.precio}}" hidden>
+				<button type="submit" class="btn btn-danger" value="delete_lugar" name="btn_value">Eliminar</button>
+			</form>
+		</div>
+	{% else %}	
+		<div class="container" align="center">
+			{% for lugar in lugares  %}
+				<form method="POST">{% csrf_token %}
+					{{lugar.nombre}}<br>
+					{{lugar.tipo}}<br>
+					{{lugar.precio}}<br>
+					<input name="id_lugar" value="{{lugar.id}}" hidden>
+					<input name="price" value="{{lugar.precio}}" hidden>
+					<button type="submit" class="btn btn-primary" value="add_lugar" name="btn_value">Agregar</button>
+				</form><br>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+</body>
+</html>
