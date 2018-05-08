@@ -6,67 +6,92 @@
 	{% endblock title %}
 
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Roboto:400|Lato:300,400' rel='stylesheet' type='text/css'>
-	<!-- Latest compiled and minified CSS -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="{% static "css/base.css" %}">
 	<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
 
 </head>
-<body style="height: 100%;">
+<body class="bg-light">
 	<script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
-	<!-- Latest compiled and minified JavaScript -->
 	<script src="{% static "js/bootstrap.min.js" %}"></script>
-
-	<div class="header">
-		<div class="float-right profileImage text-center">
-			<img src="{% static 'images/base/icon.png' %}">
-		</div>
-	</div>
-
 	{% block scripts %}
 	{% endblock scripts %}
-	<div class="row">
-		<div class="col-3">
-			<div class="contenedor-menu">
-				<div class="corazon">
-					<img src="{% static 'images/base/corazon.jpg' %}">
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-3">
+				<div class="card border-dark">
+  					<img class="card-img-top" src="{% static 'img/boda.png' %}">
+  					<div class="card-body">
+    					<ul class="list-group list-group-flush">
+						  <li class="list-group-item">
+						  	<a href="#collapse1" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
+								Enamorado
+							</a>
+							<div class="collapse" id="collapse1">
+								<ul><a href="#" class="text-dark">Item 1</a></ul>
+								<ul><a href="#" class="text-dark">Item 2</a></ul>
+								<ul><a href="#" class="text-dark">Item 3</a></ul>
+							</div>
+						  </li>
+						  <li class="list-group-item">
+						  	<a href="#collapse2" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
+								Enamorada
+							</a>
+							<div class="collapse" id="collapse2">
+								<ul><a href="#" class="text-dark">Item 1</a></ul>
+								<ul><a href="#" class="text-dark">Item 2</a></ul>
+								<ul><a href="#" class="text-dark">Item 3</a></ul>
+							</div>
+						  </li>
+						  <li class="list-group-item">
+						  	<a href="#collapse3" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
+								Ceremonia
+							</a>
+							<div class="collapse" id="collapse3">
+								<ul><a href="#" class="text-dark">Item 1</a></ul>
+								<ul><a href="#" class="text-dark">Item 2</a></ul>
+								<ul><a href="#" class="text-dark">Item 3</a></ul>
+							</div>
+						  </li>
+						  <li class="list-group-item">
+						  	<a href="#collapse4" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
+								Fiesta
+							</a>
+							<div class="collapse" id="collapse4">
+								<ul><a href="#" class="text-dark">Item 1</a></ul>
+								<ul><a href="#" class="text-dark">Item 2</a></ul>
+							</div>
+						  </li>
+						  <li class="list-group-item">
+						  	<a href="#collapse5" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
+								Luna de miel
+							</a>
+							<div class="collapse" id="collapse5">
+								<ul><a href="#" class="text-dark">Item 1</a></ul>
+								<ul><a href="#" class="text-dark">Item 2</a></ul>
+								<ul><a href="#" class="text-dark">Item 3</a></ul>
+							</div>
+						  </li>
+						  <li class="list-group-item">
+						  	<a href="{% url 'tableroResumen' %}" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
+								<b>Resumen</b>
+							</a>
+						  </li>
+						</ul>
+  					</div>
 				</div>
-				<ul class="menu">
-					<li><a href="#">Enamorado</a>
-						<ul><a href="#">Prenda</a></ul>
-						<ul><a href="#">Accesorio</a></ul>
-						<ul><a href="#">Belleza</a></ul>
-					</li>
-					<li><a href="#">Enamorado</a>
-						<ul><a href="#">Prenda</a></ul>
-						<ul><a href="#">Accesorio</a></ul>
-						<ul><a href="#">Belleza</a></ul>
-					</li>
-					<li><a href="#">Ceremonia</a>
-						<ul><a href="#">Lugar</a></ul>
-						<ul><a href="#">Música</a></ul>
-						<ul><a href="#">Ministro</a></ul>
-						<ul><a href="#">Decoración</a></ul>
-					</li>
-					<li><a href="#">Fiesta</a>
-						<ul><a href="#">Lugar</a></ul>
-						<ul><a href="#">Entretenimiento</a></ul>
-						<ul><a href="#">Fotografía</a></ul>
-						<ul><a href="#">Alimentación</a></ul>
-					</li>
-					<li><a href="#">Luna de miel</a>
-						<ul><a href="#">Item 1</a></ul>
-						<ul><a href="#">Item 2</a></ul>
-						<ul><a href="#">Item 3</a></ul>
-						<ul><a href="#">Item 4</a></ul>
-					</li>
-					<li><a href="#">Resumen</a></li>
-				</ul>
 			</div>
-		</div>
-		<div class="col-9">
-			<div class="content">
-				{% block content %}
-				{% endblock content %}
+			<div class="col-9 mb-3">
+				<div class="card border-dark">
+  					<div class="card-header border-dark">
+    					Fiesta
+  					</div>
+  				<div class="card-body">
+					<div class="content">
+						{% block content %}
+						{% endblock content %}
+					</div>	
+    			</div>
 			</div>
 		</div>
 	</div>

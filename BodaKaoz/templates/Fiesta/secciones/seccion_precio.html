@@ -1,28 +1,19 @@
-<style type="text/css">
-  .card{
-    margin: 20px;
-  }
 
-  .card-body{
-    text-align: center;
-    justify-content: center;
-    background-color: #f0f0f0;
-  }
-  
-  .titulo_izquierda{
-    float: left;
-    font-weight: bold;
-  }
-
-  .titulo_derecha{
-    float: right;
-    font-weight: bold;
-  }
-</style>
-
-<div class="card">
-  <div class="card-body">
-    <h4 class="titulo_izquierda">Tu fiesta esta costando:</h4>
-    <h4 class="titulo_derecha">${{precio}} COP</h4>
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <div class="container">
+    <div class="row mt-4">
+      <div class="col text-left">
+        <h1>Costo Fiesta:</h1>
+      </div>
+      <div class="col text-right">
+        <h1 class="display-4 text-info"><strong>${{precio}}</strong></h1>
+      </div>
+    </div>
   </div>
-</div>
+</body>
+</html>

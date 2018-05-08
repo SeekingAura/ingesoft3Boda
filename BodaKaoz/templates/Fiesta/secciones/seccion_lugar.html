@@ -1,78 +1,113 @@
-<style type="text/css">
-  .card{
-    margin: 20px;
-  }
+<!DOCTYPE html>
+<html>
+<!DOCTYPE html>
+<html>
+<head>
+	{% load staticfiles %}
+</head>
+<body>
 
-  .card-body{
-    text-align: center;
-    justify-content: center;
-  }
-
-  .card-title{
-    font-weight: bold;
-  }
-
-  .card-header-text{
-    font-weight: bold;
-  }
-
-  .btn{
-    font-weight: bold;
-  }
-
-  img.little{
-  	width: 170px; height: 170px;
-  }
-
-  .position{
-	width: 15px;
-    height: 15px;;
-    margin: 1%;
-    display: block;
-  }
-
-</style>
-
-{% if flag_place %} {% comment %} Card para agregar Lugar {% endcomment %}
-<div class="card">
-	<div class="card-header">
-		<h5 class="card-header-text">¿En dónde sera tu fiesta?</h5>
-	</div>
-	<div class="card-body">
-		<div class="row">
-			<div class="col">
-				<h5 class="card-title">{{fiesta.Lugar.nombre}}</h5>
-				<img class="card-img-top little " src="{{fiesta.Lugar.imagen.url}}" alt="Card image cap">
+	<div class="card border-dark mb-2">
+		<div class="card-header bg-transparent">
+			<div class="row justify-content-between">
+				<div class="col">
+					<h4>Lugar</h4>
+				</div>
+				<div class="col text-right">
+					<span class="btn" data-toggle="collapse" data-target="#collapseLugar" aria-expanded="false" aria-controls="collapseLugar">
+						<i class="material-icons">expand_more</i>
+	  				</span>
+				</div>
 			</div>
-			<div class="col">
-				<form method="POST">{% csrf_token %}
-					<h7 class="card-title">Dirección</h7>
-					<p class="card-text">{{fiesta.Lugar.direccion}}</p>
-					<h7 class="card-title">Cantidad personas</h7>
-					<p class="card-text">{{fiesta.Lugar.capacidad}}</p>
-					<h7 class="card-title">Precio</h7>
-					<p class="card-text">{{fiesta.Lugar.precio}}</p>
-					<input type="number" name="price" value="{{fiesta.Lugar.precio}}" hidden>
-					<button type="submit" class="btn btn-lg btn-danger" name="btn_value" value="delete_lugar" id="del_lugar">Eliminar</button>
+	  	</div>
+	  	<div class="collapse" id="collapseLugar">
+	 		<div class="card-body">
+	 			{% if flag_place %}
+	 			<form method="POST">{% csrf_token %}
+					<div class="card">
+						<div class="card-body">
+	        				<div class="media">
+							  	<img class="align-self-center mr-3" src="{{fiesta.Lugar.imagen.url}}" height="150">
+							  	<div class="media-body">
+							    	<h5 class="mt-0">{{fiesta.Lugar.nombre}}</h5>
+							    	<h6>{{fiesta.Lugar.tipo}}</h6>
+							    	<p>{{fiesta.Lugar.direccion}}</p>
+							    	<div class="media">
+							  			<i class="material-icons">attach_money</i>
+									  	<div class="media-body">
+									    	<p>{{fiesta.Lugar.precio}}</p>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col text-right">
+											<input name="id_place" value="{{fiesta.Lugar.id}}" hidden>
+											<input name="price" value="{{fiesta.Lugar.precio}}" hidden>
+											<button type="submit" class="btn btn-danger" value="delete_lugar" name="btn_value">Eliminar</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</form>
-			</div>
+				{% else %}
+				<div class="row">
+					<div class="col text-center">
+						<p>Elegir el lugar de tu ceremonia es casi tan importante como elegir con quien te casarás, ¡Elige con ciudado!</p>
+			    		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modallugar">¡Elegir Lugar!</button>
+					</div>
+				</div>
+	    		{% endif %}
+	  		</div>
 		</div>
 	</div>
-</div>
 
-{% else %} {% comment %} Card para cambiar el lugar de la fiesta {% endcomment %}
-	<div class="card">
-		<div class="card-header">
-			<h5 class="card-header-text">¿En donde sera tu fiesta?</h5>
-		</div>
-		<div class="card-body">
-			<h5 class="card-title">Aún no tienes agregado un lugar para tu fiesta</h5>
-			<p class="card-text">¡Presiona en buscar para escoger el lugar para tu fabulosa fiesta!.</p>
-			<button class="btn btn-lg btn-primary" name="add_fotos" id="add_lugar" data-toggle="modal" data-target="#LugarModal">Buscar</button>
-		</div>
-	</div>	
-{% endif %}
-
-{% include "Fiesta/secciones/card_lugar.html" %}
+	<div class="modal fade" id="modallugar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<h5 class="modal-title">Lugar</h5>
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          			<span aria-hidden="true">&times;</span>
+	        		</button>
+	      		</div>
+	      		<div class="modal-body">
+	      			{% for lugar in Lugares %}
+	      			<form method="POST">{% csrf_token %}
+		      			<div class="card mb-2">
+	  						<div class="card-body">
+		        				<div class="media">
+						  			<img class="align-self-center mr-3" src="{{lugar.imagen.url}}" height="150">
+						  			<div class="media-body">
+						    			<h5 class="mt-0">{{lugar.nombre}}</h5>
+						    			<p>{{lugar.tipo}}</p>
+						    			<div class="media">
+						  					<i class="material-icons">attach_money</i>
+								  			<div class="media-body">
+								    			<p>{{lugar.precio}}</p>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col text-right">
+												<input name="id_place" value="{{lugar.id}}" hidden>
+												<input name="price" value="{{lugar.precio}}" hidden>
+												<button type="submit" class="btn btn-primary" value="add_place" name="btn_value">Agregar</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					{% endfor %}
+				</div>
+	      		<div class="modal-footer">
+	        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
+</body>
+</html>
 
 
