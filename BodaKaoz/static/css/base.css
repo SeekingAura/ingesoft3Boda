@@ -22,6 +22,10 @@ a{
 	background-color: white;
 }
 
+#menu-mobile{
+	display: none;
+}
+
 .contenedor-menu .menu{		
 	padding: 10px;
 	margin: 0;
@@ -71,4 +75,26 @@ img {
 	height: 30px;
 	width: auto;
 	margin: 5px;	
+}
+
+@media only screen and (max-width: 768px) {
+	#menuIcon{
+		cursor: pointer;
+	}
+
+	.corazon{
+		display: none;
+	}
+
+  #menu-web{
+  	display: none;
+  }
+
+  .menu-mobile{
+		display: none;
+	}
+
+	.active{
+		display: block !important;
+	}
 }

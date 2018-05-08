@@ -1,57 +1,47 @@
 #nav {
-
 	height: 25%;
 }
 
-#logop {
+#logop{
 	padding: 0% 30%;
 }
-#logo {
+
+#logo{
 	height: 70%;
 	margin-bottom: 2%;
 	margin-right: 45%;
-	
 }
 
 #der{
-
 	height: 5%;
 	color: white;
 }
 
 #textder{
-
 	margin-left: 35%;
 	margin-top: 1%;
-
 }
 
 #img {
-
 	height: 85%;
 	width: 120%;
 	margin-top: 30%;
 	margin-left: -30%;
 	padding: 2% 2%;
-	
     border-top-left-radius: 50px;
     border-bottom-right-radius: 50px; 
-
 }
 
 #img2 {
-
 	height: 85%;
 	width: 120%;
 	margin-top: 30%;
 	margin-left: -10%;
 	padding: 2% 2%;
     border-radius: 40px;
-
 }
 
 #img3 {
-
 	height: 85%;
 	width: 120%;
 	margin-top: 30%;
@@ -59,8 +49,6 @@
 	padding: 2% 2%;
 	border-top-right-radius: 50px;
     border-bottom-left-radius: 50px; 
-
-
 }
 
 #text{
@@ -76,7 +64,6 @@
 	margin-bottom: -4%;
 	font: oblique bold 80% cursive;
 	color: white;
-
 }
 
 #title{
@@ -84,6 +71,5 @@
 	font: oblique bold 120% cursive;
 	margin-left: 1%;
 	margin-top: 2%;
-
-
 }
+

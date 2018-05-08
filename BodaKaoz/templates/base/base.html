@@ -9,6 +9,7 @@
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="{% static "css/base.css" %}">
 	<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 <body style="height: 100%;">
@@ -17,6 +18,9 @@
 	<script src="{% static "js/bootstrap.min.js" %}"></script>
 
 	<div class="header">
+		<div class="float-left text-center">
+			<img id="menuIcon" src="{% static 'images/base/menu-desp.png' %}">
+		</div>
 		<div class="float-right profileImage text-center">
 			<img src="{% static 'images/base/icon.png' %}">
 		</div>
@@ -25,7 +29,31 @@
 	{% block scripts %}
 	{% endblock scripts %}
 	<div class="row">
-		<div class="col-3">
+		<div id="menu-web" class="col-3">
+			<div class="contenedor-menu">
+				<div class="corazon">
+					<img src="{% static 'images/base/corazon.jpg' %}">
+				</div>
+				<ul class="menu">
+					<li><a href="#">Enamorado</a>
+					</li>
+					<li><a href="#">Enamorado</a>
+
+					</li>
+					<li><a href="#">Ceremonia</a>
+
+					</li>
+					<li><a href="#">Fiesta</a>
+
+					</li>
+					<li><a href="#">Luna de miel</a>
+
+					</li>
+					<li><a href="#">Resumen</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-12 menu-mobile">
 			<div class="contenedor-menu">
 				<div class="corazon">
 					<img src="{% static 'images/base/corazon.jpg' %}">
@@ -56,5 +84,13 @@
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#menuIcon').click(function(){
+				$('.menu-mobile').toggleClass('active');
+			});
+		});	
+	</script>
 </body>
 </html>
