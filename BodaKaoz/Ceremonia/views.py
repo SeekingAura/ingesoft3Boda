@@ -37,6 +37,11 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 	else:
 		flag_ministro = False
 
+	if ceremonia.Lugar != None:
+		flag_lugar = True
+	else:
+		flag_lugar = False
+
 	if ceremonia.Fotos != False:
 		flag_fotos = True
 	else:
@@ -47,13 +52,16 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 	if request.method == 'GET':
 
 		ministros = Ministro.objects.all()
+		lugares = Lugar.objects.filter(tipo='ceremonia')
 		template = get_template('Ceremonia/ceremonia.html')
 		ctx={
 
 			'ministros' : ministros,
 			'flag_ministro': flag_ministro,
 			'flag_fotos': flag_fotos,
+			'flag_lugar': flag_lugar,
 			'ceremonia' : ceremonia,
+			'lugares' : lugares,
 
 		}
 		return HttpResponse(template.render(ctx,request))
@@ -70,6 +78,14 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 			flag_ministro = True
 			ceremonia.save()
 
+		if btn_value == 'add_lugar':
+			price = request.POST.get('price')
+			id_ministro = request.POST.get('id_lugar')
+			ceremonia.Lugar_id = id_ministro
+			ceremonia.precio = ceremonia.precio + int(price)
+			flag_lugar = True
+			ceremonia.save()
+
 		if btn_value == 'add_fotos':
 			ceremonia.Fotos = True
 			flag_fotos = True
@@ -77,10 +93,16 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 
 		if btn_value == 'delete_ministro':
 			price = request.POST.get('price')
-			id_ministro = request.POST.get('id_ministro')
 			ceremonia.Ministro_id = None
 			ceremonia.precio = ceremonia.precio - int(price)
 			flag_ministro = False
+			ceremonia.save()
+
+		if btn_value == 'delete_lugar':
+			price = request.POST.get('price')
+			ceremonia.Lugar_id = None
+			ceremonia.precio = ceremonia.precio - int(price)
+			flag_lugar = False
 			ceremonia.save()
 
 		if btn_value == 'delete_fotos':
@@ -90,13 +112,16 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 
 
 		ministros = Ministro.objects.all()
+		lugares = Lugar.objects.filter(tipo='ceremonia')
 		template = get_template('Ceremonia/ceremonia.html')
 		ctx={
 
 			'ministros' : ministros,
 			'flag_ministro': flag_ministro,
 			'flag_fotos': flag_fotos,
+			'flag_lugar': flag_lugar,
 			'ceremonia' : ceremonia,
+			'lugares' : lugares,
 
 		}
 		return HttpResponse(template.render(ctx,request))
