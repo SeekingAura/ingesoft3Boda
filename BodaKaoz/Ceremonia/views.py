@@ -37,6 +37,11 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 	else:
 		flag_ministro = False
 
+	if ceremonia.Fotos != False:
+		flag_fotos = True
+	else:
+		flag_fotos = False
+
 
 
 	if request.method == 'GET':
@@ -47,6 +52,7 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 
 			'ministros' : ministros,
 			'flag_ministro': flag_ministro,
+			'flag_fotos': flag_fotos,
 			'ceremonia' : ceremonia,
 
 		}
@@ -64,12 +70,22 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 			flag_ministro = True
 			ceremonia.save()
 
+		if btn_value == 'add_fotos':
+			ceremonia.Fotos = True
+			flag_fotos = True
+			ceremonia.save()
+
 		if btn_value == 'delete_ministro':
 			price = request.POST.get('price')
 			id_ministro = request.POST.get('id_ministro')
 			ceremonia.Ministro_id = None
 			ceremonia.precio = ceremonia.precio - int(price)
 			flag_ministro = False
+			ceremonia.save()
+
+		if btn_value == 'delete_fotos':
+			ceremonia.Fotos = False
+			flag_fotos = False
 			ceremonia.save()
 
 
@@ -79,6 +95,7 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 
 			'ministros' : ministros,
 			'flag_ministro': flag_ministro,
+			'flag_fotos': flag_fotos,
 			'ceremonia' : ceremonia,
 
 		}

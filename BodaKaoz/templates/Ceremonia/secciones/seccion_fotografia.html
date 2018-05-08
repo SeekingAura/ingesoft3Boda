@@ -6,6 +6,22 @@
 <body>
 
 	<h1>Seccion Fotografia</h1>
+	{% if flag_fotos %}
+		<div class="container" align="center">
+			<form method="POST">{% csrf_token %}
+				<h5>¿Desea remover las fotografias en tu ceremonia?</h5>
+				<button type="submit" class="btn btn-danger" value="delete_fotos" name="btn_value">Remover</button>
+			</form>
+		</div>
+	{% else %}
+		<div class="container" align="center">
+			<form method="POST">{% csrf_token %}
+				<h5>¿Desea que se tomen fotografias en tu ceremonia?</h5>
+				<button type="submit" class="btn btn-primary" value="add_fotos" name="btn_value">Añadir</button>
+			</form>
+		</div>
+	{% endif %}
+	
 
 </body>
 </html>
