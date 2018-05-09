@@ -33,7 +33,10 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 
 	for indexLugar in range(0, len(Lugares)):
 		precio = getPriceFormat(Lugares[indexLugar].precio)
-		Lugares[indexLugar].precio = precio
+		Lugares[indexLugar].precioSTR = precio
+
+	if fiesta.Lugar:
+		fiesta.Lugar.precioSTR = getPriceFormat(fiesta.Lugar.precio)
 
 	alimento = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 	entretenimiento = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
@@ -91,7 +94,7 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 			'entretenimiento' : entretenimiento,
 			'Entretenimientos' : Entretenimientos,
 			'indices_entretenimientos' : indices_entretenimientos,
-			'precio' : fiesta.precio
+			'precio' : getPriceFormat(fiesta.precio)
 		}
 		return HttpResponse(template.render(context, request))
 
@@ -160,8 +163,6 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 				for e in entretenimiento:
 					indices_entretenimientos.append(e.Entretenimiento.id)
 
-
-
 		if value_btn == "delete_lugar":
 			fiesta.Lugar = None
 			price = request.POST.get('price')
@@ -208,11 +209,6 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 				for e in entretenimiento:
 					indices_entretenimientos.append(e.Entretenimiento.id)
 
-
-
-
-
-		Lugares = Lugar.objects.all()
 		size_alimentos = len(indices_alimentos)
 		size_entre = len(indices_entretenimientos)
 		limite = 0
@@ -241,6 +237,6 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 			'entretenimiento' : entretenimiento,
 			'Entretenimientos' : Entretenimientos,
 			'indices_entretenimientos' : indices_entretenimientos,
-			'precio' : fiesta.precio
+			'precio' : getPriceFormat(fiesta.precio)
 		}
 		return HttpResponse(template.render(context, request))
