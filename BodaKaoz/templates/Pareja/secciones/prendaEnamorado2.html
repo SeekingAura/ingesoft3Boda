@@ -1,0 +1,47 @@
+	<div class="card text-center">
+		<h4 class="card-header">{{enamorado2.User.first_name}}</h4>
+	    <h5 class="card-header">¿Mis prendas?</h5>
+
+
+	</div>
+
+	{% for a in prenda2  %}
+
+		<div class="container" align="center">
+
+	
+
+		    	<form method="POST">{% csrf_token %}
+
+			        <h4 {{a.Prenda.nombre}}</h4>
+
+			        <p class="card-text"><strong>Descripción:</strong>{{a.Prenda.descripcion}}</p>
+
+			        <p class="card-text"><strong>Precio:</strong> ${{a.Prenda.precio}}</p>
+
+			        <input name="carrito_prenda_id" value="{{a.id}}" hidden>
+
+					<input name="prenda_id" value="{{a.Prenda.id}}" hidden>
+
+					<input name="price" value="{{a.Prenda.precio}}" hidden>
+
+			        <button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="delete_prenda">Eliminar</button>
+
+		        </form>
+
+
+		</div>
+
+	{% endfor %}
+
+	<div class="card text-center">
+
+	    <div class="card-body">
+
+	        <h4 class="card-title, tittle-center, font-weight-bold">¿Deseas agregar algo más?</h4>
+
+	        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ComidaModal">Añadir</button>
+
+	    </div>
+
+	</div>

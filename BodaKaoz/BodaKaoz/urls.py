@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('Domain.urls')), #contenedor de urls principal
     path('', Login , name='index' ),
-    path('resumen', TableroResumen, name='tableroResumen'),# Tablero temporal hecho por pareja
+    path('resumen/', TableroResumen, name='tableroResumen'),# Tablero temporal hecho por pareja
     path('pareja/', include('Pareja.urls', namespace="Pareja")),
     # path('Ceremonia/', include('Ceremonia.urls', namespace="Ceremonia")),
     path('fiesta/', include('Fiesta.urls', namespace="Fiesta")),

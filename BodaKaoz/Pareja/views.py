@@ -45,6 +45,7 @@ def Pareja(request):
     template = loader.get_template('Pareja/pareja.html')
     if request.method == 'GET':
 
+        '''
         print(request.user)
         user_id= request.user
 
@@ -62,37 +63,71 @@ def Pareja(request):
         Prendas = Prenda.objects.all()
 
         Accesorios = Accesorio.objects.all()
-
-
+        
+        
         belleza = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
 
         prenda = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.id)
 
         accesorio=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)
+        '''
+        user_id=request.user
+        enamorado = Enamorado.objects.get(User_id=user_id)
 
+        try:
+            boda=Boda.objects.get(Enamorado2=enamorado)  
+            
+        except :
+            boda=Boda.objects.get(Enamorado1=enamorado)    
 
+        enamorado1=boda.Enamorado1
+        enamorado2=boda.Enamorado2
+        print (enamorado1)
+        print (enamorado2)
+        print (boda.id)
+        #LISTADO DE PRODUCTOS
+        Bellezas = Belleza.objects.all()
 
-        
+        Prendas = Prenda.objects.all()
+
+        Accesorios = Accesorio.objects.all()
+        #LISTADO DE OBJETOS ALAMCENADOS EN EL CARRITO DEL PRIMER ENAMORADO
+        belleza1 = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+
+        prenda1 = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+
+        accesorio1=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)   
+
+        #LISTADO DE OBJETOS ALAMCENADOS EN EL CARRITO DEL segundo ENAMORADO
+        belleza2 = BellezaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+        prenda2 = PrendaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+        accesorio2=AccesorioCarrito.objects.filter(Enamorado_id=enamorado2.id)                
 
         context = {
 
 
 
-            'enamorado' : enamorado1,
+            'enamorado1' : enamorado1,
+            'enamorado2' : enamorado2,
 
-            'belleza' : belleza,
+            'belleza1' : belleza1,
+            'belleza2' : belleza2,
 
             'Bellezas' : Bellezas,
 
-            'prenda' : prenda,
-
+            'prenda1' : prenda1,
+            'prenda2' : prenda2,
             'Prendas' : Prendas,
 
-            'accesorio' : accesorio,
+            'accesorio1' : accesorio1,
+            'accesorio2' : accesorio2,
 
             'Accesorios' : Accesorios,
 
-            'precio' : enamorado1.precio
+            'precio1' : enamorado1.precio,
+            'precio2' : enamorado2.precio,
 
         }
         # print ("contexto", context)
@@ -102,7 +137,7 @@ def Pareja(request):
 
 
     if request.method == 'POST':
-        
+        '''
         # print(request.user)
         user_id= request.user
 
@@ -128,7 +163,40 @@ def Pareja(request):
 
         accesorio=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.cedula)
         boda_id = request.GET.get('boda_id')
+        '''
+        user_id=request.user
+        enamorado = Enamorado.objects.get(User_id=user_id)
 
+        try:
+            boda=Boda.objects.get(Enamorado2=enamorado)  
+            
+        except :
+            boda=Boda.objects.get(Enamorado1=enamorado)    
+
+        enamorado1=boda.Enamorado1
+        enamorado2=boda.Enamorado2
+        print (enamorado1)
+        print (enamorado2)
+        print (boda.id)
+        #LISTADO DE PRODUCTOS
+        Bellezas = Belleza.objects.all()
+
+        Prendas = Prenda.objects.all()
+
+        Accesorios = Accesorio.objects.all()
+        #LISTADO DE OBJETOS ALAMCENADOS EN EL CARRITO DEL PRIMER ENAMORADO
+        belleza1 = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+
+        prenda1 = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+
+        accesorio1=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)   
+
+        #LISTADO DE OBJETOS ALAMCENADOS EN EL CARRITO DEL segundo ENAMORADO
+        belleza2 = BellezaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+        prenda2 = PrendaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+        accesorio2=AccesorioCarrito.objects.filter(Enamorado_id=enamorado2.id)         
         value_btn = request.POST.get('btn_value')
 
 
@@ -149,23 +217,27 @@ def Pareja(request):
 
 
 
-            'enamorado' : enamorado1,
+            'enamorado1' : enamorado1,
+            'enamorado2' : enamorado2,
 
-            'belleza' : belleza,
+            'belleza1' : belleza1,
+            'belleza2' : belleza2,
 
             'Bellezas' : Bellezas,
 
-            'prenda' : prenda,
-
+            'prenda1' : prenda1,
+            'prenda2' : prenda2,
             'Prendas' : Prendas,
 
-            'accesorio' : accesorio,
+            'accesorio1' : accesorio1,
+            'accesorio2' : accesorio2,
 
             'Accesorios' : Accesorios,
 
-            'precio' : enamorado1.precio
+            'precio1' : enamorado1.precio,
+            'precio2' : enamorado2.precio,
 
-        }           
+        }          
         return HttpResponse(template.render(context, request))       
     
    
