@@ -8,10 +8,10 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from Domain.models import *
 
+from .utils import getPriceFormat
+
 @login_required(login_url='index')
 def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
-
-	print("Request= " , request.user , "user_id= " , user_id)
 	if str(request.user) != str(user_id):
 		logout(request)
 		return redirect('index')
@@ -20,51 +20,41 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 	enamorado = Enamorado.objects.get(User_id=user_id)
 	boda2 = Boda.objects.get(Enamorado1_id=enamorado.id)
 
-	print("boda2= ", boda2.id ,"boda_id", boda_id)
 	if str(boda2.id) != str(boda_id):
 		return redirect('tableroResumen')
 
 	boda = Boda.objects.filter(id__exact=boda_id)
 	fiesta = FiestaEvento.objects.get(Boda_id=boda_id)
+
+	if str(fiesta_id) != str(fiesta.id):
+		return redirect('tableroResumen')
+
+	Lugares = Lugar.objects.all()
+
+	for indexLugar in range(0, len(Lugares)):
+		precio = getPriceFormat(Lugares[indexLugar].precio)
+		Lugares[indexLugar].precio = precio
+
 	alimento = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 	entretenimiento = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 	indices_alimentos = []
 	indices_entretenimientos = []
 
-	if str(fiesta_id) != str(fiesta.id):
-		return redirect('tableroResumen')
-
 	count_entre = EntretenimientoCarrito.objects.all()
-	count_comida = AlimentoCarrito.objects.all()	
+	count_comida = AlimentoCarrito.objects.all()
 
-	if len(count_entre) > 0:
-		flag_entre = True
-	else:
-		flag_entre = False
-
-	if len(count_comida) > 0:
-		flag_comida = True
-	else:
-		flag_comida = False
-
-	if fiesta.Lugar != None:
-		flag_place = True
-	else:
-		flag_place = False
-
-	if fiesta.Fotos:
-		flag_foto = True
-	else:
-		flag_foto = False
+	flag_entre = len(count_entre) > 0
+	flag_comida = len(count_comida) > 0
+	flag_place = fiesta.Lugar != None
+	flag_foto = fiesta.Fotos
 
 	Fiesta = None
 	if request.method == 'GET':
-		Lugares = Lugar.objects.all()
 		Alimentos = Alimento.objects.all()
 		Entretenimientos = Entretenimiento.objects.all()
 		alimento = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 		entretenimiento = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
-		
+
 		indices_alimentos.clear()
 		indices_entretenimientos.clear()
 
@@ -83,18 +73,10 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 
 		size_alimentos = len(indices_alimentos)
 		size_entre = len(indices_entretenimientos)
-		print(size_entre)
 		limite = 0
 
-		if size_alimentos > limite:
-			flag_comida = True
-		else:
-			flag_comida = False
-
-		if size_entre > limite:
-			flag_entre = True
-		else:
-			flag_entre = False
+		flag_comida = size_alimentos > limite
+		flag_entre = size_entre > limite
 
 		context = {
 			'Lugares' : Lugares,
@@ -130,7 +112,7 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 		if entretenimiento.count() > 0:
 			for e in entretenimiento:
 				indices_entretenimientos.append(e.Entretenimiento.id)
-		
+
 		if value_btn == "add_place":
 			id_place = request.POST.get('id_place')
 			price = request.POST.get('price')
@@ -191,7 +173,7 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 			fiesta.Fotos=False
 			flag_foto = False
 			fiesta.save()
-			
+
 
 		if value_btn == "delete_comida":
 			comida_id = request.POST.get('comida_id')
@@ -226,10 +208,10 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 				for e in entretenimiento:
 					indices_entretenimientos.append(e.Entretenimiento.id)
 
-			
 
 
-		
+
+
 		Lugares = Lugar.objects.all()
 		size_alimentos = len(indices_alimentos)
 		size_entre = len(indices_entretenimientos)
@@ -244,7 +226,7 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 			flag_entre = True
 		else:
 			flag_entre = False
-		
+
 		template = get_template('Fiesta/fiesta.html')
 		context = {
 			'Lugares' : Lugares,
@@ -262,4 +244,3 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 			'precio' : fiesta.precio
 		}
 		return HttpResponse(template.render(context, request))
-
