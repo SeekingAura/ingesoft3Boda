@@ -24,14 +24,13 @@
 					<div class="card">
 						<div class="card-body">
 	        				<div class="media">
-							  	<img class="align-self-center mr-3" src="{{a.Alimento.imagen.url}}" height="150">
+							  	<img class="align-self-center mr-3 little" src="{{a.Alimento.imagen.url}}" height="150">
 							  	<div class="media-body">
 							    	<h5 class="mt-0">{{a.Alimento.nombre}}</h5>
 							    	<p>{{a.Alimento.descripcion}}</p>
 							    	<div class="media">
-							  			<i class="material-icons">attach_money</i>
 									  	<div class="media-body">
-									    	<p>{{a.Alimento.precio}} c/u</p>
+									    	<p>${{a.Alimento.precio}}</p>
 										</div>
 									</div>
 									<div class="row">
@@ -81,27 +80,25 @@
 		      			<div class="card mb-2">
 	  						<div class="card-body">
 		        				<div class="media">
-						  			<img class="align-self-center mr-3" src="{{comida.imagen.url}}" height="150">
+						  			<img class="align-self-center mr-3 little" src="{{comida.imagen.url}}" height="150">
 						  			<div class="media-body">
-						    			<h5 class="mt-0">{{comida.nombre}}</h5>
+						    			<h5 class="mt-0"><strong>{{comida.nombre}}</strong></h5>
 						    			<p>{{comida.descripcion}}</p>
 						    			<div class="media">
-						  					<i class="material-icons">attach_money</i>
 								  			<div class="media-body">
-								    			<p>{{comida.precio}} c/u</p>
+								    			<p class="precio">${{comida.precio}}</p>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col text-right">
 												<input name="id_comida" value="{{comida.id}}" hidden>
 												<input name="price" value="{{comida.precio}}" hidden>
-												<label for="cantidad_comida">Cantidad</label>
-							  					<input name="cantidad_comida" type="number">
-												<div class="row">
-    												<div class="col-4">
-    													<button type="submit" class="btn btn-primary" value="add_comida" name="btn_value">Agregar</button>
-    												</div>
-    											</div>
+						  					<input min="0" class="form-control" placeholder="Cantidad" name="cantidad_comida" type="number">
+												<div class="row" style="margin-top:10px;">
+													<div class="col-12">
+														<button type="submit" class="btn btn-primary col-12" value="add_comida" name="btn_value">Agregar</button>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
