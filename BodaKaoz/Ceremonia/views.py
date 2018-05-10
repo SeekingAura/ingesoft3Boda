@@ -31,6 +31,13 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 	if str(ceremonia_id) != str(ceremonia.id):
 		return redirect('tableroResumen')
 
+	count_deco = DecoracionCeremoniaCarrito.objects.all()
+
+
+	if len(count_deco) > 0:
+		flag_decoracion = True
+	else:
+		flag_decoracion = False
 
 	if ceremonia.Ministro != None:
 		flag_ministro = True
@@ -59,6 +66,20 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 		ministros = Ministro.objects.all()
 		lugares = Lugar.objects.filter(tipo='ceremonia')
 		musicas = Musica.objects.all()
+		decoraciones = DecoracionCeremonia.objects.all()
+		decoraciones_car = DecoracionCeremoniaCarrito.objects.all()
+
+
+		if len(decoraciones_car) > 0:
+			decora = []
+			for decoracion in decoraciones:
+				for deco in decoraciones_car:
+					if decoracion.nombre != deco.Decoracion.nombre:
+						decora.append(decoracion)
+			decoraciones = decora
+
+
+
 		template = get_template('Ceremonia/ceremonia.html')
 		ctx={
 
@@ -70,6 +91,9 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 			'ceremonia' : ceremonia,
 			'lugares' : lugares,
 			'musicas' : musicas,
+			'decoraciones':decoraciones,
+			'decoraciones_car':decoraciones_car,
+			'flag_decoracion':flag_decoracion,
 
 		}
 		return HttpResponse(template.render(ctx,request))
@@ -128,6 +152,29 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 			flag_musica = False
 			ceremonia.save()
 
+		if btn_value == "add_decoracion":
+			cantidad = request.POST.get('cantidad')
+			flag_decoracion = True
+			id_decoracion = request.POST.get('id_decoracion')
+			price = request.POST.get('price')
+			decoracion = DecoracionCeremonia.objects.filter(id__exact=id_decoracion)
+			decoracion_carrito = DecoracionCeremoniaCarrito(Decoracion=decoracion[0] , CeremoniaEvento = ceremonia , cantidad = cantidad)
+			ceremonia.precio = ceremonia.precio + (int(price) * int (cantidad))
+			ceremonia.save()
+			decoracion_carrito.save()
+
+		if btn_value == "delete_decoracion":
+			comida_id = request.POST.get('id_decoracion')
+			decoracion_carrito_id = request.POST.get('id_decoracion_carrito')
+			decoracioncarrito = DecoracionCeremoniaCarrito.objects.filter(id__exact=decoracion_carrito_id)
+			cantidad = decoracioncarrito[0].cantidad
+			decoracioncarrito.delete()
+			price = request.POST.get('price')
+			print(cantidad)
+			print(price)
+			ceremonia.precio = ceremonia.precio - (int(cantidad)  * int(price))
+			ceremonia.save()
+
 		if btn_value == 'delete_fotos':
 			ceremonia.Fotos = False
 			flag_fotos = False
@@ -137,6 +184,17 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 		ministros = Ministro.objects.all()
 		musicas = Musica.objects.all()
 		lugares = Lugar.objects.filter(tipo='ceremonia')
+		decoraciones = DecoracionCeremonia.objects.all()
+		decoraciones_car = DecoracionCeremoniaCarrito.objects.all()
+
+		if len(decoraciones_car) > 0:
+			decora = []
+			for decoracion in decoraciones:
+				for deco in decoraciones_car:
+					if decoracion.nombre != deco.Decoracion.nombre:
+						decora.append(decoracion)
+			decoraciones = decora
+
 		template = get_template('Ceremonia/ceremonia.html')
 		ctx={
 
@@ -145,9 +203,13 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 			'flag_fotos': flag_fotos,
 			'flag_lugar': flag_lugar,
 			'flag_musica': flag_musica,
+			'flag_decoracion':flag_decoracion,
 			'ceremonia' : ceremonia,
 			'lugares' : lugares,
 			'musicas' : musicas,
+			'decoraciones':decoraciones,
+			'decoraciones_car':decoraciones_car,
+
 
 		}
 		return HttpResponse(template.render(ctx,request))

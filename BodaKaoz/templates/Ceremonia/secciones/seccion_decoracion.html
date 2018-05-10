@@ -7,5 +7,32 @@
 
 	<h1>Seccion Decoración</h1>
 
+		<div class="container" align="center">
+			{% for decoracion_c in decoraciones_car %}
+				<form method="POST">{% csrf_token %}
+					{{decoracion_c.Decoracion.nombre}}<br>
+					{{decoracion_c.Decoracion.descripcion}}<br>
+					{{decoracion_c.Decoracion.precio}}<br>
+					<input name="id_decoracion_carrito" value="{{decoracion_c.id}}" hidden>
+					<input name="id_decoracion" value="{{decoracion_c.Decoracion.id}}" hidden>
+					<input name="price" value="{{decoracion_c.Decoracion.precio}}" hidden>
+					<button type="submit" class="btn btn-danger" value="delete_decoracion" name="btn_value">Eliminar</button>
+				</form>
+			{% endfor %}
+		</div>
+		<div class="container" align="center">
+			{% for decoracion in decoraciones  %}
+				<form method="POST">{% csrf_token %}
+					{{decoracion.nombre}}<br>
+					{{decoracion.descripcion}}<br>
+					{{decoracion.precio}}<br>
+					<input name="id_decoracion" value="{{decoracion.id}}" hidden>
+					<input name="price" value="{{decoracion.precio}}" hidden>
+					<input placeholder="cantidad" type="number" name="cantidad">
+					<button type="submit" class="btn btn-primary" value="add_decoracion" name="btn_value">Agregar</button>
+				</form><br>
+			{% endfor %}
+		</div>
+
 </body>
 </html>
