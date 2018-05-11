@@ -1,47 +1,109 @@
-	<div class="card text-center">
-		<h4 class="card-header">{{enamorado2.User.first_name}}</h4>
-	    <h5 class="card-header">¿Mis prendas?</h5>
+<div class="card text-center">
+	<h4 class="card-header">{{enamorado2.User.first_name}}</h4>
+    <h5 class="card-header">¿Mis prendas?</h5>
+
+
+</div>
+
+{% for a in prenda2  %}
+
+	<div class="container" align="center">
+
+
+
+	    	<form method="POST">{% csrf_token %}
+	    		
+
+		        <h4 class="mt-0">{{a.Prenda.nombre}}</h4>
+
+		        <p class="card-text"><strong>Descripción:</strong>{{a.Prenda.descripcion}}</p>
+
+		        <p class="card-text"><strong>Precio:</strong> ${{a.Prenda.precio}}</p>
+
+		        <input name="carrito_prenda_id" value="{{a.id}}" hidden>
+
+				<input name="prenda_id" value="{{a.Prenda.id}}" hidden>
+
+				<input name="price" value="{{a.Prenda.precio}}" hidden>
+
+		        <button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="delete_prenda">Eliminar</button>
+
+	        </form>
 
 
 	</div>
 
-	{% for a in prenda2  %}
+{% endfor %}
 
-		<div class="container" align="center">
+<div class="card text-center">
 
-	
+    <div class="card-body">
 
-		    	<form method="POST">{% csrf_token %}
+        <h4 class="card-title, tittle-center, font-weight-bold">¿Deseas agregar algo más?</h4>
 
-			        <h4 {{a.Prenda.nombre}}</h4>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Prenda1Modal">¡Agregar prenda!</button>
 
-			        <p class="card-text"><strong>Descripción:</strong>{{a.Prenda.descripcion}}</p>
+    </div>
 
-			        <p class="card-text"><strong>Precio:</strong> ${{a.Prenda.precio}}</p>
+</div>
 
-			        <input name="carrito_prenda_id" value="{{a.id}}" hidden>
+<div class="modal fade" id="Prenda1Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 
-					<input name="prenda_id" value="{{a.Prenda.id}}" hidden>
+	<div class="modal-dialog" role="document">
 
-					<input name="price" value="{{a.Prenda.precio}}" hidden>
+    	<div class="modal-content">
 
-			        <button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="delete_prenda">Eliminar</button>
+      		<div class="modal-header">
 
-		        </form>
+        		<h5 class="modal-title">Prendas</h5>
+
+        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+          			<span aria-hidden="true">&times;</span>
+
+        		</button>
+
+      		</div>
+
+      		<div class="modal-body">
+
+      		{% for  ropa in Prendas %}
+				<div class="container" align="center">
 
 
-		</div>
 
-	{% endfor %}
+				    	<form method="POST">{% csrf_token %}
+				    		
 
-	<div class="card text-center">
+					        <h4 class="mt-0">{{ropa.nombre}}</h4>
 
-	    <div class="card-body">
+					        <p class="card-text"><strong>Descripción:</strong>{{ropa.descripcion}}</p>
 
-	        <h4 class="card-title, tittle-center, font-weight-bold">¿Deseas agregar algo más?</h4>
+					        <p class="card-text"><strong>Precio:</strong> ${{ropa.precio}}</p>
 
-	        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ComidaModal">Añadir</button>
+					        <input name="id_prenda" value="{{ropa.id}}" hidden>
 
-	    </div>
 
-	</div>
+							<input name="price" value="{{ropa.precio}}" hidden>
+
+					        <button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="add_prenda">Agregar</button>
+
+				        </form>
+
+
+				</div>
+				{% endfor %}
+
+			</div>
+
+      		<div class="modal-footer">
+
+        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+
+      		</div>
+
+    	</div>
+
+  	</div>
+
+</div>				

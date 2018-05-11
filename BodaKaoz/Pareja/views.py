@@ -18,6 +18,17 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
+
+def getPriceFormat(value):
+
+    string = str(value)
+
+    keys = [ string[::-1][i:i+3] for i in range(0, len(string), 3)]
+
+    finalValue = '.'.join(keys)[::-1]
+
+    return finalValue
+
 @login_required(login_url='index')
 def TableroResumen(request):
 
@@ -40,37 +51,17 @@ def Logout(request):
     return redirect('index')
 
 @login_required(login_url='index')
-def Pareja(request):  
+def Enamorado1(request):  
 
     template = loader.get_template('Pareja/pareja.html')
+
+    mensaje_error = (False , "")
+
+    mensaje_succes = (False , "")
+
+    mensaje_delete = (False , "")     
     if request.method == 'GET':
 
-        '''
-        print(request.user)
-        user_id= request.user
-
-        user = User.objects.filter(username=user_id)
-        print(user)
-
-        enamorado1 = Enamorado.objects.get(User_id=user_id)
-
-        print(enamorado1)    
-
-        user_id= request.user
-
-        Bellezas = Belleza.objects.all()
-
-        Prendas = Prenda.objects.all()
-
-        Accesorios = Accesorio.objects.all()
-        
-        
-        belleza = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
-
-        prenda = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.id)
-
-        accesorio=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)
-        '''
         user_id=request.user
         enamorado = Enamorado.objects.get(User_id=user_id)
 
@@ -85,6 +76,7 @@ def Pareja(request):
         print (enamorado1)
         print (enamorado2)
         print (boda.id)
+        print("jajaja",enamorado1.precio)
         #LISTADO DE PRODUCTOS
         Bellezas = Belleza.objects.all()
 
@@ -104,30 +96,32 @@ def Pareja(request):
         prenda2 = PrendaCarrito.objects.filter(Enamorado_id=enamorado2.id)
 
         accesorio2=AccesorioCarrito.objects.filter(Enamorado_id=enamorado2.id)                
-
+        #enamorado1.precio=0
+        #enamorado1.save()
+        #print (Bellezas)
         context = {
 
 
 
-            'enamorado1' : enamorado1,
-            'enamorado2' : enamorado2,
 
-            'belleza1' : belleza1,
-            'belleza2' : belleza2,
+            'enamorado' : enamorado1,
+            #'enamorado2' : enamorado2,
+
+            'belleza' : belleza1,
+            #'belleza2' : belleza2,
 
             'Bellezas' : Bellezas,
 
-            'prenda1' : prenda1,
-            'prenda2' : prenda2,
+            'prenda' : prenda1,
+            #'prenda2' : prenda2,
             'Prendas' : Prendas,
 
-            'accesorio1' : accesorio1,
-            'accesorio2' : accesorio2,
+            'accesorio' : accesorio1,
+            #'accesorio2' : accesorio2,
 
             'Accesorios' : Accesorios,
 
-            'precio1' : enamorado1.precio,
-            'precio2' : enamorado2.precio,
+            'precio' : getPriceFormat(enamorado1.precio),
 
         }
         # print ("contexto", context)
@@ -137,33 +131,7 @@ def Pareja(request):
 
 
     if request.method == 'POST':
-        '''
-        # print(request.user)
-        user_id= request.user
 
-        user = User.objects.filter(username=user_id)
-        # print(user)
-
-        enamorado1 = Enamorado.objects.get(User_id=user_id)
-
-        # print(enamorado1)    
-
-        user_id= request.user
-
-        Bellezas = Belleza.objects.all()
-
-        Prendas = Prenda.objects.all()
-
-        Accesorios = Accesorio.objects.all()
-
-
-        belleza = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.cedula)
-
-        prenda = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.cedula)
-
-        accesorio=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.cedula)
-        boda_id = request.GET.get('boda_id')
-        '''
         user_id=request.user
         enamorado = Enamorado.objects.get(User_id=user_id)
 
@@ -201,46 +169,367 @@ def Pareja(request):
 
 
 
+        if value_btn == "add_prenda":
+            
+
+            prenda_id = request.POST.get('id_prenda')
+            precio=request.POST.get('price')
+    
+            enamorado1.precio=enamorado1.precio + int(precio)
+            
+            enamorado1.save()
+    
+            prend=Prenda.objects.filter(id__exact=prenda_id)
+            prenaux=PrendaCarrito.objects.create(Enamorado=enamorado1,Prenda=prend[0])
+            prenaux.save()
+            mensaje_succes = (True , "Tu prenda fue agregada correctamente")
+
+        if value_btn == "add_belleza":
+            
+
+            belleza_id = request.POST.get('id_belleza')
+            precio=request.POST.get('price')
+    
+            enamorado1.precio=enamorado1.precio + int(precio)
+            
+            enamorado1.save()
+    
+            bell=Belleza.objects.filter(id__exact=belleza_id)
+            bellaux=BellezaCarrito.objects.create(Enamorado=enamorado1,Belleza=bell[0])
+            bellaux.save()   
+            mensaje_succes = (True , "Tu belleza fue agregada correctamente")
+
+
+
+        if value_btn == "add_accesorio":
+            
+
+            accesorio_id = request.POST.get('id_accesorio')
+            precio=request.POST.get('price')
+    
+            enamorado1.precio=enamorado1.precio + int(precio)
+            
+            enamorado1.save()
+    
+            acce=Accesorio.objects.filter(id__exact=accesorio_id)
+            acceaux=AccesorioCarrito.objects.create(Enamorado=enamorado1,Accesorio=acce[0])
+            acceaux.save()            
+            mensaje_succes = (True , "Tu accesorio fue agregada correctamente") 
+
+
+
+        if value_btn == "delete_accesorio":
+
+            accesorio_id = request.POST.get('accesorio_id')
+            precio=request.POST.get('price')
+            
+            enamorado1.precio=enamorado1.precio - int(precio)
+            enamorado1.save()
+            carrito_accesorio_id = request.POST.get('carrito_accesorio_id')
+
+            accesoriocarrito = AccesorioCarrito.objects.filter(id__exact=carrito_accesorio_id)
+            # print ("Prendaaaaaaaaaaaaaa",prendacarrito)
+            accesoriocarrito.delete()
+            mensaje_delete = (True , "Accesorio eliminado correctamente")
+
+            
+        if value_btn == "delete_belleza":
+
+            belleza_id = request.POST.get('belleza_id')
+            precio=request.POST.get('price')
+            
+            enamorado1.precio=enamorado1.precio - int(precio)
+            enamorado1.save()
+            carrito_belleza_id = request.POST.get('carrito_belleza_id')
+
+            bellezacarrito = BellezaCarrito.objects.filter(id__exact=carrito_belleza_id)
+            # print ("Prendaaaaaaaaaaaaaa",prendacarrito)
+            bellezacarrito.delete()
+            mensaje_delete = (True , "Belleza eliminada correctamente")
 
 
         if value_btn == "delete_prenda":
 
             prenda_id = request.POST.get('prenda_id')
-
+            precio=request.POST.get('price')
+            
+            enamorado1.precio=enamorado1.precio - int(precio)
+            enamorado1.save()
             carrito_prenda_id = request.POST.get('carrito_prenda_id')
 
             prendacarrito = PrendaCarrito.objects.filter(id__exact=carrito_prenda_id)
             # print ("Prendaaaaaaaaaaaaaa",prendacarrito)
             prendacarrito.delete()
+            mensaje_delete = (True , "Prenda eliminada correctamente")
+
  
         context = {
 
 
 
-            'enamorado1' : enamorado1,
-            'enamorado2' : enamorado2,
+            'enamorado' : enamorado1,
+            #'enamorado2' : enamorado2,
 
-            'belleza1' : belleza1,
-            'belleza2' : belleza2,
+            'belleza' : belleza1,
+            #'belleza2' : belleza2,
 
             'Bellezas' : Bellezas,
 
-            'prenda1' : prenda1,
-            'prenda2' : prenda2,
+            'prenda' : prenda1,
+            #'prenda2' : prenda2,
             'Prendas' : Prendas,
 
-            'accesorio1' : accesorio1,
-            'accesorio2' : accesorio2,
+            'accesorio' : accesorio1,
+            #'accesorio2' : accesorio2,
 
             'Accesorios' : Accesorios,
 
-            'precio1' : enamorado1.precio,
-            'precio2' : enamorado2.precio,
+            'precio' : getPriceFormat(enamorado1.precio),
+            'mensaje_succes' : mensaje_succes,
+
+            'mensaje_delete' : mensaje_delete,            
 
         }          
         return HttpResponse(template.render(context, request))       
     
-   
+@login_required(login_url='index')
+def Enamorado2(request):  
+
+    template = loader.get_template('Pareja/pareja.html')
+
+    mensaje_error = (False , "")
+
+    mensaje_succes = (False , "")
+
+    mensaje_delete = (False , "")    
+    if request.method == 'GET':
+
+        user_id=request.user
+        enamorado = Enamorado.objects.get(User_id=user_id)
+
+        try:
+            boda=Boda.objects.get(Enamorado2=enamorado)  
+            
+        except :
+            boda=Boda.objects.get(Enamorado1=enamorado)    
+
+        enamorado1=boda.Enamorado1
+        enamorado2=boda.Enamorado2
+
+        #LISTADO DE PRODUCTOS
+        Bellezas = Belleza.objects.all()
+
+        Prendas = Prenda.objects.all()
+
+        Accesorios = Accesorio.objects.all()
+        #LISTADO DE OBJETOS ALAMCENADOS EN EL CARRITO DEL PRIMER ENAMORADO
+        belleza1 = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+
+        prenda1 = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+
+        accesorio1=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)   
+
+        #LISTADO DE OBJETOS ALAMCENADOS EN EL CARRITO DEL segundo ENAMORADO
+        belleza2 = BellezaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+        prenda2 = PrendaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+        accesorio2=AccesorioCarrito.objects.filter(Enamorado_id=enamorado2.id)                
+        #enamorado2.precio=0
+        #enamorado2.save()
+        #print (Bellezas)
+        context = {
+
+
+
+
+            'enamorado' : enamorado2,
+            #'enamorado2' : enamorado2,
+
+            'belleza' : belleza2,
+            #'belleza2' : belleza2,
+
+            'Bellezas' : Bellezas,
+
+            'prenda' : prenda2,
+            #'prenda2' : prenda2,
+            'Prendas' : Prendas,
+
+            'accesorio' : accesorio2,
+            #'accesorio2' : accesorio2,
+
+            'Accesorios' : Accesorios,
+
+            'precio' : getPriceFormat(enamorado2.precio),
+
+        }
+        # print ("contexto", context)
+
+        return HttpResponse(template.render(context, request))    
+    
+
+
+    if request.method == 'POST':
+
+        user_id=request.user
+        enamorado = Enamorado.objects.get(User_id=user_id)
+
+        try:
+            boda=Boda.objects.get(Enamorado2=enamorado)  
+            
+        except :
+            boda=Boda.objects.get(Enamorado1=enamorado)    
+
+        enamorado1=boda.Enamorado1
+        enamorado2=boda.Enamorado2
+        print (enamorado1)
+        print (enamorado2)
+        print (boda.id)
+        #LISTADO DE PRODUCTOS
+        Bellezas = Belleza.objects.all()
+
+        Prendas = Prenda.objects.all()
+
+        Accesorios = Accesorio.objects.all()
+        #LISTADO DE OBJETOS ALAMCENADOS EN EL CARRITO DEL PRIMER ENAMORADO
+        belleza1 = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+
+        prenda1 = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+
+        accesorio1=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)   
+
+        #LISTADO DE OBJETOS ALAMCENADOS EN EL CARRITO DEL segundo ENAMORADO
+        belleza2 = BellezaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+        prenda2 = PrendaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+        accesorio2=AccesorioCarrito.objects.filter(Enamorado_id=enamorado2.id)         
+        value_btn = request.POST.get('btn_value')
+
+
+
+        if value_btn == "add_prenda":
+            
+
+            prenda_id = request.POST.get('id_prenda')
+            precio=request.POST.get('price')
+    
+            enamorado2.precio=enamorado2.precio + int(precio)
+            
+            enamorado2.save()
+    
+            prend=Prenda.objects.filter(id__exact=prenda_id)
+            prenaux=PrendaCarrito.objects.create(Enamorado=enamorado2,Prenda=prend[0])
+            prenaux.save()
+            mensaje_succes = (True , "Tu prenda fue agregada correctamente")
+
+
+        if value_btn == "add_belleza":
+            
+
+            belleza_id = request.POST.get('id_belleza')
+            precio=request.POST.get('price')
+    
+            enamorado2.precio=enamorado2.precio + int(precio)
+            
+            enamorado2.save()
+    
+            bell=Belleza.objects.filter(id__exact=belleza_id)
+            bellaux=BellezaCarrito.objects.create(Enamorado=enamorado2,Belleza=bell[0])
+            bellaux.save()   
+            mensaje_succes = (True , "Tu belleza fue agregada correctamente")
+
+
+
+        if value_btn == "add_accesorio":
+            
+
+            accesorio_id = request.POST.get('id_accesorio')
+            precio=request.POST.get('price')
+    
+            enamorado2.precio=enamorado2.precio + int(precio)
+            
+            enamorado2.save()
+    
+            acce=Accesorio.objects.filter(id__exact=accesorio_id)
+            acceaux=AccesorioCarrito.objects.create(Enamorado=enamorado2,Accesorio=acce[0])
+            acceaux.save()   
+            mensaje_succes = (True , "Tu accesorio fue agregada correctamente")         
+
+
+
+        if value_btn == "delete_accesorio":
+
+            accesorio_id = request.POST.get('accesorio_id')
+            precio=request.POST.get('price')
+            
+            enamorado2.precio=enamorado2.precio - int(precio)
+            enamorado2.save()
+            carrito_accesorio_id = request.POST.get('carrito_accesorio_id')
+
+            accesoriocarrito = AccesorioCarrito.objects.filter(id__exact=carrito_accesorio_id)
+            # print ("Prendaaaaaaaaaaaaaa",prendacarrito)
+            accesoriocarrito.delete()
+            mensaje_delete = (True , "Accesorio eliminado correctamente")
+
+            
+        if value_btn == "delete_belleza":
+
+            belleza_id = request.POST.get('belleza_id')
+            precio=request.POST.get('price')
+            
+            enamorado2.precio=enamorado2.precio - int(precio)
+            enamorado2.save()
+            carrito_belleza_id = request.POST.get('carrito_belleza_id')
+
+            bellezacarrito = BellezaCarrito.objects.filter(id__exact=carrito_belleza_id)
+            # print ("Prendaaaaaaaaaaaaaa",prendacarrito)
+            bellezacarrito.delete()
+            mensaje_delete = (True , "Belleza eliminada correctamente")
+
+        if value_btn == "delete_prenda":
+
+            prenda_id = request.POST.get('prenda_id')
+            precio=request.POST.get('price')
+            
+            enamorado2.precio=enamorado2.precio - int(precio)
+            enamorado2.save()
+            carrito_prenda_id = request.POST.get('carrito_prenda_id')
+
+            prendacarrito = PrendaCarrito.objects.filter(id__exact=carrito_prenda_id)
+            # print ("Prendaaaaaaaaaaaaaa",prendacarrito)
+            prendacarrito.delete()
+            mensaje_delete = (True , "Prenda eliminada correctamente")
+ 
+        context = {
+
+
+
+            'enamorado' : enamorado2,
+            #'enamorado2' : enamorado2,
+
+            'belleza' : belleza2,
+            #'belleza2' : belleza2,
+
+            'Bellezas' : Bellezas,
+
+            'prenda' : prenda2,
+            #'prenda2' : prenda2,
+            'Prendas' : Prendas,
+
+            'accesorio' : accesorio2,
+            #'accesorio2' : accesorio2,
+
+            'Accesorios' : Accesorios,
+
+            'precio' : getPriceFormat(enamorado2.precio),
+            
+            'mensaje_succes' : mensaje_succes,
+
+            'mensaje_delete' : mensaje_delete,
+        }          
+        return HttpResponse(template.render(context, request))       
+       
 def Login(request):
 
     error = (False, "")
