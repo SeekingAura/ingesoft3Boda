@@ -4,12 +4,25 @@
 {% block title %}
 <link href="{% static 'css/Fiesta/style_entretenimiento.css' %}" rel="stylesheet" />
 <link href="{% static 'css/Fiesta/style_comidas.css' %}" rel="stylesheet" />
+
+{% if mensaje_error.0 %}
+	{{mensaje_error.1}}
+{% endif %}
+
+{% if mensaje_succes.0 %}
+	{{mensaje_succes.1}}
+{% endif %}
+
+{% if mensaje_delete.0 %}
+	{{mensaje_delete.1}}
+{% endif %}
+
 {% endblock title %}
 
 {% block content %}
-	{% include "Pareja/secciones/prendaEnamorado1.html" %}
-	{% include "Pareja/secciones/bellezaEnamorado1.html" %}
-	{% include "Pareja/secciones/accesorioEnamorado1.html" %}
+	{% include "Pareja/secciones/prendaEnamorado.html" %}
+	{% include "Pareja/secciones/bellezaEnamorado.html" %}
+	{% include "Pareja/secciones/accesorioEnamorado.html" %}
 	{% include "Pareja/secciones/precio.html" %}
 	
 

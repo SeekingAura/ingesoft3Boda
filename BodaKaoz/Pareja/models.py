@@ -5,7 +5,11 @@ from Domain.models import *
 # Validators
 import re
 from django.core.exceptions import ValidationError
-
+TYPE=(
+	('masculino','Masculino'),
+	('femenino' ,'Femenino'),
+	('mixto', 'Mixta')
+	)
 
 def numeric_validator(value):
 	result=re.match('[0-9]*', str(value))
@@ -62,6 +66,7 @@ class Prenda(models.Model):
 	descripcion=models.CharField(max_length=50)
 	talla=models.CharField(max_length=10)
 	imagen=models.ImageField(null=True, blank=True, default=None)
+	tipo = models.CharField(choices=TYPE, blank=True , default=None, max_length=50)
 	precio=models.BigIntegerField(default=0)
 	class Meta:
 		app_label = 'Pareja'
