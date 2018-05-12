@@ -53,12 +53,12 @@
   					<div class="card-body">
     					<ul class="list-group list-group-flush">
 						  <li class="list-group-item">
-						  	<a href="#" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
+						  	<a href="{% url 'Pareja:pareja' %}" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
 								Enamorado
 							</a>
 						  </li>
 						  <li class="list-group-item">
-						  	<a href="#" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
+						  	<a href="{% url 'Pareja:pareja' %}" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
 								Enamorada
 							</a>
 						  </li>
@@ -68,7 +68,7 @@
 							</a>
 						  </li>
 						  <li class="list-group-item">
-						  	<a href="#" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
+						  	<a href="{% url 'Fiesta:dashboard' user_id boda_id fiesta_id %}" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
 								Fiesta
 							</a>
 						  </li>
@@ -80,6 +80,11 @@
 						  <li class="list-group-item">
 						  	<a href="{% url 'tableroResumen' %}" class="text-danger" data-toggle="" aria-expanded="true" aria-controls="">
 								Resumen
+							</a>	
+						  </li>
+						  <li class="list-group-item">
+						  	<a href="{% url 'Pareja:cerrar-sesion' %}" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
+								Cerrar sesión
 							</a>
 						  </li>
 						</ul>

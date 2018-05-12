@@ -128,12 +128,16 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 			'entretenimiento' : entretenimiento,
 			'Entretenimientos' : Entretenimientos,
 			'indices_entretenimientos' : indices_entretenimientos,
-			'precio' : getPriceFormat(fiesta.precio)
+			'precio' : getPriceFormat(fiesta.precio),
+			'user_id': user_id,
+			'boda_id': boda_id,
+			'fiesta_id':fiesta_id
 		}
 		return HttpResponse(template.render(context, request))
 
 	if request.method == 'POST':
 		fiesta = FiestaEvento.objects.get(Boda_id=boda_id)
+		boda = Boda.objects.get(id=boda_id)
 		value_btn = request.POST.get('btn_value')
 		Alimentos = Alimento.objects.all()
 		alimento = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
@@ -157,6 +161,8 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 				fiesta.Lugar_id = id_place
 				fiesta.precio = fiesta.precio + int(price)
 				flag_place = True
+				boda.precio = int(boda.precio) + int(price)
+				boda.save()
 				fiesta.save()
 				mensaje_succes = (True , "Lugar para tu fiesta correctamente asignado")
 
@@ -184,6 +190,8 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 				subtotal = (int(price) * int (cantidad_comida))
 				comida = AlimentoCarrito(FiestaEvento = fiesta , Alimento = comida_inst[0], Cantidad = cantidad_comida, subtotal=subtotal)
 				fiesta.precio = fiesta.precio + subtotal
+				boda.precio = boda.precio + int(subtotal)
+				boda.save()
 				fiesta.save()
 				comida.save()
 				alimento = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
@@ -204,6 +212,8 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 
 			if int(id_entre) not in indices_entretenimientos:
 				fiesta.precio = fiesta.precio + int(price)
+				boda.precio = boda.precio + int(price)
+				boda.save()	
 				fiesta.save()
 				entre_inst = Entretenimiento.objects.filter(id__exact=id_entre)
 				entre = EntretenimientoCarrito(FiestaEvento = fiesta , Entretenimiento = entre_inst[0])
@@ -224,8 +234,10 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 				fiesta.Lugar = None
 				price = request.POST.get('price')
 				fiesta.precio = fiesta.precio - int(price)
+				boda.precio = boda.precio - int(price)
 				flag_place = False
 				fiesta.save()
+				boda.save()
 				mensaje_delete = (True , "Lugar eliminado correctamente")
 			else:
 				mensaje_error = (True , "Este lugar ya fue eliminado")
@@ -253,6 +265,8 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 				alimento = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 				indices_alimentos.clear()
 				fiesta.precio = int(fiesta.precio) - (int(subtotal))
+				boda.precio = boda.precio - int(subtotal)
+				boda.save()
 				fiesta.save()
 				mensaje_delete = (True , "Alimento eliminado correctamente")
 
@@ -275,6 +289,8 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 				indices_entretenimientos.clear()
 				price = request.POST.get('price')
 				fiesta.precio = int(fiesta.precio) - int(price)
+				boda.precio = boda.precio - int(price)
+				boda.save()
 				fiesta.save()
 				mensaje_delete = (True , "Entrenimiento eliminado correctamente")
 
@@ -343,6 +359,9 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 			'mensaje' : mensaje_error,
 			'mensaje_succes' : mensaje_succes,
 			'mensaje_delete' : mensaje_delete,
-			'precio' : getPriceFormat(fiesta.precio)
+			'precio' : getPriceFormat(fiesta.precio),
+			'user_id': user_id,
+			'boda_id': boda_id,
+			'fiesta_id':fiesta_id
 		}
 		return HttpResponse(template.render(context, request))
