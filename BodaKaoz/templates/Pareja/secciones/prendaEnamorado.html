@@ -1,54 +1,73 @@
-	<div class="card text-center">
-		<h5 class="card-text">{{enamorado.User.first_name}}</h5>
-	    <h5 class="card-header">¿Mis prendas?</h5>
-
-
-	</div>
-
-{% for a in prenda  %}
-
-	<div class="container" align="center">
-
-
-
-	    	<form method="POST">{% csrf_token %}
-	    		<img class="align-self-center mr-3 little" src="{{a.Prenda.imagen.url}}" height="150">
-
-		        <h4 class="mt-0">{{a.Prenda.nombre}}</h4>
-
-		        <p class="card-text"><strong>Descripción:</strong>{{a.Prenda.descripcion}}</p>
-
-		        <p class="card-text"><strong>Precio:</strong> ${{a.Prenda.precio}}</p>
-
-		        <input name="carrito_prenda_id" value="{{a.id}}" hidden>
-
-				<input name="prenda_id" value="{{a.Prenda.id}}" hidden>
-
-				<input name="price" value="{{a.Prenda.precio}}" hidden>
-
-		        <button type="submit"  class="btn btn-danger btn-lg" name="btn_value" value="delete_prenda">Eliminar</button>
-
-		        
-
-	        </form>
-
-
-	</div>
-
-{% endfor %}
-
 <div class="card text-center">
+	<h5 class="card-text">{{enamorado.User.first_name}}</h5>
+</div>	
+	{% load staticfiles %}
 
-    <div class="card-body">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaMasModal">¡Prenda Masculina!</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaFemModal">¡Agregar Femenina!</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaMixModal">¡Agregar Mixta!</button>
+<div class="card border-dark mb-2">
+	<div class="card-header bg-transparent">
+		<div class="row justify-content-between">
+			<div class="col">
+				<h4>Prendas</h4>
+			</div>
+			<div class="col text-right">
+				<span class="btn" data-toggle="collapse" data-target="#collapseAli" aria-expanded="false" aria-controls="collapseAli">
+					<i class="material-icons">expand_more</i>
+  				</span>
+			</div>
+		</div>
+  	</div>
+  	<div class="collapse" id="collapseAli">
+  		{% for a in prenda  %}
+  		<div class="card-body">
+	    	<form method="POST">{% csrf_token %}
+	    		<div class="card">
+	    			<div class="card-body">
+        				<div class="media">
+	    					<img class="align-self-center mr-3 little" src="{{a.Prenda.imagen.url}}" height="150">
+	    					<div class="media-body">
+								<h4 class="mt-0">{{a.Prenda.nombre}}</h4>		  
+								<p class="card-text"><strong>Descripción:</strong>{{a.Prenda.descripcion}}</p>
+								<div class="media">
+									<div class="media-body">
+								        <p class="card-text"><strong>Precio:</strong> ${{a.Prenda.precio}}</p>
+								    </div>
+								</div>
+								<div class="row">
+									<div class="col text-right">
+									        <input name="carrito_prenda_id" value="{{a.id}}" hidden>
+											<input name="prenda_id" value="{{a.Prenda.id}}" hidden>
+											<input name="price" value="{{a.Prenda.precio}}" hidden>
+									        <button type="submit"  class="btn btn-danger btn-lg" name="btn_value" value="delete_prenda">Eliminar</button>
+									</div>
+								</div>	
+						    </div>
+						</div>
+				    </div>
+				</div>     
+	        </form>
+		</div>
 
-    </div>
+		{% endfor %}
+		{% if flag_entre %}
 
+			<div class="card-body text-center">
+	    		<p>¿Aún hay espacio para algo más?</p>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AccesorioModal">¡Agregar Prenda!</button>
+			</div>
+		{% else %} {% comment %}Cuando no tiene seleccionado uno o más prendas{% endcomment %}
+		<div class="card-body text-center">
+			<h4 class="card-title, tittle-center, font-weight-bold">Aún no tienes agregado alguna prenda.</h4>
+			<p class="card-text, text-center">¡Presiona en agregar para escoger tus prenda!</p>
+     		<div class="card-body">
+			    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaMasModal">¡Prenda Masculina!</button>
+			    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaFemModal">¡Agregar Femenina!</button>
+			    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaMixModal">¡Agregar Mixta!</button>
+
+			</div>
+			</div>
+		    {% endif %}
+	</div>
 </div>
-
-
 
 <div class="modal fade" id="PrendaMasModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 
@@ -71,30 +90,37 @@
       		<div class="modal-body">
 
       		{% for  ropa in PrendasMas %}
-				<div class="container" align="center">
-
-
-						{% if ropa.id not in lista_prendas %}
+				{% if ropa.id not in lista_prendas %}
 				    	<form method="POST">{% csrf_token %}
-				    		
-				    		<img class="align-self-center mr-3 little" src="{{ropa.imagen.url}}" height="150">
-					        <h4 class="mt-0">{{ropa.nombre}}</h4>
-
-					        <p class="card-text"><strong>Descripción:</strong>{{ropa.descripcion}}</p>
-
-					        <p class="card-text"><strong>Precio:</strong> ${{ropa.precio}}</p>
-
-					        <input name="id_prenda" value="{{ropa.id}}" hidden>
-
-
-							<input name="price" value="{{ropa.precio}}" hidden>
-
-					        <button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="add_prenda">Agregar</button>
-
+				    		<div class="card mb-2">
+		  						<div class="card-body">
+			        				<div class="media">
+				    					<img class="align-self-center mr-3 little" src="{{ropa.imagen.url}}" height="150">
+				    				    <div class="media-body">
+									        <h4 class="mt-0">{{ropa.nombre}}</h4>
+									        <p class="card-text"><strong>Descripción:</strong>{{ropa.descripcion}}</p>
+									        <div class="media">
+									  			<div class="media-body">
+					        						<p class="card-text"><strong>Precio:</strong> ${{ropa.precio}}</p>
+					        					</div>
+					        			    </div>
+					        			    <div class="row">
+												<div class="col text-right">
+											        <input name="id_prenda" value="{{ropa.id}}" hidden>
+													<input name="price" value="{{ropa.precio}}" hidden>
+													<div class="row">
+	    												<div class="col-4">
+											        		<button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="add_prenda">Agregar</button>
+											        	</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 				        </form>
 				        {% endif %}
-
-				</div>
 				{% endfor %}
 
 			</div>
