@@ -11,7 +11,7 @@
 
 .card-entretenimiento{
 	flex-direction: row;
-	margin: 10px 0; 
+	margin: 10px 0;
 	max-height: 360px;
 	overflow: hidden;
 }
@@ -30,9 +30,9 @@
 	flex-direction: row;
 	max-height: 600px;
 	max-width: 1000px;
-	margin: 0 auto; 
-  float: none; 
-  margin-bottom: 10px; 
+	margin: 0 auto;
+  float: none;
+  margin-bottom: 10px;
 
 }
 
