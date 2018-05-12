@@ -24,7 +24,7 @@
 					<div class="card">
 						<div class="card-body">
 	        				<div class="media">
-							  	<img class="align-self-center mr-3" src="{{decoracion_c.Decoracion.imagen.url}}" height="120">
+							  	<img class="align-self-center mr-3" src="{{decoracion_c.Decoracion.imagen.url}}" height="150">
 							  	<div class="media-body">
 							    	<h5 class="mt-0">{{decoracion_c.Decoracion.nombre}}</h5>
 							    	<p>{{decoracion_c.Decoracion.descripcion}}</p>
@@ -32,6 +32,8 @@
 							  			<i class="material-icons">attach_money</i>
 									  	<div class="media-body">
 									    	<p>{{decoracion_c.Decoracion.precio}} c/u</p>
+									    	<p>cantidad: {{decoracion_c.cantidad}}</p>
+									    	<p>precio total decoración: {{decoracion_c.subtotal}}</p>
 										</div>
 									</div>
 									<div class="row">
@@ -57,7 +59,7 @@
 	</div>
 
 	<div class="modal fade" id="modaldeco" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-		<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-dialog" role="document">
 	    	<div class="modal-content">
 	      		<div class="modal-header">
 	        		<h5 class="modal-title">Decoraciones</h5>
@@ -67,44 +69,41 @@
 	      		</div>
 	      		<div class="modal-body">
 	      			{% for decoracion in decoraciones %}
-	      			<form method="POST">{% csrf_token %}
-		      			<div class="card mb-2">
-	  						<div class="card-body">
-		        				<div class="media">
-						  			<img class="d-none d-lg-block align-self-center mr-3" src="{{decoracion.imagen.url}}" height="150">
-						  			<div class="media-body">
-						  				<div class="row mb-3">
-						  					<div class="col-12 text-center">
-						  						<img class="d-lg-none align-self-center mr-3" src="{{decoracion.imagen.url}}" height="150">
-						  					</div>
-						  				</div>
-						    			<h5 class="mt-0">{{decoracion.nombre}}</h5>
-						    			<p>{{decoracion.descripcion}}</p>
-						    			<div class="media">
-						  					<i class="material-icons">attach_money</i>
-								  			<div class="media-body">
-								    			<p>{{decoracion.precio}} c/u</p>
+	      				{% if decoracion.id not in indices_decoraciones %}
+		      			<form method="POST">{% csrf_token %}
+			      			<div class="card mb-2">
+		  						<div class="card-body">
+			        				<div class="media">
+							  			<img class="align-self-center mr-3" src="{{decoracion.imagen.url}}" height="150">
+							  			<div class="media-body">
+							    			<h5 class="mt-0">{{decoracion.nombre}}</h5>
+							    			<p>{{decoracion.descripcion}}</p>
+							    			<div class="media">
+							  					<i class="material-icons">attach_money</i>
+									  			<div class="media-body">
+									    			<p>{{decoracion.precio}} c/u</p>
+												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col text-right">
-												<input name="id_decoracion" value="{{decoracion.id}}" hidden>
-												<input name="price" value="{{decoracion.precio}}" hidden>
-												<div class="row">
-    												<div class="col-8">
-    													<input class="form-control" placeholder="Cantidad" type="number" name="cantidad">
-    												</div>
-    												<div class="col-4">
-    													<button type="submit" class="btn btn-primary" value="add_decoracion" name="btn_value">Agregar</button>
-    												</div>
-    											</div>
+											<div class="row">
+												<div class="col text-right">
+													<input name="id_decoracion" value="{{decoracion.id}}" hidden>
+													<input name="price" value="{{decoracion.precio}}" hidden>
+													<div class="row">
+	    												<div class="col-8">
+	    													<input class="form-control" placeholder="Cantidad" type="number" name="cantidad">
+	    												</div>
+	    												<div class="col-4">
+	    													<button type="submit" class="btn btn-primary" value="add_decoracion" name="btn_value">Agregar</button>
+	    												</div>
+	    											</div>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</form>
+						</form>
+						{% endif %}
 					{% endfor %}
 				</div>
 	      		<div class="modal-footer">
