@@ -14,17 +14,24 @@ class Alimento(models.Model):
 	descripcion=models.CharField(max_length=50)
 	imagen=models.ImageField(null=True, blank=True, default=None)
 	precio=models.BigIntegerField(default=0)
+
+	def __str__(self):
+		return self.nombre
 		
 class AlimentoCarrito(models.Model):
 	FiestaEvento=models.ForeignKey(FiestaEvento, on_delete=models.CASCADE)
 	Alimento=models.ForeignKey(Alimento, on_delete=models.CASCADE)
 	Cantidad = models.IntegerField(default=1)
+	subtotal = models.BigIntegerField(default=0)
 		
 class Entretenimiento(models.Model):
 	nombre=models.CharField(max_length=50)
 	descripcion=models.CharField(max_length=50)
 	imagen=models.ImageField(null=True, blank=True, default=None)
 	precio=models.BigIntegerField(default=0)
+
+	def __str__(self):
+		return self.nombre
 
 class EntretenimientoCarrito(models.Model):
 	FiestaEvento=models.ForeignKey(FiestaEvento, on_delete=models.CASCADE)

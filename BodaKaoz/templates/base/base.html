@@ -5,68 +5,102 @@
 	{% block title %}
 	{% endblock title %}
 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Roboto:400|Lato:300,400' rel='stylesheet' type='text/css'>
-	<!-- Latest compiled and minified CSS -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="{% static "css/base.css" %}">
 	<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
 
 </head>
-<body style="height: 100%;">
+<body class="bg-light">
 	<script src="{% static "js/jquery-3.3.1.min.js" %}"></script>
-	<!-- Latest compiled and minified JavaScript -->
 	<script src="{% static "js/bootstrap.min.js" %}"></script>
-
-	<div class="header">
-		<div class="float-right profileImage text-center">
-			<img src="{% static 'images/base/icon.png' %}">
-		</div>
-	</div>
-
 	{% block scripts %}
 	{% endblock scripts %}
-	<div class="row">
-		<div class="col-3">
-			<div class="contenedor-menu">
-				<div class="corazon">
-					<img src="{% static 'images/base/corazon.jpg' %}">
-				</div>
-				<ul class="menu">
-					<li><a href="#">Enamorado</a>
-						<ul><a href="#">Prenda</a></ul>
-						<ul><a href="#">Accesorio</a></ul>
-						<ul><a href="#">Belleza</a></ul>
-					</li>
-					<li><a href="#">Enamorado</a>
-						<ul><a href="#">Prenda</a></ul>
-						<ul><a href="#">Accesorio</a></ul>
-						<ul><a href="#">Belleza</a></ul>
-					</li>
-					<li><a href="#">Ceremonia</a>
-						<ul><a href="#">Lugar</a></ul>
-						<ul><a href="#">Música</a></ul>
-						<ul><a href="#">Ministro</a></ul>
-						<ul><a href="#">Decoración</a></ul>
-					</li>
-					<li><a href="#">Fiesta</a>
-						<ul><a href="#">Lugar</a></ul>
-						<ul><a href="#">Entretenimiento</a></ul>
-						<ul><a href="#">Fotografía</a></ul>
-						<ul><a href="#">Alimentación</a></ul>
-					</li>
-					<li><a href="#">Luna de miel</a>
-						<ul><a href="#">Item 1</a></ul>
-						<ul><a href="#">Item 2</a></ul>
-						<ul><a href="#">Item 3</a></ul>
-						<ul><a href="#">Item 4</a></ul>
-					</li>
-					<li><a href="#">Resumen</a></li>
-				</ul>
-			</div>
+	<nav class="d-md-none navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #005f93;">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		   	<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		   	<ul class="navbar-nav mr-auto">
+		   		<li class="nav-item">
+		   			<a class="nav-link" href="#">Enamorado</a>
+		   		</li>
+		   		<li class="nav-item">
+		   			<a class="nav-link" href="#">Enamorada</a>
+		   		</li>
+		   		<li class="nav-item ac active">
+		       		<a class="nav-link" href="#">Ceremonia</a>
+		   		</li>
+		   		<li class="nav-item">
+		   			<a class="nav-link" href="#">Fiesta</a>
+		   		</li>
+		   		<li class="nav-item">
+		   			<a class="nav-link" href="#">Luna de miel</a>
+		   		</li>
+		   		<li class="nav-item">
+		   			<a class="nav-link" href="{% url 'tableroResumen' %}">Resumen</a>
+		   		</li>
+		   	</ul>
 		</div>
-		<div class="col-9">
-			<div class="content">
-				{% block content %}
-				{% endblock content %}
+	</nav>
+	<div class="container container-md-fluid">
+		<div class="row mt-5 pt-4 pt-md-0 mb-4">
+			<div class="d-none d-md-block col-lg-3 col-md-4 col-sm-12">
+				<div class="card border-dark">
+  					<img class="card-img-top" src="{% static 'img/KBLogo_header.svg' %}">
+  					<div class="card-body">
+    					<ul class="list-group list-group-flush">
+						  <li class="list-group-item">
+						  	<a href="{% url 'Pareja:pareja' %}" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
+								Enamorado
+							</a>
+						  </li>
+						  <li class="list-group-item">
+						  	<a href="{% url 'Pareja:pareja' %}" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
+								Enamorada
+							</a>
+						  </li>
+						  <li class="list-group-item">
+						  	<a href="#" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
+								Ceremonia
+							</a>
+						  </li>
+						  <li class="list-group-item">
+						  	<a href="{% url 'Fiesta:dashboard' user_id boda_id fiesta_id %}" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
+								Fiesta
+							</a>
+						  </li>
+						  <li class="list-group-item">
+						  	<a href="#" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
+								Luna de miel
+							</a>
+						  </li>
+						  <li class="list-group-item">
+						  	<a href="{% url 'tableroResumen' %}" class="text-danger" data-toggle="" aria-expanded="true" aria-controls="">
+								Resumen
+							</a>	
+						  </li>
+						  <li class="list-group-item">
+						  	<a href="{% url 'Pareja:cerrar-sesion' %}" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
+								Cerrar sesión
+							</a>
+						  </li>
+						</ul>
+  					</div>
+				</div>
+			</div>
+			<div class="col-lg-9 col-md-8 col-sm-12">
+				<div class="card border-dark">
+					{% block name_mod %}		
+					{% endblock name_mod %}
+  				<div class="card-body">
+					<div class="content">
+						{% block content %}
+						{% endblock content %}
+					</div>	
+    			</div>
 			</div>
 		</div>
 	</div>

@@ -13,6 +13,7 @@ TYPE = (
 )
 
 
+
 def numeric_validator(value):
 	result=re.match('[0-9]*', str(value))
 	#print("el valor de value[0] es %s -" % (value[0]))
@@ -29,6 +30,7 @@ class Lugar(models.Model):
 	direccion=models.CharField(max_length=50)
 	capacidad=models.IntegerField()
 	imagen=models.ImageField(null=True, blank=True, default=None)
+	tipo = models.CharField(choices=TYPE, max_length=50 , default=None)
 	precio=models.BigIntegerField(default=0)
 	class Meta:
 		verbose_name = "Lugar"

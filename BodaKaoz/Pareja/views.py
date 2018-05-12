@@ -10,6 +10,7 @@ from .models import *
 from Domain.models import *
 from Ceremonia.models import *
 from Fiesta.models import *
+from Ceremonia.models import *
 from LunaMiel.models import *
 
 
@@ -18,10 +19,36 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
+from .utils import getPriceFormat
+
 @login_required(login_url='index')
 def TableroResumen(request):
+    user_id = request.user
+    enamorado = Enamorado.objects.get(User_id=user_id)
+    boda = Boda.objects.filter(Enamorado1_id=enamorado.id)
 
-    ctx={}
+    if len(boda) == 0:
+        boda = Boda.objects.filter(Enamorado2_id=enamorado.id)    
+
+    fiesta = FiestaEvento.objects.filter(Boda_id=boda[0].id)
+    Ceremonia = CeremoniaEvento.objects.filter(Boda_id=boda[0].id)
+    luna = LunaMielEvento.objects.filter(Boda_id=boda[0].id)
+    precio_pareja = int(boda[0].Enamorado1.precio) + int(boda[0].Enamorado2.precio)
+   
+    ctx={
+        'user_id': user_id,
+        'boda_id':boda[0].id,
+        'fiesta_id':fiesta[0].id,
+        'precio_fiesta': getPriceFormat(fiesta[0].precio),
+        'precio_ceremonia': getPriceFormat(Ceremonia[0].precio),
+        'precio_luna': getPriceFormat(luna[0].precio),
+        'precio_enamorado': getPriceFormat(boda[0].Enamorado1.precio),
+        'precio_enamorado2': getPriceFormat(boda[0].Enamorado2.precio),
+        'enamorado': boda[0].Enamorado1,
+        'enamorado2': boda[0].Enamorado2,
+        'precio_pareja': getPriceFormat(precio_pareja),
+        'precio_boda': getPriceFormat(boda[0].precio)
+    }
     template = loader.get_template('TableroResumen.html')
 
     return HttpResponse(template.render(ctx, request))
