@@ -18,7 +18,7 @@ from django.urls import path, include
 from Pareja.views import Login, TableroResumen
 
 from django.conf import settings
-from BodaKaoz.views import *
+
 from django.conf.urls.static import static
 
 urlpatterns = [
@@ -31,8 +31,3 @@ urlpatterns = [
     path('fiesta/', include('Fiesta.urls', namespace="Fiesta")),
     # path('LunaMiel/', include('LunaMiel.urls', namespace="LunaMiel")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-handler404 = handler404View
-handler500 = handler404View
-handler403 = handler404View
-handler400 = handler404View

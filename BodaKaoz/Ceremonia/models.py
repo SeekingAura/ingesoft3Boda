@@ -42,3 +42,4 @@ class DecoracionCeremoniaCarrito(models.Model):
 	Decoracion=models.ForeignKey(DecoracionCeremonia, on_delete=models.CASCADE)
 	CeremoniaEvento=models.ForeignKey(CeremoniaEvento, on_delete=models.CASCADE)
 	cantidad=models.IntegerField()
+	subtotal = models.BigIntegerField(default=0)
