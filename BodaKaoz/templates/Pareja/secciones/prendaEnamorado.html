@@ -10,13 +10,13 @@
 				<h4>Prendas</h4>
 			</div>
 			<div class="col text-right">
-				<span class="btn" data-toggle="collapse" data-target="#collapseAli" aria-expanded="false" aria-controls="collapseAli">
+				<span class="btn" data-toggle="collapse" data-target="#collapsePrenda" aria-expanded="false" aria-controls="collapsePrenda">
 					<i class="material-icons">expand_more</i>
   				</span>
 			</div>
 		</div>
   	</div>
-  	<div class="collapse" id="collapseAli">
+  	<div class="collapse" id="collapsePrenda">
   		{% for a in prenda  %}
   		<div class="card-body">
 	    	<form method="POST">{% csrf_token %}
@@ -56,15 +56,14 @@
 			</div>
 		{% else %} {% comment %}Cuando no tiene seleccionado uno o más prendas{% endcomment %}
 		<div class="card-body text-center">
-			<h4 class="card-title, tittle-center, font-weight-bold">Aún no tienes agregado alguna prenda.</h4>
-			<p class="card-text, text-center">¡Presiona en agregar para escoger tus prenda!</p>
+			<h4 class="card-title, tittle-center, font-weight-bold">Deseas agregar alguna Prenda.</h4>
      		<div class="card-body">
 			    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaMasModal">¡Prenda Masculina!</button>
-			    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaFemModal">¡Agregar Femenina!</button>
-			    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaMixModal">¡Agregar Mixta!</button>
+			    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaFemModal">¡Prenda Femenina!</button>
+			    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaMixModal">¡Prendas Mixtas!</button>
 
 			</div>
-			</div>
+			
 		    {% endif %}
 	</div>
 </div>
@@ -98,10 +97,10 @@
 				    					<img class="align-self-center mr-3 little" src="{{ropa.imagen.url}}" height="150">
 				    				    <div class="media-body">
 									        <h4 class="mt-0">{{ropa.nombre}}</h4>
-									        <p class="card-text"><strong>Descripción:</strong>{{ropa.descripcion}}</p>
+									        <p class="card-text"><strong>Descripción: </strong>{{ropa.descripcion}}</p>
 									        <div class="media">
 									  			<div class="media-body">
-					        						<p class="card-text"><strong>Precio:</strong> ${{ropa.precio}}</p>
+					        						<p class="card-text"><strong>Precio: </strong> ${{ropa.precio}}</p>
 					        					</div>
 					        			    </div>
 					        			    <div class="row">
@@ -158,30 +157,37 @@
       		<div class="modal-body">
 
       		{% for  ropa in PrendasFem %}
-				<div class="container" align="center">
-
-
-						{% if ropa.id not in lista_prendas %}
+				{% if ropa.id not in lista_prendas %}
 				    	<form method="POST">{% csrf_token %}
-				    		
-				    		<img class="align-self-center mr-3 little" src="{{ropa.imagen.url}}" height="150">
-					        <h4 class="mt-0">{{ropa.nombre}}</h4>
-
-					        <p class="card-text"><strong>Descripción:</strong>{{ropa.descripcion}}</p>
-
-					        <p class="card-text"><strong>Precio:</strong> ${{ropa.precio}}</p>
-
-					        <input name="id_prenda" value="{{ropa.id}}" hidden>
-
-
-							<input name="price" value="{{ropa.precio}}" hidden>
-
-					        <button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="add_prenda">Agregar</button>
-
+				    		<div class="card mb-2">
+		  						<div class="card-body">
+			        				<div class="media">
+							    		<img class="align-self-center mr-3 little" src="{{ropa.imagen.url}}" height="150">
+							    		<div class="media-body">
+								        	<h4 class="mt-0">{{ropa.nombre}}</h4>
+									        <p class="card-text"><strong>Descripción: </strong>{{ropa.descripcion}}</p>
+									        <div class="media">
+									        	<div class="media-body">
+					       							 <p class="card-text"><strong>Precio: </strong> ${{ropa.precio}}</p>
+					       						</div>
+					       					</div>
+					       					<div class="row">
+												<div class="col text-right">
+											        <input name="id_prenda" value="{{ropa.id}}" hidden>
+													<input name="price" value="{{ropa.precio}}" hidden>
+													<div class="row">
+														<div class="col-4">
+					        								<button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="add_prenda">Agregar</button>
+					        							</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 				        </form>
 				        {% endif %}
-
-				</div>
 				{% endfor %}
 
 			</div>
@@ -218,30 +224,37 @@
       		<div class="modal-body">
 
       		{% for  ropa in PrendasMix %}
-				<div class="container" align="center">
-
-
-						{% if ropa.id not in lista_prendas %}
+				{% if ropa.id not in lista_prendas %}
 				    	<form method="POST">{% csrf_token %}
-				    		
-				    		<img class="align-self-center mr-3 little" src="{{ropa.imagen.url}}" height="150">
-					        <h4 class="mt-0">{{ropa.nombre}}</h4>
-
-					        <p class="card-text"><strong>Descripción:</strong>{{ropa.descripcion}}</p>
-
-					        <p class="card-text"><strong>Precio:</strong> ${{ropa.precio}}</p>
-
-					        <input name="id_prenda" value="{{ropa.id}}" hidden>
-
-
-							<input name="price" value="{{ropa.precio}}" hidden>
-
-					        <button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="add_prenda">Agregar</button>
-
+				    		div class="card mb-2">
+		  						<div class="card-body">
+			        				<div class="media">    		
+				    					<img class="align-self-center mr-3 little" src="{{ropa.imagen.url}}" height="150">
+				    					<div class="media-body">
+ 									        <h4 class="mt-0">{{ropa.nombre}}</h4>
+					       					<p class="card-text"><strong>Descripción:</strong>{{ropa.descripcion}}</p>
+					       					<div class="media">
+									  			<div class="media-body">
+					        						<p class="card-text"><strong>Precio:</strong> ${{ropa.precio}}</p>
+					        					</div>
+					        				</div>	
+					        				<div class="row">
+												<div class="col text-right">
+											        <input name="id_prenda" value="{{ropa.id}}" hidden>
+													<input name="price" value="{{ropa.precio}}" hidden>
+													<div class="row">
+	    												<div class="col-4">
+											        		<button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="add_prenda">Agregar</button>
+											        	</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 				        </form>
 				        {% endif %}
-
-				</div>
 				{% endfor %}
 
 			</div>

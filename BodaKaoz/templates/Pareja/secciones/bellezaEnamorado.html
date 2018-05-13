@@ -7,13 +7,13 @@
 				<h4>Belleza</h4>
 			</div>
 			<div class="col text-right">
-				<span class="btn" data-toggle="collapse" data-target="#collapseFotos" aria-expanded="false" aria-controls="collapseFotos">
+				<span class="btn" data-toggle="collapse" data-target="#collapseBelleza" aria-expanded="false" aria-controls="collapseBelleza">
 					<i class="material-icons">expand_more</i>
   				</span>
 			</div>
 		</div>
   	</div>
-  	<div class="collapse" id="collapseFotos">
+  	<div class="collapse" id="collapseBelleza">
 		{% for a in belleza  %}
 		<div class="card-body">
 	    	<form method="POST">{% csrf_token %}
