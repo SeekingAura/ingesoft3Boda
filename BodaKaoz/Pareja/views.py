@@ -304,10 +304,23 @@ def Enamorado1(request):
                 mensaje_error=  (True , "Esta prenda ya ha sido eliminada")                        
 
         template = get_template('Pareja/pareja.html')
-        belleza1 = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+        belleza = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
         prenda = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.id)
         accesorio=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)
+        #Cagar listas con lo adquirido actualmente  
+        lista_prendas.clear()
+        lista_accesorios.clear()
+        lista_bellezas.clear()  
 
+        if prenda.count()>0:
+            for a in prenda:
+               lista_prendas.append(a.Prenda.id)        
+        if belleza.count()>0:
+            for a in belleza:
+                lista_bellezas.append(a.Belleza.id)
+        if accesorio.count()>0:
+            for a in accesorio:
+                lista_accesorios.append(a.Accesorio.id) 
         context = {
 
 
@@ -587,10 +600,22 @@ def Enamorado2(request):
                 mensaje_error=  (True , "Esta prenda ya ha sido eliminada")                        
 
         template = get_template('Pareja/pareja.html')
-        belleza1 = BellezaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+        belleza = BellezaCarrito.objects.filter(Enamorado_id=enamorado2.id)
         prenda = PrendaCarrito.objects.filter(Enamorado_id=enamorado2.id)
         accesorio=AccesorioCarrito.objects.filter(Enamorado_id=enamorado2.id)
+        lista_prendas.clear()
+        lista_accesorios.clear()
+        lista_bellezas.clear()  
 
+        if prenda.count()>0:
+            for a in prenda:
+               lista_prendas.append(a.Prenda.id)        
+        if belleza.count()>0:
+            for a in belleza:
+                lista_bellezas.append(a.Belleza.id)
+        if accesorio.count()>0:
+            for a in accesorio:
+                lista_accesorios.append(a.Accesorio.id)
         context = {
 
 
