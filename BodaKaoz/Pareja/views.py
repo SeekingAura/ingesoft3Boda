@@ -23,297 +23,297 @@ from .utils import getPriceFormat
 
 @login_required(login_url='index')
 def TableroResumen(request):
-    user_id = request.user
-    enamorado = Enamorado.objects.get(User_id=user_id)
-    boda = Boda.objects.filter(Enamorado1_id=enamorado.id)
+	user_id = request.user
+	enamorado = Enamorado.objects.get(User_id=user_id)
+	boda = Boda.objects.filter(Enamorado1_id=enamorado.id)
 
-    if len(boda) == 0:
-        boda = Boda.objects.filter(Enamorado2_id=enamorado.id)    
+	if len(boda) == 0:
+		boda = Boda.objects.filter(Enamorado2_id=enamorado.id)    
 
-    fiesta = FiestaEvento.objects.filter(Boda_id=boda[0].id)
-    Ceremonia = CeremoniaEvento.objects.filter(Boda_id=boda[0].id)
-    luna = LunaMielEvento.objects.filter(Boda_id=boda[0].id)
-    precio_pareja = int(boda[0].Enamorado1.precio) + int(boda[0].Enamorado2.precio)
-   
-    ctx={
-        'user_id': user_id,
-        'boda_id':boda[0].id,
-        'fiesta_id':fiesta[0].id,
-        'precio_fiesta': getPriceFormat(fiesta[0].precio),
-        'precio_ceremonia': getPriceFormat(Ceremonia[0].precio),
-        'precio_luna': getPriceFormat(luna[0].precio),
-        'precio_enamorado': getPriceFormat(boda[0].Enamorado1.precio),
-        'precio_enamorado2': getPriceFormat(boda[0].Enamorado2.precio),
-        'enamorado': boda[0].Enamorado1,
-        'enamorado2': boda[0].Enamorado2,
-        'precio_pareja': getPriceFormat(precio_pareja),
-        'precio_boda': getPriceFormat(boda[0].precio)
-    }
-    template = loader.get_template('TableroResumen.html')
+	fiesta = FiestaEvento.objects.filter(Boda_id=boda[0].id)
+	ceremonia = CeremoniaEvento.objects.filter(Boda_id=boda[0].id)
+	luna = LunaMielEvento.objects.filter(Boda_id=boda[0].id)
+	precio_pareja = int(boda[0].Enamorado1.precio) + int(boda[0].Enamorado2.precio)
+	ctx={
+		'user_id': user_id,
+		'boda_id':boda[0].id,
+		'fiesta_id':fiesta[0].id,
+		'ceremonia_id':ceremonia[0].id,
+		'precio_fiesta': getPriceFormat(fiesta[0].precio),
+		'precio_ceremonia': getPriceFormat(ceremonia[0].precio),
+		'precio_luna': getPriceFormat(luna[0].precio),
+		'precio_enamorado': getPriceFormat(boda[0].Enamorado1.precio),
+		'precio_enamorado2': getPriceFormat(boda[0].Enamorado2.precio),
+		'enamorado': boda[0].Enamorado1,
+		'enamorado2': boda[0].Enamorado2,
+		'precio_pareja': getPriceFormat(precio_pareja),
+		'precio_boda': getPriceFormat(boda[0].precio)
+	}
+	template = loader.get_template('TableroResumen.html')
 
-    return HttpResponse(template.render(ctx, request))
+	return HttpResponse(template.render(ctx, request))
 
 
 def Index(request):
-    ctx={}
-    template = loader.get_template('Pareja/index.html')
+	ctx={}
+	template = loader.get_template('Pareja/index.html')
 
-    return HttpResponse(template.render(ctx, request))
-    
+	return HttpResponse(template.render(ctx, request))
+	
 def Logout(request):
-    if request.user is not None:
+	if request.user is not None:
 
-        logout(request)
-    return redirect('index')
+		logout(request)
+	return redirect('index')
 
 @login_required(login_url='index')
 def Pareja(request):  
 
-    template = loader.get_template('Pareja/pareja.html')
-    if request.method == 'GET':
+	template = loader.get_template('Pareja/pareja.html')
+	if request.method == 'GET':
 
-        print(request.user)
-        user_id= request.user
+		print(request.user)
+		user_id= request.user
 
-        user = User.objects.filter(username=user_id)
-        print(user)
+		user = User.objects.filter(username=user_id)
+		print(user)
 
-        enamorado1 = Enamorado.objects.get(User_id=user_id)
+		enamorado1 = Enamorado.objects.get(User_id=user_id)
 
-        print(enamorado1)    
+		print(enamorado1)    
 
-        user_id= request.user
+		user_id= request.user
 
-        Bellezas = Belleza.objects.all()
+		Bellezas = Belleza.objects.all()
 
-        Prendas = Prenda.objects.all()
+		Prendas = Prenda.objects.all()
 
-        Accesorios = Accesorio.objects.all()
-
-
-        belleza = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
-
-        prenda = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.id)
-
-        accesorio=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)
+		Accesorios = Accesorio.objects.all()
 
 
+		belleza = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
 
-        
+		prenda = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.id)
 
-        context = {
+		accesorio=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)
 
 
 
-            'enamorado' : enamorado1,
+		
 
-            'belleza' : belleza,
-
-            'Bellezas' : Bellezas,
-
-            'prenda' : prenda,
-
-            'Prendas' : Prendas,
-
-            'accesorio' : accesorio,
-
-            'Accesorios' : Accesorios,
-
-            'precio' : enamorado1.precio
-
-        }
-        # print ("contexto", context)
-
-        return HttpResponse(template.render(context, request))    
-    
-
-
-    if request.method == 'POST':
-        
-        # print(request.user)
-        user_id= request.user
-
-        user = User.objects.filter(username=user_id)
-        # print(user)
-
-        enamorado1 = Enamorado.objects.get(User_id=user_id)
-
-        # print(enamorado1)    
-
-        user_id= request.user
-
-        Bellezas = Belleza.objects.all()
-
-        Prendas = Prenda.objects.all()
-
-        Accesorios = Accesorio.objects.all()
-
-
-        belleza = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.cedula)
-
-        prenda = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.cedula)
-
-        accesorio=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.cedula)
-        boda_id = request.GET.get('boda_id')
-
-        value_btn = request.POST.get('btn_value')
+		context = {
 
 
 
+			'enamorado' : enamorado1,
+
+			'belleza' : belleza,
+
+			'Bellezas' : Bellezas,
+
+			'prenda' : prenda,
+
+			'Prendas' : Prendas,
+
+			'accesorio' : accesorio,
+
+			'Accesorios' : Accesorios,
+
+			'precio' : enamorado1.precio
+
+		}
+		# print ("contexto", context)
+
+		return HttpResponse(template.render(context, request))    
+	
 
 
-        if value_btn == "delete_prenda":
+	if request.method == 'POST':
+		
+		# print(request.user)
+		user_id= request.user
 
-            prenda_id = request.POST.get('prenda_id')
+		user = User.objects.filter(username=user_id)
+		# print(user)
 
-            carrito_prenda_id = request.POST.get('carrito_prenda_id')
+		enamorado1 = Enamorado.objects.get(User_id=user_id)
 
-            prendacarrito = PrendaCarrito.objects.filter(id__exact=carrito_prenda_id)
-            # print ("Prendaaaaaaaaaaaaaa",prendacarrito)
-            prendacarrito.delete()
+		# print(enamorado1)    
+
+		user_id= request.user
+
+		Bellezas = Belleza.objects.all()
+
+		Prendas = Prenda.objects.all()
+
+		Accesorios = Accesorio.objects.all()
+
+
+		belleza = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.cedula)
+
+		prenda = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.cedula)
+
+		accesorio=AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.cedula)
+		boda_id = request.GET.get('boda_id')
+
+		value_btn = request.POST.get('btn_value')
+
+
+
+
+
+		if value_btn == "delete_prenda":
+
+			prenda_id = request.POST.get('prenda_id')
+
+			carrito_prenda_id = request.POST.get('carrito_prenda_id')
+
+			prendacarrito = PrendaCarrito.objects.filter(id__exact=carrito_prenda_id)
+			# print ("Prendaaaaaaaaaaaaaa",prendacarrito)
+			prendacarrito.delete()
  
-        context = {
+		context = {
 
 
 
-            'enamorado' : enamorado1,
+			'enamorado' : enamorado1,
 
-            'belleza' : belleza,
+			'belleza' : belleza,
 
-            'Bellezas' : Bellezas,
+			'Bellezas' : Bellezas,
 
-            'prenda' : prenda,
+			'prenda' : prenda,
 
-            'Prendas' : Prendas,
+			'Prendas' : Prendas,
 
-            'accesorio' : accesorio,
+			'accesorio' : accesorio,
 
-            'Accesorios' : Accesorios,
+			'Accesorios' : Accesorios,
 
-            'precio' : enamorado1.precio
+			'precio' : enamorado1.precio
 
-        }           
-        return HttpResponse(template.render(context, request))       
-    
+		}           
+		return HttpResponse(template.render(context, request))       
+	
    
 def Login(request):
 
-    error = (False, "")
-    user=None 
+	error = (False, "")
+	user=None 
 
-    if request.method == "POST":
+	if request.method == "POST":
 
-        username = request.POST.get('username')
+		username = request.POST.get('username')
 
-        password = request.POST.get('password')
-
-
-
-        usuario = User.objects.filter(username=username)
-
-        if len(usuario) != 0:
-
-            user = authenticate(username=username, password=password)
-
-            if user is not None:
-
-                login(request, user)
-                ctx = {
-
-                        'error': error, 'user': user,
-
-                }
-                return redirect('tableroResumen')
-
-            else:
-
-                error = (True, "Password no valida")
-
-        else:
-
-            error = (True, "No existe el usuario " + username)
+		password = request.POST.get('password')
 
 
 
-    template = loader.get_template('Pareja/index.html')
+		usuario = User.objects.filter(username=username)
 
-    ctx = {
+		if len(usuario) != 0:
 
-        'error': error, 
+			user = authenticate(username=username, password=password)
 
-    }
+			if user is not None:
 
-    return HttpResponse(template.render(ctx, request))
+				login(request, user)
+				ctx = {
+
+						'error': error, 'user': user,
+
+				}
+				return redirect('tableroResumen')
+
+			else:
+
+				error = (True, "Password no valida")
+
+		else:
+
+			error = (True, "No existe el usuario " + username)
+
+
+
+	template = loader.get_template('Pareja/index.html')
+
+	ctx = {
+
+		'error': error, 
+
+	}
+
+	return HttpResponse(template.render(ctx, request))
 # Create your views here.
 
 
 
 def Registro(request):
 
-        
+		
 
-        if request.method == "GET":
-            mensaje = (False, "")
-            template = loader.get_template('Pareja/registro.html') # get template
+		if request.method == "GET":
+			mensaje = (False, "")
+			template = loader.get_template('Pareja/registro.html') # get template
 
-            ctx = {
+			ctx = {
 
-            'mensaje': mensaje,
+			'mensaje': mensaje,
 
-            }                                    # Contexto o variables
+			}                                    # Contexto o variables
 
-            return HttpResponse(template.render(ctx, request))
+			return HttpResponse(template.render(ctx, request))
 
-        if request.method == "POST":
-            #DATOS HOMMBRE
-            nombre_persona1 = request.POST.get("nombreMEN")
+		if request.method == "POST":
+			#DATOS HOMMBRE
+			nombre_persona1 = request.POST.get("nombreMEN")
 
-            apellido_persona1 = request.POST.get("apellidoMEN")
+			apellido_persona1 = request.POST.get("apellidoMEN")
 
-            documento_persona1 = request.POST.get("identificacionMEN")
+			documento_persona1 = request.POST.get("identificacionMEN")
 
-            telefono1 = request.POST.get("telefonoMEN")
+			telefono1 = request.POST.get("telefonoMEN")
 
-            email1 = request.POST.get("emailMEN")
+			email1 = request.POST.get("emailMEN")
 
-            #DATOS MUJER
-            nombre_persona2 = request.POST.get("nombreWOMAN")
+			#DATOS MUJER
+			nombre_persona2 = request.POST.get("nombreWOMAN")
 
-            apellido_persona2 = request.POST.get("apellidoWOMAN")
+			apellido_persona2 = request.POST.get("apellidoWOMAN")
 
-            documento_persona2 = request.POST.get("identificacionWOMAN")
+			documento_persona2 = request.POST.get("identificacionWOMAN")
 
-            telefono2 = request.POST.get("telefonoWOMAN")
+			telefono2 = request.POST.get("telefonoWOMAN")
 
-            email2 = request.POST.get("emailWOMAN")
+			email2 = request.POST.get("emailWOMAN")
 
-            contrasena = request.POST.get("password")
-            # print("holaaa")
-            user1=User.objects.create(first_name=nombre_persona1,last_name=apellido_persona1, email=email1, username=documento_persona1)
-                
-            
-            user1.set_password(contrasena)
-            user1.save()            
-            user2=User.objects.create(first_name=nombre_persona2, last_name=apellido_persona2, email=email2, username=documento_persona2)
-            user2.set_password(contrasena)
-            user2.save()
+			contrasena = request.POST.get("password")
+			# print("holaaa")
+			user1=User.objects.create(first_name=nombre_persona1,last_name=apellido_persona1, email=email1, username=documento_persona1)
+				
+			
+			user1.set_password(contrasena)
+			user1.save()            
+			user2=User.objects.create(first_name=nombre_persona2, last_name=apellido_persona2, email=email2, username=documento_persona2)
+			user2.set_password(contrasena)
+			user2.save()
 
-            #creacion enamorados
-            enamorado1=Enamorado.objects.create(User=user1, cedula=documento_persona1, telefono=telefono1)
-            enamorado1.save()
-            enamorado2=Enamorado.objects.create(User=user2, cedula=documento_persona2, telefono=telefono2)
-            enamorado2.save() 
-            
-            #creacion de Boda
-            Boda1=Boda.objects.create(Enamorado1=enamorado1,Enamorado2=enamorado2)
-            Boda1.save()
-            #CREACION CEREMONIA
-            CeremoniaEvento1=CeremoniaEvento.objects.create(Boda=Boda1)
-            #CREACION FIESTA
-            FiestaEvento1=FiestaEvento.objects.create(Boda=Boda1)
-            #CREACION LUNA DE MIEL
-            LunaMielEvento1=LunaMielEvento.objects.create(Boda=Boda1)
-            
-            mensaje = (True, "La persona fue ingresada en el sistema")
+			#creacion enamorados
+			enamorado1=Enamorado.objects.create(User=user1, cedula=documento_persona1, telefono=telefono1)
+			enamorado1.save()
+			enamorado2=Enamorado.objects.create(User=user2, cedula=documento_persona2, telefono=telefono2)
+			enamorado2.save() 
+			
+			#creacion de Boda
+			Boda1=Boda.objects.create(Enamorado1=enamorado1,Enamorado2=enamorado2)
+			Boda1.save()
+			#CREACION CEREMONIA
+			CeremoniaEvento1=CeremoniaEvento.objects.create(Boda=Boda1)
+			#CREACION FIESTA
+			FiestaEvento1=FiestaEvento.objects.create(Boda=Boda1)
+			#CREACION LUNA DE MIEL
+			LunaMielEvento1=LunaMielEvento.objects.create(Boda=Boda1)
+			
+			mensaje = (True, "La persona fue ingresada en el sistema")
 
-            return redirect('index')
+			return redirect('index')

@@ -35,12 +35,16 @@ class Belleza(models.Model):
 	precio=models.BigIntegerField(default=0)
 	class Meta:
 		app_label = 'Pareja'
+	def __str__(self):
+		return self.maquillaje
 
 class BellezaCarrito(models.Model):
 	Enamorado=models.ForeignKey(Enamorado, on_delete=models.CASCADE)
 	Belleza=models.ForeignKey(Belleza, on_delete=models.CASCADE)
 	class Meta:
 		app_label = 'Pareja'
+	def __str__(self):
+		return self.Enamorado.__str__+" <-> "+self.Belleza.__str__
 		
 class Accesorio(models.Model):
 	nombre=models.CharField(max_length=50)
