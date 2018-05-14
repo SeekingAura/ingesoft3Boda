@@ -4,27 +4,27 @@ from Domain.models import *
 # LunaMiel - Models
 
 class Plan(models.Model):
-	nombre=models.CharField(max_length=50)
-	descripcion=models.CharField(max_length=50)
+	nombre=models.CharField(max_length=250)
+	descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
 	class Meta:
 		verbose_name = "Plan"
 		verbose_name_plural = "Planes"
 		
 class Actividad(models.Model):
 	Plan=models.ForeignKey(Plan, on_delete=models.CASCADE)
-	nombre=models.CharField(max_length=50)
+	nombre=models.CharField(max_length=250)
 	imagen=models.ImageField(null=True, blank=True, default=None)
-	precio=models.IntegerField(default=0)
+	precio=models.BigIntegerField(default=0)
 	class Meta:
 		verbose_name = "Actividad"
 		verbose_name_plural = "Actividades"
 		
 class Hotel(models.Model):
-	nombre=models.CharField(max_length=50)
-	descripcion=models.CharField(max_length=50)
+	nombre=models.CharField(max_length=250)
+	descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
 	calificacion=models.IntegerField()
 	imagen=models.ImageField(null=True, blank=True, default=None)
-	precio=models.IntegerField(default=0)
+	precio=models.BigIntegerField(default=0)
 	class Meta:
 		verbose_name = "Hotel"
 		verbose_name_plural = "Hoteles"
@@ -45,7 +45,7 @@ class HotelPlan(models.Model):
 
 class LunaMielEvento(models.Model):
 	Boda=models.ForeignKey(Boda, on_delete=models.CASCADE)
-	precio=models.IntegerField(default=0)
+	precio=models.BigIntegerField(default=0)
 		
 class ActividadCarrito(models.Model):
 	LunaMielEvento=models.ForeignKey(LunaMielEvento, on_delete=models.CASCADE)

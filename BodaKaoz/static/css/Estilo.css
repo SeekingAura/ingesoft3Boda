@@ -1,0 +1,100 @@
+#nav {
+
+	height: 20%;
+}
+
+#logop {
+	padding: 0% 30%;
+}
+#logopri {
+ 	padding-right: 20%;
+	
+}
+
+#logo {
+	height: 80%;
+	margin-bottom: 2%;
+	margin-right: 45%;
+	
+}
+
+#der{
+
+	height: 5%;
+	color: white;
+}
+
+#textder{
+
+	margin-left: 35%;
+	margin-top: 1%;
+	font-family:'Roboto';
+
+}
+
+#img {
+
+	height: 85%;
+	width: 120%;
+	margin-top: 30%;
+	margin-left: -30%;
+	padding: 2% 2%;
+	
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 50px; 
+
+}
+
+#img2 {
+
+	height: 85%;
+	width: 120%;
+	margin-top: 30%;
+	margin-left: -10%;
+	padding: 2% 2%;
+    border-radius: 40px;
+
+}
+
+#img3 {
+
+	height: 85%;
+	width: 120%;
+	margin-top: 30%;
+	margin-left: 10%;
+	padding: 2% 2%;
+	border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px; 
+
+
+}
+
+#text{
+	color: #005f93;
+	margin-top: 3%;
+	margin-left: 22%;
+	font-size: 190%;
+	font-family:'Roboto';
+}
+
+#anuncio{
+	font-size: 100%;
+	margin-bottom: -1%;
+	color: white;
+	font-family:'Roboto';
+
+}
+
+#title{
+	color: white;
+	margin-left: 1%;
+	margin-top: 2%;
+	font-family:'Roboto';
+	font-size: 150%;
+
+
+}
+
+#cont{
+	margin-top: 2%;
+}
