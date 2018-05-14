@@ -5,15 +5,16 @@ from Domain.models import *
 
 
 class Plan(models.Model):
-    nombre=models.CharField(max_length=50)
-    descripcion=models.CharField(max_length=50)
+<<<<<<< HEAD
+    nombre=models.CharField(max_length=250)
+    descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
     class Meta:
         verbose_name = "Plan"
         verbose_name_plural = "Planes"
 
 
 class Actividad(models.Model):
-    nombre=models.CharField(max_length=50)
+    nombre=models.CharField(max_length=250)
     imagen=models.ImageField(null=True, blank=True, default=None)
     precio=models.BigIntegerField(default=0)
     class Meta:
@@ -22,8 +23,8 @@ class Actividad(models.Model):
 
 
 class Hotel(models.Model):
-    nombre=models.CharField(max_length=50)
-    descripcion=models.CharField(max_length=50)
+    nombre=models.CharField(max_length=250)
+    descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
     calificacion=models.IntegerField()
     imagen=models.ImageField(null=True, blank=True, default=None)
     precio=models.BigIntegerField(default=0)
