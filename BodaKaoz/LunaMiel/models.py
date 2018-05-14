@@ -5,7 +5,6 @@ from Domain.models import *
 
 
 class Plan(models.Model):
-<<<<<<< HEAD
     nombre=models.CharField(max_length=250)
     descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
     class Meta:
