@@ -1,5 +1,4 @@
 <div class="card text-center">
-	<h5 class="card-text">{{enamorado.User.first_name}}</h5>
 </div>	
 	{% load staticfiles %}
 
@@ -226,7 +225,7 @@
       		{% for  ropa in PrendasMix %}
 				{% if ropa.id not in lista_prendas %}
 				    	<form method="POST">{% csrf_token %}
-				    		div class="card mb-2">
+				    		<div class="card mb-2">
 		  						<div class="card-body">
 			        				<div class="media">    		
 				    					<img class="align-self-center mr-3 little" src="{{ropa.imagen.url}}" height="150">
@@ -253,6 +252,7 @@
 									</div>
 								</div>
 							</div>
+							
 				        </form>
 				        {% endif %}
 				{% endfor %}

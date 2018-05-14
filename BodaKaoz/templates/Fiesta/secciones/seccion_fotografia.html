@@ -1,52 +1,32 @@
-
-<style type="text/css">
-  .card{
-    margin: 20px;
-  }
-
-  .card-body{
-    text-align: center;
-    justify-content: center;
-  }
-
-  .card-title{
-    font-weight: bold;
-  }
-
-  .card-header-text{
-    font-weight: bold;
-  }
-
-  .btn{
-    font-weight: bold;
-  }
-</style>
-
-{% if not flag_foto %} {% comment %} Card para agregar fotografias {% endcomment %}
-<div class="card">
-	<div class="card-header">
-		<h5 class="card-header-text">¿Fotografías en tu fiesta?</h5>
-	</div>
-	<div class="card-body">
-    <form method="POST">{% csrf_token %}
-      <h5 class="card-title">Las fotografías para tu fiesta se encuentran desactivadas</h5>
-      <p class="card-text">Si quieres que un fotógrafo esté en tu fiesta capturando cada momento, presiona Añadir.</p>
-      <button type="submit" class="btn btn-lg btn-primary" name="btn_value" id="add_fotos" value="add_foto">Añadir</button>
-    </form>
-	</div>
-</div>	
-{% else %} {% comment %} Card para quitar las fotografias {% endcomment %}
-<div class="card">
-	<div class="card-header">
-		<h5 class="card-header-text">¿Fotografías en tu fiesta?</h5>
-	</div>
-	<div class="card-body">
-    <form method="POST">{% csrf_token %}
-		  <h5 class="card-title">Las fotografías para tu fiesta se encuentran activadas</h5>
-		  <p class="card-text">Tus recuerdos quedaran plasmados en fotografías de alta calidad.</p>
-      <button type="submit" class="btn btn-lg btn-danger" name="btn_value" id="del_fotos" value="delete_foto">Remover</button>
-    </form>
-	</div>
+{% load staticfiles %}
+<div class="card border-dark mb-2">
+  <div class="card-header bg-transparent">
+    <div class="row justify-content-between">
+      <div class="col">
+        <h4>Fotografía</h4>
+      </div>
+      <div class="col text-right">
+        <span class="btn" data-toggle="collapse" data-target="#collapseFotos" aria-expanded="false" aria-controls="collapseFotos">
+          <i class="material-icons">expand_more</i>
+          </span>
+      </div>
+    </div>
+    </div>
+    <div class="collapse" id="collapseFotos">
+    {% if flag_foto %}
+    <div class="card-body text-center">
+      <form method="POST">{% csrf_token %}
+          <p>¿Deseas remover la toma de fotografias en su ceremonia?</p>
+          <button type="submit" class="btn btn-danger" value="delete_foto" name="btn_value">Remover</button>
+        </form>
+      </div>
+    {% else %}
+    <div class="card-body text-center">
+      <form method="POST">{% csrf_token %}
+          <p>Una imagen vale más que mil palabras ¿Por qué no hacer de la ceremonia algo memorable?</p>
+          <button type="submit" class="btn btn-primary" value="add_foto" name="btn_value">¡Agregar toma de fotografías!</button>
+        </form>
+      </div>
+      {% endif %}
+  </div>
 </div>
-{% endif %}
-
