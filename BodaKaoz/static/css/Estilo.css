@@ -1,13 +1,18 @@
 #nav {
 
-	height: 25%;
+	height: 20%;
 }
 
 #logop {
 	padding: 0% 30%;
 }
+#logopri {
+ 	padding-right: 20%;
+	
+}
+
 #logo {
-	height: 70%;
+	height: 80%;
 	margin-bottom: 2%;
 	margin-right: 45%;
 	
@@ -23,6 +28,7 @@
 
 	margin-left: 35%;
 	margin-top: 1%;
+	font-family:'Roboto';
 
 }
 
@@ -65,25 +71,30 @@
 
 #text{
 	color: #005f93;
-	font: oblique bold 120% cursive;
 	margin-top: 3%;
-	margin-left: 20%;
-	font-size: 190%
+	margin-left: 22%;
+	font-size: 190%;
+	font-family:'Roboto';
 }
 
 #anuncio{
-	font-size: 80%;
-	margin-bottom: -4%;
-	font: oblique bold 80% cursive;
+	font-size: 100%;
+	margin-bottom: -1%;
 	color: white;
+	font-family:'Roboto';
 
 }
 
 #title{
 	color: white;
-	font: oblique bold 120% cursive;
 	margin-left: 1%;
 	margin-top: 2%;
+	font-family:'Roboto';
+	font-size: 150%;
 
 
+}
+
+#cont{
+	margin-top: 2%;
 }

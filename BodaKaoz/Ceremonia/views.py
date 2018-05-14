@@ -7,6 +7,7 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from Domain.models import *
 from .models import *
+from Fiesta.models import FiestaEvento
 
 # Create your views here.
 
@@ -32,6 +33,9 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 
 	boda = Boda.objects.filter(id__exact=boda_id)
 	ceremonia = CeremoniaEvento.objects.get(Boda_id=boda_id)
+
+	fiesta = FiestaEvento.objects.get(Boda_id=boda_id)
+
 
 	if str(ceremonia_id) != str(ceremonia.id):
 		return redirect('tableroResumen')
@@ -98,7 +102,13 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 			'decoraciones':decoraciones,
 			'decoraciones_car':decoraciones_car,
 			'flag_decoracion':flag_decoracion,
-			'indices_decoraciones': indices_decoraciones
+			'indices_decoraciones': indices_decoraciones,
+			'user_id': user_id,
+			'boda_id': boda_id,
+			'ceremonia_id' : ceremonia.id,
+			'fiesta_id': fiesta.id,
+			'enamoradoNombre': boda.Enamorado1,
+			'enamoradoNombre2': boda.Enamorado2
 
 		}
 		return HttpResponse(template.render(ctx,request))
@@ -276,7 +286,13 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 			'musicas' : musicas,
 			'decoraciones':decoraciones,
 			'decoraciones_car':decoraciones_car,
-			'indices_decoraciones': indices_decoraciones
+			'indices_decoraciones': indices_decoraciones,
+			'user_id': user_id,
+			'boda_id': boda_id,
+			'ceremonia_id' : ceremonia.id,
+			'fiesta_id': fiesta.id,
+			'enamoradoNombre': boda.Enamorado1,
+			'enamoradoNombre2': boda.Enamorado2
 
 
 		}

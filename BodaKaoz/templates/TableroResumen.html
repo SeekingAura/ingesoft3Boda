@@ -1,13 +1,151 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>TABLERO RESUMEN</title>
-</head>
-<body>
-	hola
-	<a href="{% url 'Pareja:cerrar-sesion' %}">cerrar sesion</a>
-	<a href="{% url 'Pareja:pareja' %}">Pareja</a>
-	<a href="{% url 'Ceremonia:dashboard' user_id boda_id ceremonia_id %}">Ceremonia</a>
+{% extends "base/base.html" %}
+	{% block name_mod %}
+		<div class="card-header border-dark">
+	    	Resumen de tu boda
+	  	</div>	
+	{% endblock name_mod %}
 
-</body>
-</html>
+	{% block content %}
+
+	<div class="card border-dark mb-2">
+		<div class="card-header bg-transparent">
+			<div class="row justify-content-between">
+				<div class="col">
+					<h4>Fiesta</h4>
+				</div>
+				<div class="col text-right">
+					<span class="btn" data-toggle="collapse" data-target="#collapseFiesta" aria-expanded="false" aria-controls="collapseFiesta">
+						<i class="material-icons">expand_more</i>
+	  				</span>
+				</div>
+			</div>
+	  	</div>
+	  	<div class="collapse" id="collapseFiesta">
+	 		<div class="card-body">
+	 			<div class="container">
+				  <div class="row mt-4">
+				    <div class="col text-left">
+				      <h1>Costo Fiesta:</h1>
+				    </div>
+				    <div class="col text-right">
+				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_fiesta}}</strong></h1>
+				    </div>
+				  </div>
+				  <div id="button">
+				  	<a type="button" class="btn btn-primary" href="{% url 'Fiesta:dashboard' user_id boda_id fiesta_id %}">Ir a fiesta</a>
+				  </div>
+				</div>
+	  		</div>
+		</div>
+	</div>
+
+	<div class="card border-dark mb-2">
+		<div class="card-header bg-transparent">
+			<div class="row justify-content-between">
+				<div class="col">
+					<h4>Ceremonia</h4>
+				</div>
+				<div class="col text-right">
+					<span class="btn" data-toggle="collapse" data-target="#collapseCeremonia" aria-expanded="false" aria-controls="collapseCeremonia">
+						<i class="material-icons">expand_more</i>
+	  				</span>
+				</div>
+			</div>
+	  	</div>
+	  	<div class="collapse" id="collapseCeremonia">
+	 		<div class="card-body">
+	 			<div class="container">
+				  <div class="row mt-4">
+				    <div class="col text-left">
+				      <h1>Costo Ceremonia:</h1>
+				    </div>
+				    <div class="col text-right">
+				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_ceremonia}}</strong></h1>
+				    </div>
+				  </div>
+				  <div id="button">
+				  	<a type="button" class="btn btn-primary" href="{% url 'Ceremonia:dashboard' user_id boda_id ceremonia_id %}">Ir a ceremonia</a>
+				  </div>
+				</div>
+	  		</div>
+		</div>
+	</div>
+
+	<div class="card border-dark mb-2">
+		<div class="card-header bg-transparent">
+			<div class="row justify-content-between">
+				<div class="col">
+					<h4>Luna de miel</h4>
+				</div>
+				<div class="col text-right">
+					<span class="btn" data-toggle="collapse" data-target="#collapseLuna" aria-expanded="false" aria-controls="collapseLuna">
+						<i class="material-icons">expand_more</i>
+	  				</span>
+				</div>
+			</div>
+	  	</div>
+	  	<div class="collapse" id="collapseLuna">
+	 		<div class="card-body">
+	 			<div class="container">
+				  <div class="row mt-4">
+				    <div class="col text-left">
+				      <h1>Costo Luna de miel:</h1>
+				    </div>
+				    <div class="col text-right">
+				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_luna}}</strong></h1>
+				    </div>
+				  </div>
+				  <div id="button">
+				  	<a type="button" class="btn btn-primary" href="#">Ir a Luna de miel</a>
+				  </div>
+				</div>
+	  		</div>
+		</div>
+	</div>
+
+	<div class="card border-dark mb-2">
+		<div class="card-header bg-transparent">
+			<div class="row justify-content-between">
+				<div class="col">
+					<h4>Pareja</h4>
+				</div>
+				<div class="col text-right">
+					<span class="btn" data-toggle="collapse" data-target="#collapsePareja" aria-expanded="false" aria-controls="collapsePareja">
+						<i class="material-icons">expand_more</i>
+	  				</span>
+				</div>
+			</div>
+	  	</div>
+	  	<div class="collapse" id="collapsePareja">
+	 		<div class="card-body">
+	 			<div class="container">
+				  <div class="row mt-4">
+				    <div class="col text-left">
+				      <h1>Costo para enamorado {{enamoradoNombre.User.first_name}} {{enamoradoNombre.User.last_name}}:</h1>
+				      <h1>Costo para enamorado {{enamoradoNombre2.User.first_name}} {{enamoradoNombre2.User.last_name}}:</h1>
+				      <h1>Costo total pareja:</h1>
+				    </div>
+				    <div class="col text-right">
+				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_enamorado}}</strong></h1>
+				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_enamorado2}}</strong></h1>
+				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_pareja}}</strong></h1>
+				    </div>
+				  </div>
+				</div>
+	  		</div>
+		</div>
+	</div>
+
+	<div class="container">
+	  <div class="row mt-4">
+	    <div class="col text-left">
+	      <h1>Costo Boda:</h1>
+	    </div>
+	    <div class="col text-right">
+	      <h1 class="display-4 text-info precioResumen"><strong>${{precio_boda}}</strong></h1>
+	    </div>
+	  </div>
+	</div>
+
+
+	{% endblock content %}
