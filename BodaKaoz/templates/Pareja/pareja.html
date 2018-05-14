@@ -1,56 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	<div class="card text-center">
+{% extends "base/base.html" %}
+{% load staticfiles %}
 
-	    <h5 class="card-header">¿Mis prendas?</h5>
+{% block title %}
+<link href="{% static 'css/Pareja/style_accesorio.css' %}" rel="stylesheet" />
+<link href="{% static 'css/Fiesta/style_comidas.css' %}" rel="stylesheet" />
+<link href="{% static 'css/Pareja/style.css' %}" rel="stylesheet" />
+{% if mensaje.0 %}
+		<div class="alert alert-warning" role="alert">
+	  		{{mensaje.1}} !
+		</div>
+	{% endif %}
 
-	</div>
+	{% if mensaje_succes.0 %}
+		<div class="alert alert-info" role="alert">
+	  		{{mensaje_succes.1}} !
+		</div>
+	{% endif %}
 
-	{% for a in prenda  %}
+	{% if mensaje_delete.0 %}
+		<div class="alert alert-info" role="alert">
+	  		{{mensaje_delete.1}} !
+		</div>
+	{% endif %}
+{% endblock title %}
 
-		<div class="container" align="center">
+{% block name_mod %}
+	<div class="card-header border-dark">
+    	Enamorado - {{ enamorado.User.first_name }} {{ enamorado.User.last_name }}
+  	</div>
+{% endblock name_mod %}
 
+{% block content %}
+	{% include "Pareja/secciones/prendaEnamorado.html" %}
+	{% include "Pareja/secciones/bellezaEnamorado.html" %}
+	{% include "Pareja/secciones/accesorioEnamorado.html" %}
+	{% include "Pareja/secciones/precio.html" %}
 	
 
-		    	<form method="POST">{% csrf_token %}
-
-			        <h4 {{a.Prenda.nombre}}</h4>
-
-			        <p class="card-text"><strong>Descripción:</strong>{{a.Prenda.descripcion}}</p>
-
-			        <p class="card-text"><strong>Precio:</strong> ${{a.Prenda.precio}}</p>
-
-			        <input name="carrito_prenda_id" value="{{a.id}}" hidden>
-
-					<input name="prenda_id" value="{{a.Prenda.id}}" hidden>
-
-					<input name="price" value="{{a.Prenda.precio}}" hidden>
-
-			        <button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="delete_prenda">Eliminar</button>
-
-		        </form>
-
-
-		</div>
-
-	{% endfor %}
-
-	<div class="card text-center">
-
-	    <div class="card-body">
-
-	        <h4 class="card-title, tittle-center, font-weight-bold">¿Deseas agregar algo más?</h4>
-
-	        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ComidaModal">Añadir</button>
-
-	    </div>
+{% endblock content %}
 
 
 
-	</div>
-</body>
-</html>

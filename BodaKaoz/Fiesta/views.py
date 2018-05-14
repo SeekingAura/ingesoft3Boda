@@ -3,6 +3,7 @@ from django.template.loader import get_template
 from Domain.models import Boda
 from Domain.models import Lugar
 from .models import FiestaEvento, AlimentoCarrito, Alimento, EntretenimientoCarrito, Entretenimiento
+from Ceremonia.models import CeremoniaEvento
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.shortcuts import redirect
@@ -31,6 +32,9 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 
 	boda = Boda.objects.filter(id__exact=boda_id)
 	fiesta = FiestaEvento.objects.get(Boda_id=boda_id)
+	ceremonia = CeremoniaEvento.objects.get(Boda_id=boda_id)
+
+
 	alimento = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 	entretenimiento = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 	indices_alimentos = []
@@ -131,7 +135,10 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 			'precio' : getPriceFormat(fiesta.precio),
 			'user_id': user_id,
 			'boda_id': boda_id,
-			'fiesta_id':fiesta_id
+			'fiesta_id':fiesta_id,
+			'ceremonia_id':ceremonia.id,
+			'enamoradoNombre': boda[0].Enamorado1,
+			'enamoradoNombre2': boda[0].Enamorado2
 		}
 		return HttpResponse(template.render(context, request))
 
@@ -362,6 +369,9 @@ def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 			'precio' : getPriceFormat(fiesta.precio),
 			'user_id': user_id,
 			'boda_id': boda_id,
-			'fiesta_id':fiesta_id
+			'fiesta_id':fiesta_id,
+			'ceremonia_id' : ceremonia.id,
+			'enamoradoNombre': boda.Enamorado1,
+			'enamoradoNombre2': boda.Enamorado2
 		}
 		return HttpResponse(template.render(context, request))
