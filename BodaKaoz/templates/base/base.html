@@ -11,6 +11,8 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="{% static "css/base.css" %}">
 	<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    {% block styles %}
+	{% endblock styles %}
 
 </head>
 <body class="bg-light">
@@ -37,7 +39,7 @@
 		   			<a class="nav-link" href="#">Fiesta</a>
 		   		</li>
 		   		<li class="nav-item">
-		   			<a class="nav-link" href="#">Luna de miel</a>
+		   			<a class="nav-link" href="{%  url 'LunaMiel:dashboard' %}">Luna de miel</a>
 		   		</li>
 		   		<li class="nav-item">
 		   			<a class="nav-link" href="{% url 'tableroResumen' %}">Resumen</a>
@@ -73,7 +75,7 @@
 							</a>
 						  </li>
 						  <li class="list-group-item">
-						  	<a href="#" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
+						  	<a href="{% url 'LunaMiel:dashboard' %}" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
 								Luna de miel
 							</a>
 						  </li>
