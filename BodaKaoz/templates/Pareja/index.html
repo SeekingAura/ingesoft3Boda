@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	 {% load staticfiles %}
-	<meta charset="utf-8">
+   {% load staticfiles %}
+  <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../static/css/Estilo.css">
     <title>KB Principal</title>
-	
+  
 </head>
 <body> <nav class="navbar fixed-top navbar-light" style="background-color: #005f93;">
 
@@ -19,11 +19,11 @@
 
 
 
-			{% if error.0 %}
+      {% if error.0 %}
 
-				<div class="alert alert-warning">{{error.1}}</div>
+        <div class="alert alert-warning">{{error.1}}</div>
 
-			{% endif %}
+      {% endif %}
 
 			<form method = 'POST'>{% csrf_token %}
 				{% if user.is_authenticated %}
@@ -38,15 +38,14 @@
 				     	 <button class="btn btn-primary" type="submit">Ingresar</button>
 				      </div> 
 
-		              <div class="btn-group mr-2" role="group" aria-label="Second group">
-		                    <a class="btn btn-primary " href="{% url 'Pareja:registro' %}">Registrar</a>
-		              </div>				      
-				    </form>
-					<!--<button type="submit" class="btn btn-primary login">Iniciar sesión</button>-->
-					<a class="btn btn-secundary login" href="{% url 'index' %}">Volver al inicio</a>
-				</div>
-				{% endif %}
-			</form>
+                  <div class="btn-group mr-2" role="group" aria-label="Second group">
+                        <a class="btn btn-primary " href="{% url 'Pareja:registro' %}">Registrar</a>
+                  </div>              
+            </form>
+          <!--<button type="submit" class="btn btn-primary login">Iniciar sesión</button>-->
+
+        {% endif %}
+      </form>
 
 
         </nav>
@@ -85,9 +84,9 @@
 
          </div>
 
-		
+    
 
-		 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 

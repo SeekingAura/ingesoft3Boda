@@ -107,6 +107,8 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 			'boda_id': boda_id,
 			'ceremonia_id' : ceremonia.id,
 			'fiesta_id': fiesta.id,
+			'enamoradoNombre': boda.Enamorado1,
+			'enamoradoNombre2': boda.Enamorado2
 
 		}
 		return HttpResponse(template.render(ctx,request))
@@ -288,7 +290,9 @@ def ceremoniaDashboardView(request, user_id , boda_id , ceremonia_id):
 			'user_id': user_id,
 			'boda_id': boda_id,
 			'ceremonia_id' : ceremonia.id,
-			'fiesta_id': fiesta.id
+			'fiesta_id': fiesta.id,
+			'enamoradoNombre': boda.Enamorado1,
+			'enamoradoNombre2': boda.Enamorado2
 
 
 		}

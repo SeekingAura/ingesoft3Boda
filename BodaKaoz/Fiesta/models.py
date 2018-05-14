@@ -12,9 +12,9 @@ class FiestaEvento(models.Model):
 		return self.Boda.__str__()+" -> Fiesta: {}".format(self.id)
 
 class Alimento(models.Model):
-	nombre=models.CharField(max_length=50)
-	descripcion=models.CharField(max_length=50)
-	imagen=models.ImageField(upload_to="Fiesta/Alimentos", null=True, blank=True, default=None)
+	nombre=models.CharField(max_length=250)
+	descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
+	imagen=models.ImageField(upload_to="Fiesta/Alimento", null=True, blank=True, default=None)
 	precio=models.BigIntegerField(default=0)
 
 	def __str__(self):
@@ -29,13 +29,13 @@ class AlimentoCarrito(models.Model):
 		return self.FiestaEvento.__str__()+" <-> "+self.Alimento.__str__()+" -> Alimento carrito: {}".format(self.id)
 		
 class Entretenimiento(models.Model):
-	nombre=models.CharField(max_length=50)
-	descripcion=models.CharField(max_length=50)
-	imagen=models.ImageField(upload_to="Fiesta/Entretenimientos", null=True, blank=True, default=None)
+	nombre=models.CharField(max_length=250)
+	descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
+	imagen=models.ImageField(upload_to="Fiesta/Entretenimiento", null=True, blank=True, default=None)
 	precio=models.BigIntegerField(default=0)
 
 	def __str__(self):
-		return self.nombre+" -> Entretenimiento"
+		return self.nombre+" -> Entretenimiento: {}".format(self.id)
 
 class EntretenimientoCarrito(models.Model):
 	FiestaEvento=models.ForeignKey(FiestaEvento, on_delete=models.CASCADE)
@@ -44,9 +44,9 @@ class EntretenimientoCarrito(models.Model):
 		return self.FiestaEvento.__str__()+" <-> "+self.Entretenimiento.__str__()+" -> Entretenimiento Carrito: {}".format(self.id)
 
 class DecoracionFiesta(models.Model):
-	nombre=models.CharField(max_length=50, null=True, blank=True, default=None)
-	descripcion=models.CharField(max_length=50, null=True, blank=True, default=None)
-	imagen=models.ImageField(upload_to="Fiesta/Decoraciones", null=True, blank=True, default=None)
+	nombre=models.CharField(max_length=250, null=True, blank=True, default=None)
+	descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
+	imagen=models.ImageField(upload_to="Fiesta/Decoracion", null=True, blank=True, default=None)
 	precio=models.BigIntegerField(default=0)
 	class Meta:
 		verbose_name = "Decoración"
