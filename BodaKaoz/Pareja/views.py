@@ -30,16 +30,42 @@ def TableroResumen(request):
 	if len(boda) == 0:
 		boda = Boda.objects.filter(Enamorado2_id=enamorado.id)    
 
-	fiesta = FiestaEvento.objects.filter(Boda_id=boda[0].id)
+	fiesta = FiestaEvento.objects.get(Boda_id=boda[0].id)
 	ceremonia = CeremoniaEvento.objects.filter(Boda_id=boda[0].id)
 	luna = LunaMielEvento.objects.filter(Boda_id=boda[0].id)
 	precio_pareja = int(boda[0].Enamorado1.precio) + int(boda[0].Enamorado2.precio)
+
+
+	if fiesta.Lugar != None:
+		precio = getPriceFormat(fiesta.Lugar.precio)
+		fiesta.Lugar.precioSTR = precio
+
+	entretenimientos = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
+	alimentos = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
+
+	precio_entretenimiento = 0
+	for entre in entretenimientos:
+		precio_entretenimiento += entre.Entretenimiento.precio
+	if len(entretenimientos) > 0:
+		precio_entre = (True , getPriceFormat(precio_entretenimiento))
+	else:
+		precio_entre = (False , "")
+
+	precio_alimento = 0
+	for alimento in alimentos:
+		precio_alimento += alimento.subtotal
+	if len(alimentos) > 0:
+		precio_alim = (True, getPriceFormat(precio_alimento))
+	else:
+		precio_alim = (False , "")
+
 	ctx={
 		'user_id': user_id,
+		'fiesta':fiesta,
 		'boda_id':boda[0].id,
-		'fiesta_id':fiesta[0].id,
+		'fiesta_id':fiesta.id,
 		'ceremonia_id':ceremonia[0].id,
-		'precio_fiesta': getPriceFormat(fiesta[0].precio),
+		'precio_fiesta': getPriceFormat(fiesta.precio),
 		'precio_ceremonia': getPriceFormat(ceremonia[0].precio),
 		'precio_luna': getPriceFormat(luna[0].precio),
 		'precio_enamorado': getPriceFormat(boda[0].Enamorado1.precio),
@@ -47,7 +73,9 @@ def TableroResumen(request):
 		'enamoradoNombre': boda[0].Enamorado1,
 		'enamoradoNombre2': boda[0].Enamorado2,
 		'precio_pareja': getPriceFormat(precio_pareja),
-		'precio_boda': getPriceFormat(boda[0].precio)
+		'precio_boda': getPriceFormat(boda[0].precio),
+		'precio_entre': precio_entre,
+		'precio_alim': precio_alim
 	}
 	template = loader.get_template('TableroResumen.html')
 

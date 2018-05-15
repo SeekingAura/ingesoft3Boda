@@ -23,9 +23,34 @@
 	  	<div class="collapse" id="collapseFiesta">
 	 		<div class="card-body">
 	 			<div class="container">
+	 			  <div class="row">
+	 			  	<div class="col text-left">
+	 			  	{% if fiesta.Fotos %}
+		 			  	<h5 class="text-warning">Costo fotos: $000.000</h5>
+	 			  	{% else %}
+		 			  	<h5 class="text-danger">Fotos no asignadas</h5>
+	 			  	{% endif %}
+
+	 			  	{% if fiesta.Lugar is None %}
+		 			  	<h5 class="text-danger">Lugar no signado</h5>
+			    	{% else %}
+				  		<h5 class="text-warning">Costo lugar: ${{fiesta.Lugar.precioSTR}}</h5>
+			    	{% endif %}
+			    	{% if precio_entre.0 %}
+			    		<h5 class="text-warning">Costo entretenimientos: ${{precio_entre.1}}</h5>
+			    	{% else %}
+			    		<h5 class="text-danger">Entretenimientos no asignados</h5>
+			    	{% endif %}
+			    	{% if precio_alim.0 %}
+			    		<h5 class="text-warning">Costo alimentos: ${{precio_alim.1}}</h5>
+			    	{% else %}
+			    		<h5 class="text-danger">Alimentos no asignados</h5>	
+			    	{% endif %}
+			      </div>
+	 			  </div>
 				  <div class="row mt-4">
 				    <div class="col text-left">
-				      <h1>Costo Fiesta:</h1>
+				      <h1>Costo Total:</h1>
 				    </div>
 				    <div class="col text-right">
 				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_fiesta}}</strong></h1>
@@ -119,16 +144,16 @@
 	  	<div class="collapse" id="collapsePareja">
 	 		<div class="card-body">
 	 			<div class="container">
-				  <div class="row mt-4">
-				    <div class="col text-left">
-				      <h1>Costo para enamorado {{enamoradoNombre.User.first_name}} {{enamoradoNombre.User.last_name}}:</h1>
-				      <h1>Costo para enamorado {{enamoradoNombre2.User.first_name}} {{enamoradoNombre2.User.last_name}}:</h1>
-				      <h1>Costo total pareja:</h1>
+				  <div class="row mt-6">
+				    <div class="col-md-9 text-left">
+				      <h4 >Costo enamorado {{enamoradoNombre.User.first_name}} {{enamoradoNombre.User.last_name}}:</h4>
+				      <h4>Costo enamorado  {{enamoradoNombre2.User.first_name}} {{enamoradoNombre2.User.last_name}}:</h4>
+				      <h3>Costo total pareja:</h3>
 				    </div>
 				    <div class="col text-right">
-				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_enamorado}}</strong></h1>
-				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_enamorado2}}</strong></h1>
-				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_pareja}}</strong></h1>
+				      <h3 class="text-info precioResumen"><strong>${{precio_enamorado}}</strong></h3>
+				      <h3 class="text-info precioResumen"><strong>${{precio_enamorado2}}</strong></h3>
+				      <h3 class="text-info precioResumen"><strong>${{precio_pareja}}</strong></h3>
 				    </div>
 				  </div>
 				</div>
