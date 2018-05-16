@@ -15,7 +15,7 @@
    version="1.1"
    id="svg899"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
-   sodipodi:docname="KBLogo_header.svg">
+   sodipodi:docname="KBLogo.svg">
   <defs
      id="defs893" />
   <sodipodi:namedview
@@ -26,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="153.53092"
+     inkscape:cx="128.90054"
      inkscape:cy="25.680107"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -54,20 +54,20 @@
      id="layer1"
      transform="translate(-57.226247,-149.83589)">
     <circle
-       style="fill:none;fill-opacity:1;stroke:#ffc107;stroke-width:0.95985985;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.95985985;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path821"
        cx="67.346779"
        cy="159.12375"
        r="7.3433409" />
     <circle
-       style="fill:none;fill-opacity:1;stroke:#ffc107;stroke-width:0.95985985;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:0.95985985;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path821-1"
        cx="78.820984"
        cy="159.16252"
        r="7.3433409" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:6.89464855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffc107;fill-opacity:1;stroke:none;stroke-width:0.17236622;"
+       style="font-style:normal;font-weight:normal;font-size:6.89464855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.17236622;"
        x="64.498589"
        y="161.53439"
        id="text840"><tspan
@@ -75,10 +75,10 @@
          id="tspan838"
          x="64.498589"
          y="161.53439"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Book Antiqua';-inkscape-font-specification:'Book Antiqua';fill:#ffc107;fill-opacity:1;stroke-width:0.17236622;">K</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Book Antiqua';-inkscape-font-specification:'Book Antiqua';fill:#ffffff;fill-opacity:1;stroke-width:0.17236622;">K</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:6.89464855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffc107;fill-opacity:1;stroke:none;stroke-width:0.17236622;"
+       style="font-style:normal;font-weight:normal;font-size:6.89464855px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.17236622;"
        x="76.901726"
        y="161.53424"
        id="text840-0"><tspan
@@ -86,6 +86,6 @@
          id="tspan838-3"
          x="76.901726"
          y="161.53424"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Book Antiqua';-inkscape-font-specification:'Book Antiqua';fill:#ffc107;fill-opacity:1;stroke-width:0.17236622;">B</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Book Antiqua';-inkscape-font-specification:'Book Antiqua';fill:#ffffff;fill-opacity:1;stroke-width:0.17236622;">B</tspan></text>
   </g>
 </svg>
