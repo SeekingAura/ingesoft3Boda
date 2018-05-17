@@ -56,8 +56,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'BodaKaoz.wsgi.application'
-
-# Database
+'''
+# Database - Only for local test
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -68,15 +68,13 @@ DATABASES = {
 DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'ingesoft3Kaoz',
-         'USER': 'postgres',
-         'PASSWORD': 'ingesoft2018',
+         'NAME': 'kaos_db',
+         'USER': 'kaos',
+         'PASSWORD': 'io2eoh2184646idlksanc--.--3##',
          'HOST': '127.0.0.1',
          'PORT': '5432',
      }
  }
-'''
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
