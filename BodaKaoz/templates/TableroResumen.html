@@ -25,29 +25,21 @@
 	 			<div class="container">
 	 			  <div class="row">
 	 			  	<div class="col text-left">
-	 			  	{% if fiesta.Fotos %}
-		 			  	<h5 class="text-warning">Costo fotos: $000.000</h5>
-	 			  	{% else %}
+	 			  	{% if not fiesta.Fotos %}
 		 			  	<h5 class="text-danger">Fotos no asignadas</h5>
 	 			  	{% endif %}
 
 	 			  	{% if fiesta.Lugar is None %}
 		 			  	<h5 class="text-danger">Lugar no signado</h5>
-			    	{% else %}
-				  		<h5 class="text-warning">Costo lugar: ${{fiesta.Lugar.precioSTR}}</h5>
 			    	{% endif %}
-			    	{% if precio_entre.0 %}
-			    		<h5 class="text-warning">Costo entretenimientos: ${{precio_entre.1}}</h5>
-			    	{% else %}
+			    	{% if not precio_entre.0 %}
 			    		<h5 class="text-danger">Entretenimientos no asignados</h5>
 			    	{% endif %}
-			    	{% if precio_alim.0 %}
-			    		<h5 class="text-warning">Costo alimentos: ${{precio_alim.1}}</h5>
-			    	{% else %}
+			    	{% if not precio_alim.0 %}
 			    		<h5 class="text-danger">Alimentos no asignados</h5>	
 			    	{% endif %}
 			      </div>
-	 			  </div>
+	 			</div>
 				  <div class="row mt-4">
 				    <div class="col text-left">
 				      <h1>Costo Total:</h1>
@@ -55,9 +47,6 @@
 				    <div class="col text-right">
 				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_fiesta}}</strong></h1>
 				    </div>
-				  </div>
-				  <div id="button">
-				  	<a type="button" class="btn btn-primary" href="{% url 'Fiesta:dashboard' user_id boda_id fiesta_id %}">Ir a fiesta</a>
 				  </div>
 				</div>
 	  		</div>
@@ -80,6 +69,25 @@
 	  	<div class="collapse" id="collapseCeremonia">
 	 		<div class="card-body">
 	 			<div class="container">
+	 			<div class="row">
+	 			  	<div class="col text-left">
+	 			  	{% if ceremonia.Ministro is None %}
+		 			  	<h5 class="text-danger">Ministro no asignado</h5>
+	 			  	{% endif %}
+	 			  	{% if ceremonia.Lugar is None %}
+		 			  	<h5 class="text-danger">Lugar no signado</h5>
+			    	{% endif %}
+			    	{% if ceremonia.Musica is None %}
+			    		<h5 class="text-danger">Musica no asignada</h5>
+			    	{% endif %}
+			    	{% if not ceremonia.Fotos %}
+			    		<h5 class="text-danger">Fotos no asignadas</h5>
+			    	{% endif %}
+			    	{% if not flag_deco %}
+			    		<h5 class="text-danger">Decoraciones no asignadas</h5>
+			    	{% endif %}
+			      </div>
+	 			</div>
 				  <div class="row mt-4">
 				    <div class="col text-left">
 				      <h1>Costo Ceremonia:</h1>
@@ -87,9 +95,6 @@
 				    <div class="col text-right">
 				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_ceremonia}}</strong></h1>
 				    </div>
-				  </div>
-				  <div id="button">
-				  	<a type="button" class="btn btn-primary" href="{% url 'Ceremonia:dashboard' user_id boda_id ceremonia_id %}">Ir a ceremonia</a>
 				  </div>
 				</div>
 	  		</div>
@@ -120,9 +125,6 @@
 				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_luna}}</strong></h1>
 				    </div>
 				  </div>
-				  <div id="button">
-				  	<a type="button" class="btn btn-primary" href="#">Ir a Luna de miel</a>
-				  </div>
 				</div>
 	  		</div>
 		</div>
@@ -144,6 +146,32 @@
 	  	<div class="collapse" id="collapsePareja">
 	 		<div class="card-body">
 	 			<div class="container">
+	 			  <div class="row">
+	 			  	<div class="col text-left">
+	 			  		<small class="lead">enamorado {{enamoradoNombre.User.first_name}} {{enamoradoNombre.User.last_name}}</small><br>
+	 			  		{% if not flag_belleza1 %}
+	 			  			<h5 class="text-danger">No se han asignado bellezas para este enamorado</h5>
+	 			  		{% endif %}
+	 			  		{% if not flag_prenda1 %}
+	 			  			<h5 class="text-danger">No se han asignado prendas para este enamorado</h5>
+	 			  		{% endif %}
+	 			  		{% if not flag_accesorio1 %}
+	 			  			<h5 class="text-danger">No se han asignado accesorios</h5>
+	 			  		{% endif %}
+	 			  	</div>
+	 			  	<div class="col text-right">
+	 			  		<small class="lead">enamorado  {{enamoradoNombre2.User.first_name}} {{enamoradoNombre2.User.last_name}}</small>	<br>
+	 			  		{% if not flag_belleza2 %}
+	 			  			<h5 class="text-danger">No se han asignado bellezas para este enamorado</h5>
+	 			  		{% endif %}
+	 			  		{% if not flag_prenda2 %}
+	 			  			<h5 class="text-danger">No se han asignado prendas para este enamorado</h5>
+	 			  		{% endif %}
+	 			  		{% if not flag_accesorio2 %}
+	 			  			<h5 class="text-danger">No se han asignado accesorios</h5>
+	 			  		{% endif %}
+	 			  	</div>
+	 			  </div><br><br>
 				  <div class="row mt-6">
 				    <div class="col-md-9 text-left">
 				      <h4 >Costo enamorado {{enamoradoNombre.User.first_name}} {{enamoradoNombre.User.last_name}}:</h4>

@@ -31,7 +31,7 @@ def TableroResumen(request):
 		boda = Boda.objects.filter(Enamorado2_id=enamorado.id)    
 
 	fiesta = FiestaEvento.objects.get(Boda_id=boda[0].id)
-	ceremonia = CeremoniaEvento.objects.filter(Boda_id=boda[0].id)
+	ceremonia = CeremoniaEvento.objects.get(Boda_id=boda[0].id)
 	luna = LunaMielEvento.objects.filter(Boda_id=boda[0].id)
 	precio_pareja = int(boda[0].Enamorado1.precio) + int(boda[0].Enamorado2.precio)
 
@@ -42,6 +42,11 @@ def TableroResumen(request):
 
 	entretenimientos = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 	alimentos = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
+	decoraciones = DecoracionCeremoniaCarrito.objects.filter(CeremoniaEvento_id=ceremonia.id)
+
+	flag_deco = False
+	if len(decoraciones) > 0:
+		flag_deco = True
 
 	precio_entretenimiento = 0
 	for entre in entretenimientos:
@@ -59,14 +64,54 @@ def TableroResumen(request):
 	else:
 		precio_alim = (False , "")
 
+	enamorado1 = boda[0].Enamorado1
+	enamorado2 = boda[0].Enamorado2
+
+	bellezasE1 = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+	bellezasE2 = BellezaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+	prendasE1 = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+	prendasE2 = PrendaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+	AccesorioE1 = AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)
+	AccesorioE2 = AccesorioCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+	flag_belleza1 = False
+	flag_belleza2 = False
+
+	flag_prenda1 = False
+	flag_prenda2 = False
+
+	flag_accesorio1 = False
+	flag_accesorio2 = False
+
+	if len(prendasE1) > 0:
+		flag_prenda1 = True
+
+	if len(prendasE2) > 0:
+		flag_prenda2 = True
+
+	if len(bellezasE1) > 0:
+		flag_belleza1 = True
+
+	if len(bellezasE2) > 0:
+		flag_belleza2 = True
+
+	if len(AccesorioE1) > 0:
+		flag_accesorio1 = True
+
+	if len(AccesorioE2) > 0:
+		flag_accesorio2 = True
+
 	ctx={
 		'user_id': user_id,
 		'fiesta':fiesta,
+		'ceremonia' : ceremonia,
 		'boda_id':boda[0].id,
 		'fiesta_id':fiesta.id,
-		'ceremonia_id':ceremonia[0].id,
+		'ceremonia_id':ceremonia.id,
 		'precio_fiesta': getPriceFormat(fiesta.precio),
-		'precio_ceremonia': getPriceFormat(ceremonia[0].precio),
+		'precio_ceremonia': getPriceFormat(ceremonia.precio),
 		'precio_luna': getPriceFormat(luna[0].precio),
 		'precio_enamorado': getPriceFormat(boda[0].Enamorado1.precio),
 		'precio_enamorado2': getPriceFormat(boda[0].Enamorado2.precio),
@@ -75,7 +120,14 @@ def TableroResumen(request):
 		'precio_pareja': getPriceFormat(precio_pareja),
 		'precio_boda': getPriceFormat(boda[0].precio),
 		'precio_entre': precio_entre,
-		'precio_alim': precio_alim
+		'precio_alim': precio_alim,
+		'flag_deco': flag_deco,
+		'flag_belleza1': flag_belleza1,
+		'flag_belleza2': flag_belleza2,
+		'flag_prenda1': flag_prenda1,
+		'flag_prenda2': flag_prenda2,
+		'flag_accesorio1': flag_accesorio1,
+		'flag_accesorio2': flag_accesorio2		
 	}
 	template = loader.get_template('TableroResumen.html')
 
