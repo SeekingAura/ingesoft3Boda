@@ -15,6 +15,8 @@ from .utils import getPriceFormat
 def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
 
 	if str(request.user) != str(user_id):
+		print("request.user -> ", request.user)
+		print("user_id ->", user_id)
 		logout(request)
 		return redirect('index')
 
