@@ -36,5 +36,16 @@ def baseContext(request):
         'enamorado': boda.Enamorado1,
         'enamorado2': boda.Enamorado2,
         'precio_pareja': getPriceFormat(precio_pareja),
-        'precio_boda': getPriceFormat(boda.precio)
+        'precio_boda': getPriceFormat(boda.precio),
+        'luna':luna
     }
+
+
+def actualizarPrecio(request):
+    ctx = baseContext(request)
+    luna = ctx['luna']
+    suma = 0
+    for ac in luna.actividadcarrito_set.all():
+        suma += ac.Actividad.precio*ac.cantidad
+    luna.precio=suma
+    luna.save()

@@ -14,7 +14,7 @@ class Plan(models.Model):
 
 class Actividad(models.Model):
     nombre=models.CharField(max_length=250)
-    imagen=models.ImageField(null=True, blank=True, default=None)
+    imagen=models.ImageField(null=True, blank=True, default=None, upload_to="LunaMiel/Actividad")
     precio=models.BigIntegerField(default=0)
     class Meta:
         verbose_name = "Actividad"
@@ -25,7 +25,7 @@ class Hotel(models.Model):
     nombre=models.CharField(max_length=250)
     descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
     calificacion=models.IntegerField()
-    imagen=models.ImageField(null=True, blank=True, default=None)
+    imagen=models.ImageField(null=True, blank=True, default=None, upload_to="LunaMiel/Hotel")
     precio=models.BigIntegerField(default=0)
 
     class Meta:
@@ -60,6 +60,9 @@ class ActividadCarrito(models.Model):
     LunaMielEvento=models.ForeignKey(LunaMielEvento, on_delete=models.CASCADE)
     Actividad=models.ForeignKey(Actividad, on_delete=models.CASCADE)
     cantidad = models.IntegerField(default=1)
+
+    def total(self):
+        return self.Actividad.precio*self.cantidad
 
 
 class HotelCarrito(models.Model):
