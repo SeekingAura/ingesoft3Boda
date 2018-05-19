@@ -47,7 +47,6 @@ def TableroResumen(request):
 	actividades_luna = ActividadCarrito.objects.filter(LunaMielEvento_id=luna.id)
 	hoteles_luna = HotelCarrito.objects.filter(LunaMielEvento_id=luna.id)
 
-	print(len(hoteles_luna))
 
 	flag_hotel = False
 	flag_acti = False
@@ -237,7 +236,6 @@ def Enamorado1(request):
 				lista_accesorios.append(a.Accesorio.id)                           
 		#enamorado1.precio=0
 		#enamorado1.save()
-		#print (Bellezas)
 		context = {
 
 			'enamorado' : enamorado1,
@@ -270,7 +268,6 @@ def Enamorado1(request):
 			'enamoradoNombre': enamorado1,
 			'enamoradoNombre2': enamorado2
 		}
-		# print ("contexto", context)
 
 		return HttpResponse(template.render(context, request))    
 	
@@ -552,7 +549,6 @@ def Enamorado2(request):
 				lista_accesorios.append(a.Accesorio.id)                           
 		#enamorado1.precio=0
 		#enamorado1.save()
-		#print (Bellezas)
 		context = {
 
 			'enamorado' : enamorado2,
@@ -585,7 +581,6 @@ def Enamorado2(request):
 			'enamoradoNombre': enamorado1,
 			'enamoradoNombre2': enamorado2
 		}
-		# print ("contexto", context)
 
 		return HttpResponse(template.render(context, request))    
 	
@@ -914,7 +909,6 @@ def Registro(request):
 							if documento_persona2.isdigit() and documento_persona1.isdigit():
 
 
-								# print("holaaa")
 								user1=User.objects.create(first_name=nombre_persona1,last_name=apellido_persona1, email=email1, username=documento_persona1)
 									
 								
