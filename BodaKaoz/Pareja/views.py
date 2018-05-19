@@ -22,7 +22,7 @@ from django.contrib.auth.decorators import login_required
 from .utils import getPriceFormat
 
 @login_required(login_url='index')
-def TableroResumen(request):
+def TableroResumen(request):	
 	user_id = request.user
 	enamorado = Enamorado.objects.get(User_id=user_id)
 	boda = Boda.objects.filter(Enamorado1_id=enamorado.id)
@@ -30,24 +30,120 @@ def TableroResumen(request):
 	if len(boda) == 0:
 		boda = Boda.objects.filter(Enamorado2_id=enamorado.id)    
 
-	fiesta = FiestaEvento.objects.filter(Boda_id=boda[0].id)
-	ceremonia = CeremoniaEvento.objects.filter(Boda_id=boda[0].id)
-	luna = LunaMielEvento.objects.filter(Boda_id=boda[0].id)
+	fiesta = FiestaEvento.objects.get(Boda_id=boda[0].id)
+	ceremonia = CeremoniaEvento.objects.get(Boda_id=boda[0].id)
+	luna = LunaMielEvento.objects.get(Boda_id=boda[0].id)
 	precio_pareja = int(boda[0].Enamorado1.precio) + int(boda[0].Enamorado2.precio)
+
+
+	if fiesta.Lugar != None:
+		precio = getPriceFormat(fiesta.Lugar.precio)
+		fiesta.Lugar.precioSTR = precio
+
+	entretenimientos = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
+	alimentos = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
+	decoraciones = DecoracionCeremoniaCarrito.objects.filter(CeremoniaEvento_id=ceremonia.id)
+
+	actividades_luna = ActividadCarrito.objects.filter(LunaMielEvento_id=luna.id)
+	hoteles_luna = HotelCarrito.objects.filter(LunaMielEvento_id=luna.id)
+
+	print(len(hoteles_luna))
+
+	flag_hotel = False
+	flag_acti = False
+	if len(actividades_luna) > 0:
+		flag_acti = True
+
+	if len(hoteles_luna) > 0:
+		flag_hotel = True
+
+	flag_deco = False
+	if len(decoraciones) > 0:
+		flag_deco = True
+
+	precio_entretenimiento = 0
+	for entre in entretenimientos:
+		precio_entretenimiento += entre.Entretenimiento.precio
+	if len(entretenimientos) > 0:
+		precio_entre = (True , getPriceFormat(precio_entretenimiento))
+	else:
+		precio_entre = (False , "")
+
+	precio_alimento = 0
+	for alimento in alimentos:
+		precio_alimento += alimento.subtotal
+	if len(alimentos) > 0:
+		precio_alim = (True, getPriceFormat(precio_alimento))
+	else:
+		precio_alim = (False , "")
+
+	enamorado1 = boda[0].Enamorado1
+	enamorado2 = boda[0].Enamorado2
+
+	bellezasE1 = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+	bellezasE2 = BellezaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+	prendasE1 = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+	prendasE2 = PrendaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+	AccesorioE1 = AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)
+	AccesorioE2 = AccesorioCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+
+	flag_belleza1 = False
+	flag_belleza2 = False
+
+	flag_prenda1 = False
+	flag_prenda2 = False
+
+	flag_accesorio1 = False
+	flag_accesorio2 = False
+
+	if len(prendasE1) > 0:
+		flag_prenda1 = True
+
+	if len(prendasE2) > 0:
+		flag_prenda2 = True
+
+	if len(bellezasE1) > 0:
+		flag_belleza1 = True
+
+	if len(bellezasE2) > 0:
+		flag_belleza2 = True
+
+	if len(AccesorioE1) > 0:
+		flag_accesorio1 = True
+
+	if len(AccesorioE2) > 0:
+		flag_accesorio2 = True
+
 	ctx={
 		'user_id': user_id,
+		'fiesta':fiesta,
+		'ceremonia' : ceremonia,
 		'boda_id':boda[0].id,
-		'fiesta_id':fiesta[0].id,
-		'ceremonia_id':ceremonia[0].id,
-		'precio_fiesta': getPriceFormat(fiesta[0].precio),
-		'precio_ceremonia': getPriceFormat(ceremonia[0].precio),
-		'precio_luna': getPriceFormat(luna[0].precio),
+		'fiesta_id':fiesta.id,
+		'ceremonia_id':ceremonia.id,
+		'precio_fiesta': getPriceFormat(fiesta.precio),
+		'precio_ceremonia': getPriceFormat(ceremonia.precio),
+		'precio_luna': getPriceFormat(luna.precio),
 		'precio_enamorado': getPriceFormat(boda[0].Enamorado1.precio),
 		'precio_enamorado2': getPriceFormat(boda[0].Enamorado2.precio),
 		'enamoradoNombre': boda[0].Enamorado1,
 		'enamoradoNombre2': boda[0].Enamorado2,
 		'precio_pareja': getPriceFormat(precio_pareja),
-		'precio_boda': getPriceFormat(boda[0].precio)
+		'precio_boda': getPriceFormat(boda[0].precio),
+		'precio_entre': precio_entre,
+		'precio_alim': precio_alim,
+		'flag_deco': flag_deco,
+		'flag_belleza1': flag_belleza1,
+		'flag_belleza2': flag_belleza2,
+		'flag_prenda1': flag_prenda1,
+		'flag_prenda2': flag_prenda2,
+		'flag_accesorio1': flag_accesorio1,
+		'flag_accesorio2': flag_accesorio2,
+		'flag_activi' : flag_acti,
+		'flag_hotel': flag_hotel		
 	}
 	template = loader.get_template('TableroResumen.html')
 

@@ -19,14 +19,14 @@
 				<div class="card">
 					<div class="card-body">
         				<div class="media">
-						  	<img class="align-self-center mr-3 little" src="{{fiesta.Lugar.imagen.url}}" height="150">
+						  	<img class="align-self-center mr-3" src="{{fiesta.Lugar.imagen.url}}" height="120">
 						  	<div class="media-body">
-						    	<h5 class="mt-0">{{fiesta.Lugar.nombre}}</h5>
-						    	<h6>{{fiesta.Lugar.tipo}}</h6>
-						    	<p>{{fiesta.Lugar.direccion}}</p>
+						    	<h5 class="mt-0"><strong>{{fiesta.Lugar.nombre}}</strong></h5><br>
+						    	<p><strong>Dirección:</strong> {{fiesta.Lugar.direccion}}</p>
+						    	<p><strong>Capacidad:</strong> {{fiesta.Lugar.capacidad}}</p>
 						    	<div class="media">
 								  	<div class="media-body">
-								    	<p>${{fiesta.Lugar.precioSTR}}</p>
+								    	<p class="precio">Precio: ${{fiesta.Lugar.precioSTR}}</p>
 									</div>
 								</div>
 								<div class="row">
@@ -54,7 +54,7 @@
 </div>
 
 <div class="modal fade" id="modallugar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
     	<div class="modal-content">
       		<div class="modal-header">
         		<h5 class="modal-title">Lugar</h5>
@@ -68,20 +68,22 @@
 	      			<div class="card mb-2">
   						<div class="card-body">
 	        				<div class="media">
-					  			<img class="align-self-center mr-3 little" src="{{lugar.imagen.url}}" height="150">
+					  			<img class="align-self-center mr-3" src="{{lugar.imagen.url}}" height="150">
 					  			<div class="media-body">
-					    			<h5 class="mt-0"><strong>{{lugar.nombre}}</strong></h5>
-					    			<p>{{lugar.tipo}}</p>
+					    			<h5 class="mt-0"><strong>{{lugar.nombre}}</strong></h5><br>
+					    			<p><strong>Dirección:</strong> {{lugar.direccion}}</p>
+					    			<p><strong>Capacidad:</strong> {{lugar.capacidad}}</p>
+					    			<p><strong>Tipo de lugar:</strong> {{lugar.tipo}}</p>
 					    			<div class="media">
 							  			<div class="media-body">
-							    			<p>${{ lugar.precioSTR }}</p>
+							    			<p class="precio">${{ lugar.precioSTR }}</p>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col text-right">
 											<input name="id_place" value="{{lugar.id}}" hidden>
 											<input name="price" value="{{lugar.precio}}" hidden>
-											<button type="submit" class="btn btn-primary col-12" value="add_place" name="btn_value">Seleccionar</button>
+											<button type="submit" class="btn btn-primary" value="add_place" name="btn_value">Agregar</button>
 										</div>
 									</div>
 								</div>
