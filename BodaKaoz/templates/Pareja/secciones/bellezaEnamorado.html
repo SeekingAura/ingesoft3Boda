@@ -13,7 +13,7 @@
 			</div>
 		</div>
   	</div>
-  	<div class="collapse" id="collapseBelleza">
+  	<div class="collapse " id="collapseBelleza">
 		{% for a in belleza  %}
 		<div class="card-body">
 	    	<form method="POST">{% csrf_token %}
@@ -22,11 +22,13 @@
         				<div class="media">
 	   	    				<img class="align-self-center mr-3 little" src="{{a.Belleza.imagen.url}}" height="150">
 	   	    				<div class="media-body">
-			        			<p class="card-text"><strong>Maquillaje:</strong>{{a.Belleza.maquillaje}}</p>
-			        			<p class="card-text"><strong>Peinado:</strong>{{a.Belleza.peinado}}</p>
+
+			        			<p class="card-text"><strong>Maquillaje: </strong>{{a.Belleza.maquillaje}}</p>		  
+								<p class="card-text"><strong>Peinado: </strong>{{a.Belleza.peinado}}</p>
 			        			<div class="media">
+			        				<i class="material-icons">attach_money</i>
 									<div class="media-body">
-						        			<p class="card-text"><strong>Precio:</strong> ${{a.Belleza.precio}}</p>
+						        		<p>{{a.Belleza.precio}}</p>
 						        	</div>
 						        </div>
 						        <div class="row">
@@ -34,7 +36,7 @@
 									        <input name="carrito_belleza_id" value="{{a.id}}" hidden>
 											<input name="belleza_id" value="{{a.Belleza.id}}" hidden>
 											<input name="price" value="{{a.Belleza.precio}}" hidden>
-									        <button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="delete_belleza">Eliminar</button>
+									        <button type="submit" class="btn btn-danger" name="btn_value" value="delete_belleza">Eliminar</button>
 									</div>
 								</div>
 							</div>
@@ -56,20 +58,20 @@
 			      <p class="card-text, text-center">¡Presiona en agregar para escoger belleza o maquillaje!</p>
 			      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#BellezaModal">¡Agregar Belleza!</button>
 			</div>
-			</div>
+			
 			{% endif %}
 	</div>
 </div>
 
 <div class="modal fade" id="BellezaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 
     	<div class="modal-content">
 
       		<div class="modal-header">
 
-        		<h5 class="modal-title">Bellezas</h5>
+        		<h5 class="modal-title">Belleza</h5>
 
         		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
@@ -89,22 +91,22 @@
 			        				<div class="media">
 				    					<img class="align-self-center mr-3 little" src="{{look.imagen.url}}" height="150">
 				    					<div class="media-body">
-					        				<p class="card-text"><strong>Maquillaje:</strong>{{look.maquillaje}}</p>
-					        				<p class="card-text"><strong>Peinado:</strong>{{look.peinado}}</p>
+					        				<p class="card-text"><strong>Maquillaje: </strong>{{look.maquillaje}}</p>
+					        				<p class="card-text"><strong>Peinado: </strong>{{look.peinado}}</p>
 					        				<div class="media">
-									  			<div class="media-body">
-					       							 <p class="card-text"><strong>Precio:</strong> ${{look.precio}}</p>
-					       					    </div>
+									  			
+					       						<i class="material-icons">attach_money</i>
+								  				<div class="media-body">
+								  					<p>{{look.precio}}</p>
+								  				</div>
+					       					    
 					       					</div> 
 					       					<div class="row">
 												<div class="col text-right">   
 											        <input name="id_belleza" value="{{look.id}}" hidden>
 													<input name="price" value="{{look.precio}}" hidden>
-													<div class="row">
-	    												<div class="col-4">
-											        		<button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="add_belleza">Agregar</button>
-											        	</div>
-											        </div>		
+											        <button type="submit" class="btn btn-primary"  name="btn_value" value="add_belleza">Agregar</button>
+											        	
 											    </div>
 											</div>
 									    </div>
