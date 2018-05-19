@@ -761,6 +761,7 @@ def Registro(request):
 		error = (False, "")
 		mensaje = (False, "")
 		template = loader.get_template('Pareja/registro.html') # get template
+
 		if request.method == "GET":
 		   
 			
@@ -777,8 +778,10 @@ def Registro(request):
 		if request.method == "POST":
 			#DATOS HOMMBRE
 			nombre_persona1 = request.POST.get("nombreMEN")
+			nombre_persona1=nombre_persona1.title()
 
 			apellido_persona1 = request.POST.get("apellidoMEN")
+			apellido_persona1= apellido_persona1.title()
 
 			documento_persona1 = request.POST.get("identificacionMEN")
 
@@ -788,8 +791,10 @@ def Registro(request):
 
 			#DATOS MUJER
 			nombre_persona2 = request.POST.get("nombreWOMAN")
+			nombre_persona2=nombre_persona2.title()
 
 			apellido_persona2 = request.POST.get("apellidoWOMAN")
+			apellido_persona2=apellido_persona2.title()
 
 			documento_persona2 = request.POST.get("identificacionWOMAN")
 
@@ -799,42 +804,94 @@ def Registro(request):
 
 			contrasena = request.POST.get("password")
 			contrasenaAut = request.POST.get("passwordAut")
-			if contrasena==contrasenaAut:
-
-				# print("holaaa")
-				user1=User.objects.create(first_name=nombre_persona1,last_name=apellido_persona1, email=email1, username=documento_persona1)
-					
-				
-				user1.set_password(contrasena)
-				user1.save()            
-				user2=User.objects.create(first_name=nombre_persona2, last_name=apellido_persona2, email=email2, username=documento_persona2)
-				user2.set_password(contrasena)
-				user2.save()
-
-				#creacion enamorados
-				enamorado1=Enamorado.objects.create(User=user1, cedula=documento_persona1, telefono=telefono1)
-				enamorado1.save()
-				enamorado2=Enamorado.objects.create(User=user2, cedula=documento_persona2, telefono=telefono2)
-				enamorado2.save() 
-				
-				#creacion de Boda
-				Boda1=Boda.objects.create(Enamorado1=enamorado1,Enamorado2=enamorado2)
-				Boda1.save()
-				#CREACION CEREMONIA
-				CeremoniaEvento1=CeremoniaEvento.objects.create(Boda=Boda1)
-				#CREACION FIESTA
-				FiestaEvento1=FiestaEvento.objects.create(Boda=Boda1)
-				#CREACION LUNA DE MIEL
-				LunaMielEvento1=LunaMielEvento.objects.create(Boda=Boda1)
-				
-				mensaje = (True, "La persona fue ingresada en el sistema")
+			
+			users1=User.objects.filter(username=documento_persona1)
+			users2=User.objects.filter(username=documento_persona2)
+			if users1.count()>0 :
+				error=(True,"Identificacion 1 ya existe ")
 			else:
-				error=(True,"Contraseña no coincide")
+				if users2.count()>0 :
+					error=(True,"Identificacion 2 ya existe ")	
+				else:
+					if contrasena==contrasenaAut:
+						if telefono2.isdigit() and telefono1.isdigit():
+							if documento_persona2.isdigit() and documento_persona1.isdigit():
+
+
+								# print("holaaa")
+								user1=User.objects.create(first_name=nombre_persona1,last_name=apellido_persona1, email=email1, username=documento_persona1)
+									
+								
+								user1.set_password(contrasena)
+								user1.save()            
+								user2=User.objects.create(first_name=nombre_persona2, last_name=apellido_persona2, email=email2, username=documento_persona2)
+								user2.set_password(contrasena)
+								user2.save()
+
+								#creacion enamorados
+								enamorado1=Enamorado.objects.create(User=user1, cedula=documento_persona1, telefono=telefono1)
+								enamorado1.save()
+								enamorado2=Enamorado.objects.create(User=user2, cedula=documento_persona2, telefono=telefono2)
+								enamorado2.save() 
+								
+								#creacion de Boda
+								Boda1=Boda.objects.create(Enamorado1=enamorado1,Enamorado2=enamorado2)
+								Boda1.save()
+								#CREACION CEREMONIA
+								CeremoniaEvento1=CeremoniaEvento.objects.create(Boda=Boda1)
+								#CREACION FIESTA
+								FiestaEvento1=FiestaEvento.objects.create(Boda=Boda1)
+								#CREACION LUNA DE MIEL
+								LunaMielEvento1=LunaMielEvento.objects.create(Boda=Boda1)
+								
+								#REINICIO DE DATOS
+								nombre_persona1 =""
+
+
+								apellido_persona1 =""
+								apellido_persona1 =""
+
+								documento_persona1 =""
+
+								telefono1 = ""
+
+								email1  =""
+
+								#DATOS MUJER
+								nombre_persona2  =""
+								nombre_persona2=""
+
+								apellido_persona2 =""
+								apellido_persona2=""
+
+								documento_persona2 =""
+
+								telefono2 =""
+
+								email2 =""
+															
+								mensaje = (True, "La persona fue ingresada en el sistema")
+							else:
+								error=(True,"La identificacion debe ser numerica")	
+						else:
+							error=(True,"El telefono debe ser numerico")	
+					else:
+						error=(True,"Contraseña no coincide")
 
 			ctx = {
 
 			'mensaje': mensaje,
 			'error': error,
+			'nombre_persona1':nombre_persona1,
+			'apellido_persona1':apellido_persona1,
+			'documento_persona1':documento_persona1,
+			'telefono1': telefono1,
+			'email1':email1,
+			'nombre_persona2':nombre_persona2,
+			'apellido_persona2':apellido_persona2,
+			'documento_persona2':documento_persona2,
+			'telefono2': telefono2,
+			'email2':email2,
 
 			}                  
 			return HttpResponse(template.render(ctx, request))

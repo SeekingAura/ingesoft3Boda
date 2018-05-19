@@ -41,7 +41,12 @@
     </nav>
       
     <form method="POST">{% csrf_token %}
-
+                        {% if mensaje.0 %}  
+                            <div class="alert alert-success alert-dismissable">
+                              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                              <strong>¡Correcto!</strong> {{mensaje.1}}
+                            </div>        
+                         {% endif %}    
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -49,7 +54,7 @@
 
                         <label for="nombreMEN">Nombre</label>
 
-                        <input type="text" name="nombreMEN" class="form-control" id="nombreMEN" / placeholder="Nombre Persona 1" required>
+                        <input type="text" name="nombreMEN" value="{{nombre_persona1}}"  class="form-control" id="nombreMEN" / placeholder="Nombre Persona 1" required>
 
                     </div>
 
@@ -57,7 +62,7 @@
 
                         <label for="apellidoMEN">Apellido</label>
 
-                        <input type="text" name="apellidoMEN" class="form-control" id="apellidoMEN" / placeholder="Apellido Persona 1" required>
+                        <input type="text" name="apellidoMEN" value="{{apellido_persona1}}"  class="form-control" id="apellidoMEN" / placeholder="Apellido Persona 1" required>
 
                     </div>
 
@@ -65,7 +70,7 @@
 
                         <label for="identificacionMEN">Identificación</label>
 
-                        <input type="number" name="identificacionMEN" class="form-control" id="identificacionMEN" / placeholder="Identificación Persona 1" required>
+                        <input type="number min=1"" name="identificacionMEN" value="{{documento_persona1}}" class="form-control" id="identificacionMEN" / placeholder="Identificación Persona 1" required>
 
                     </div>
 
@@ -73,7 +78,7 @@
 
                         <label for="telefonoMEN">Teléfono</label>
 
-                        <input type="number min=1" name="telefonoMEN" class="form-control" id="telefonoMEN" / placeholder="Teléfono Persona 1" required>
+                        <input type="number min=1" name="telefonoMEN" value="{{telefono1}}" class="form-control" id="telefonoMEN" / placeholder="Teléfono Persona 1" required>
 
                     </div>
 
@@ -81,7 +86,7 @@
 
                         <label for="emailMEN">Email</label>
 
-                        <input type="email" name="emailMEN" class="form-control" id="emailMEN" / placeholder="Email Persona 1" required>
+                        <input type="email" name="emailMEN"  value="{{email1}}" class="form-control" id="emailMEN" / placeholder="Email Persona 1" required>
 
                     </div>
                    
@@ -91,7 +96,7 @@
 
                         <label for="nombreWOMAN">Nombre</label>
 
-                        <input type="text" name="nombreWOMAN" class="form-control" id="nombreWOMAN" / placeholder="Nombre Persona 2" required>
+                        <input type="text" name="nombreWOMAN"  value="{{nombre_persona2}}" class="form-control" id="nombreWOMAN" / placeholder="Nombre Persona 2" required>
 
                     </div>
 
@@ -99,7 +104,7 @@
 
 
                         <label for="apellidoWOMAN">Apellido</label>
-                        <input type="text" name="apellidoWOMAN" class="form-control" id="apellidoWOMAN" / placeholder="Apellido Persona 2" required>
+                        <input type="text" name="apellidoWOMAN" value="{{apellido_persona2}}" class="form-control" id="apellidoWOMAN" / placeholder="Apellido Persona 2" required>
 
                     </div>
 
@@ -107,7 +112,7 @@
 
                         <label for="identificacionWOMAN">Identificación</label>
 
-                        <input type="number" name="identificacionWOMAN" class="form-control" id="identificacionWOMAN" / placeholder="Identificación Persona 2" required>
+                        <input type="number min=1"" name="identificacionWOMAN"  value="{{documento_persona2}}" class="form-control" id="identificacionWOMAN" / placeholder="Identificación Persona 2" required>
 
                     </div>
 
@@ -115,7 +120,7 @@
 
                         <label for="telefonoWOMAN">Teléfono</label>
 
-                        <input type="number min=1" name="telefonoWOMAN" class="form-control" id="telefonoWOMAN" / placeholder="Telefono Persona 2" required >
+                        <input type="number min=1" name="telefonoWOMAN" value="{{telefono2}}" class="form-control" id="telefonoWOMAN" / placeholder="Telefono Persona 2" required >
 
                     </div>
 
@@ -123,7 +128,7 @@
 
                         <label for="emailWOMAN">Email</label>
 
-                        <input type="email" name="emailWOMAN" class="form-control" id="emailWOMAN" / placeholder="Email Persona 2" required>
+                        <input type="email" name="emailWOMAN" value="{{email2}}" class="form-control" id="emailWOMAN" / placeholder="Email Persona 2" required>
                     </div>
 
                     <div class="form-group">
@@ -140,14 +145,21 @@
 
                         <input  type="password" name="passwordAut" class="form-control" id="passwordAut" / placeholder="Confirmar Contraseña" required>
                         
-
+                
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg col-xs-12">Registrar</button>
                     
                      <div class="btn-group mr-2" role="group" aria-label="Second group">
                      <a class="btn btn-primary login" href="/">Volver al inicio</a>
                         </div>
+                         {% if error.0 %} 
 
+                            <div class="alert alert-warning alert-dismissable">
+                              <button type="button" class="close" data-dismiss="alert">&times;</button>
+                              <strong>¡ERROR!</strong> {{error.1}}
+                            </div>        
+                         {% endif %}
+                    
                 </div>
 
             </div>
@@ -179,8 +191,7 @@
 
             </div>
         </footer>
-        {% if error.0 %} {{error.1}} {% endif %}
-        {% if mensaje.0 %} {{mensaje.1}} {% endif %}
+
 
     </form>
 
