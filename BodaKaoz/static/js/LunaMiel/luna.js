@@ -73,6 +73,7 @@ function mostrarPanelAnadir(id) {
             };
             anadirActividadCarrito(added['a'+id]);
             ocultarFila(tabla_actividad_anadir,'a'+id);
+            actualizarPrecioTotal();
         },
       error: function (a,b,c) {
             alert("Error intente mas tarde");
@@ -90,6 +91,7 @@ function ocultarFila(tabla,id) {
        }
     );
     tabla.draw();
+
 
 }
 
@@ -129,7 +131,7 @@ if(cantidad<1){
       success: function (data) {
             added['a'+id]['cantidad']=cantidad
             anadirActividadCarrito(added['a'+id]);
-
+            actualizarPrecioTotal();
         },
       error: function (a,b,c) {
             alert("Error intente mas tarde");
@@ -146,6 +148,7 @@ function removerCantidad(id) {
           $('#tabla_actividades tr[data-id="a'+id+'"]').remove();
             delete added['a'+id];
             ocultarFila(tabla_actividad_anadir,'a'+id);
+            actualizarPrecioTotal();
         },
       error: function (a,b,c) {
             alert("Error intente mas tarde");
@@ -180,6 +183,7 @@ function anadirHotel(id) {
             };
             anadirHotelCarrito(added['h'+id]);
             ocultarFila(tabla_hotel_anadir,'h'+id);
+            actualizarPrecioTotal();
         },
       error: function (a,b,c) {
             alert("Error intente mas tarde");
@@ -224,6 +228,7 @@ function actualizarHotel(id) {
       success: function (data) {
             added['h'+id]['cantidad']=cantidad
             anadirHotelCarrito(added['h'+id]);
+            actualizarPrecioTotal();
 
         },
       error: function (a,b,c) {
@@ -241,10 +246,19 @@ function removerCantidadHotel(id) {
           $('#tabla_hoteles tr[data-id="h'+id+'"]').remove();
             delete added['h'+id];
             ocultarFila(tabla_hotel_anadir,'h'+id);
+            actualizarPrecioTotal();
         },
       error: function (a,b,c) {
             alert("Error intente mas tarde");
         },
     });
 
+}
+
+function actualizarPrecioTotal() {
+    var suma=0
+    for(k in added){
+        suma+=added[k]['precio']*added[k]['cantidad']
+    }
+    $('#precio_total').html(suma);
 }
