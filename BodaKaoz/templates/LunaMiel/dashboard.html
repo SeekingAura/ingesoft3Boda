@@ -37,7 +37,7 @@
                             <td>{{ actividad.Actividad.nombre }}</td>
                             <td>{{ actividad.Actividad.precio }}</td>
                             <td>
-                                <input type="number" min="1" onchange="actualizarActividad({{ actividad.Actividad_id }})" value="{{ actividad.cantidad }}" />
+                                <input type="number" min="1" class="form-control" onchange="actualizarActividad({{ actividad.Actividad_id }})" value="{{ actividad.cantidad }}" />
                             </td>
                             <td>
                                 {{  actividad.total }}
@@ -71,14 +71,14 @@
                     </thead>
                     <tbody>
                     {%  for hotel in luna.hotelcarrito_set.all %}
-                        <tr data-id="a{{ hotel.Hotel_id }}">
+                        <tr data-id="h{{ hotel.Hotel_id }}">
                             <td>
                                 <img class="imagen" src="{%  get_media_prefix %}{{ hotel.Hotel.imagen }}">
                             </td>
                             <td>{{ hotel.Hotel.nombre }}</td>
                             <td>{{ hotel.Hotel.precio }}</td>
                             <td>
-                                <input type="number" min="1" onchange="actualizarHotel({{ hotel.Hotel_id }})" value="{{ hotel.cantidad }}" />
+                                <input type="number" min="1" class="form-control" onchange="actualizarHotel({{ hotel.Hotel_id }})" value="{{ hotel.cantidad }}" />
                             </td>
                             <td>
                                 {{  hotel.total }}
@@ -123,6 +123,7 @@
                                 <td>{{ actividad.nombre }}</td>
                                 <td>{{ actividad.precio }}</td>
                                 <td>
+                                    <input type="number" min="1" class="form-control" value="1" />
                                     <button class="btn btn-success" onclick="mostrarPanelAnadir({{ actividad.id }})" ><i class="fa fa-plus-square"></i> Añadir</button>
                                 </td>
                             </tr>
@@ -161,6 +162,7 @@
                                 <td>{{ hotel.nombre }}</td>
                                 <td>{{ hotel.precio }}</td>
                                 <td>
+                                    <input type="number" min="1" class="form-control" value="1" />
                                     <button class="btn btn-success" onclick="anadirHotel({{ hotel.id }})" ><i class="fa fa-plus-square"></i> Añadir</button>
                                 </td>
                             </tr>
@@ -189,8 +191,21 @@
                 'imagen':'{%  get_media_prefix %}{{ actividad.Actividad.imagen }}',
                 'cantidad':{{ actividad.cantidad }}
             };
-        ocultarFila(tabla_actividad_anadir,{{ actividad.Actividad_id }});
+        ocultarFila(tabla_actividad_anadir,'a'+{{ actividad.Actividad_id }});
         {% endfor %}
+
+
+        {%  for hotel in luna.hotelcarrito_set.all %}
+        added['h{{ hotel.Hotel.id}}']={
+                'id':{{ hotel.Hotel.id }},
+                'nombre':'{{ hotel.Hotel.nombre }}',
+                'precio': {{ hotel.Hotel.precio }},
+                'imagen':'{%  get_media_prefix %}{{ hotel.Hotel.imagen }}',
+                'cantidad':{{ hotel.cantidad }}
+            };
+        ocultarFila(tabla_hotel_anadir,'h'+{{ hotel.Hotel_id }});
+        {% endfor %}
+
         });
 
 

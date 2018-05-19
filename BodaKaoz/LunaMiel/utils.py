@@ -34,15 +34,24 @@ def baseContext(request):
         'precio_boda': getPriceFormat(boda.precio),
         'enamoradoNombre': boda.Enamorado1,
 		'enamoradoNombre2': boda.Enamorado2,
-        'luna':luna
+        'luna':luna,
+        'boda': boda
     }
 
 
 def actualizarPrecio(request):
     ctx = baseContext(request)
     luna = ctx['luna']
+    boda = ctx['boda']
     suma = 0
     for ac in luna.actividadcarrito_set.all():
         suma += ac.Actividad.precio*ac.cantidad
-    luna.precio=suma
+
+    for ac in luna.hotelcarrito_set.all():
+        suma += ac.Hotel.precio*ac.cantidad
+    precio_anterior = luna.precio
+    luna.precio = suma
     luna.save()
+
+    boda.precio += (luna.precio-precio_anterior)
+    boda.save()

@@ -70,3 +70,5 @@ class HotelCarrito(models.Model):
     LunaMielEvento=models.ForeignKey(LunaMielEvento, on_delete=models.CASCADE)
     cantidad = models.IntegerField(default=1)
 
+    def total(self):
+        return self.Hotel.precio*self.cantidad
