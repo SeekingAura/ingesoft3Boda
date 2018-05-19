@@ -4,16 +4,16 @@
 	<div class="card-header bg-transparent">
 		<div class="row justify-content-between">
 			<div class="col">
-				<h4>Accesorio</h4>
+				<h4>Accesorios</h4>
 			</div>
 			<div class="col text-right">
-				<span class="btn" data-toggle="collapse" data-target="#collapseDeco" aria-expanded="false" aria-controls="collapseDeco">
+				<span class="btn" data-toggle="collapse" data-target="#collapseAccesorio" aria-expanded="false" aria-controls="collapseAccesorio">
 					<i class="material-icons">expand_more</i>
   				</span>
 			</div>
 		</div>
   	</div>
-  	<div class="collapse" id="collapseDeco">
+  	<div class="collapse" id="collapseAccesorio">
 		{% for a in accesorio  %}
 		<div class="card-body">
 			<form method="POST">{% csrf_token %}
@@ -23,10 +23,11 @@
 	    					<img class="align-self-center mr-3 little" src="{{a.Accesorio.imagen.url}}" height="150">
 	    					<div class="media-body">
 		        				<h4 class="mt-0">{{a.Accesorio.nombre}}</h4>
-								<p class="card-text"><strong>Descripción:</strong>{{a.Accesorio.tipoObjeto}}</p>
+								<p class="card-text"><strong>Tipo: </strong>{{a.Accesorio.tipoObjeto}}</p>
 								<div class="media">
+									<i class="material-icons">attach_money</i>
 									<div class="media-body">
-		       							 <p class="card-text"><strong>Precio:</strong> ${{a.Accesorio.precio}}</p>
+		       							 <p class="card-text">{{a.Accesorio.precio}}</p>
 		       						</div>
 		       					</div>
 		       					<div class="row">
@@ -34,7 +35,7 @@
 										<input name="carrito_accesorio_id" value="{{a.id}}" hidden>
 										<input name="accesorio_id" value="{{a.Accesorio.id}}" hidden>
 										<input name="price" value="{{a.Accesorio.precio}}" hidden>
-										<button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="delete_accesorio">Eliminar</button>
+										<button type="submit" class="btn btn-danger" name="btn_value" value="delete_accesorio">Eliminar</button>
 									</div>
 								</div>
 							</div>
@@ -56,14 +57,14 @@
 		      <p class="card-text, text-center">¡Presiona en agregar para escoger tus accesorios!</p>
 		      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AccesorioModal">¡Agregar accesorio!</button>
 		</div>
-		</div>
+		
 		{% endif %}
 	</div>
 </div>
 
 <div class="modal fade" id="AccesorioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 
     	<div class="modal-content">
 
@@ -90,21 +91,20 @@
 				    					<img class="align-self-center mr-3 little" src="{{cosas.imagen.url}}" height="150">
 				    					<div class="media-body">
 					        				<h4 class="mt-0">{{cosas.nombre}}</h4>
-											 <p class="card-text"><strong>Tipo:</strong>{{cosas.tipoObjeto}}</p>
+											 <p class="card-text"><strong>Tipo: </strong>{{cosas.tipoObjeto}}</p>
 											 <div class="media">
-									  			<div class="media-body">
-													<p class="card-text"><strong>Precio:</strong> ${{cosas.precio}}</p>
+											 	<i class="material-icons">attach_money</i>
+											 	<div class="media-body">
+													<p>{{cosas.precio}}</p>
 												</div>
+												
 											</div>
 											<div class="row">
 												<div class="col text-right">
 													 <input name="id_accesorio" value="{{cosas.id}}" hidden>
 													<input name="price" value="{{cosas.precio}}" hidden>
-													<div class="row">
-	    												<div class="col-4">
-															 <button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="add_accesorio">Agregar</button>
-														</div>
-													</div>
+													 <button type="submit" class="btn btn-primary"  name="btn_value" value="add_accesorio">Agregar</button>
+														
 												</div>
 											</div>
 										</div>

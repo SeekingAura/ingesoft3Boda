@@ -1,3 +1,6 @@
+
+{% load staticfiles %}
+
 <div class="card text-center">
 </div>	
 	{% load staticfiles %}
@@ -25,10 +28,12 @@
 	    					<img class="align-self-center mr-3 little" src="{{a.Prenda.imagen.url}}" height="150">
 	    					<div class="media-body">
 								<h4 class="mt-0">{{a.Prenda.nombre}}</h4>		  
-								<p class="card-text"><strong>Descripción:</strong>{{a.Prenda.descripcion}}</p>
+								<p class="card-text">{{a.Prenda.descripcion}}</p>
 								<div class="media">
+									
+									<i class="material-icons">attach_money</i>
 									<div class="media-body">
-								        <p class="card-text"><strong>Precio:</strong> ${{a.Prenda.precio}}</p>
+								        <p> {{a.Prenda.precio}}</p>
 								    </div>
 								</div>
 								<div class="row">
@@ -36,7 +41,7 @@
 									        <input name="carrito_prenda_id" value="{{a.id}}" hidden>
 											<input name="prenda_id" value="{{a.Prenda.id}}" hidden>
 											<input name="price" value="{{a.Prenda.precio}}" hidden>
-									        <button type="submit"  class="btn btn-danger btn-lg" name="btn_value" value="delete_prenda">Eliminar</button>
+									        <button type="submit"  class="btn btn-danger" name="btn_value" value="delete_prenda">Eliminar</button>
 									</div>
 								</div>	
 						    </div>
@@ -51,7 +56,7 @@
 
 			<div class="card-body text-center">
 	    		<p>¿Aún hay espacio para algo más?</p>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AccesorioModal">¡Agregar Prenda!</button>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaModal">¡Agregar Prenda!</button>
 			</div>
 		{% else %} {% comment %}Cuando no tiene seleccionado uno o más prendas{% endcomment %}
 		<div class="card-body text-center">
@@ -62,6 +67,7 @@
 			    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaMixModal">¡Prendas Mixtas!</button>
 
 			</div>
+		</div>
 			
 		    {% endif %}
 	</div>
@@ -69,7 +75,7 @@
 
 <div class="modal fade" id="PrendaMasModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 
     	<div class="modal-content">
 
@@ -96,21 +102,19 @@
 				    					<img class="align-self-center mr-3 little" src="{{ropa.imagen.url}}" height="150">
 				    				    <div class="media-body">
 									        <h4 class="mt-0">{{ropa.nombre}}</h4>
-									        <p class="card-text"><strong>Descripción: </strong>{{ropa.descripcion}}</p>
+									        <p class="card-text">{{ropa.descripcion}}</p>
 									        <div class="media">
-									  			<div class="media-body">
-					        						<p class="card-text"><strong>Precio: </strong> ${{ropa.precio}}</p>
+									        	<i class="material-icons">attach_money</i>
+									        	<div class="media-body">
+					        						<p >{{ropa.precio}}</p>
 					        					</div>
 					        			    </div>
 					        			    <div class="row">
 												<div class="col text-right">
 											        <input name="id_prenda" value="{{ropa.id}}" hidden>
 													<input name="price" value="{{ropa.precio}}" hidden>
-													<div class="row">
-	    												<div class="col-4">
-											        		<button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="add_prenda">Agregar</button>
-											        	</div>
-													</div>
+											        <button type="submit" class="btn btn-primary" name="btn_value" value="add_prenda">Agregar</button>
+											        	
 												</div>
 											</div>
 										</div>
@@ -137,7 +141,7 @@
 
 <div class="modal fade" id="PrendaFemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 
     	<div class="modal-content">
 
@@ -164,21 +168,20 @@
 							    		<img class="align-self-center mr-3 little" src="{{ropa.imagen.url}}" height="150">
 							    		<div class="media-body">
 								        	<h4 class="mt-0">{{ropa.nombre}}</h4>
-									        <p class="card-text"><strong>Descripción: </strong>{{ropa.descripcion}}</p>
+									        <p class="card-text">{{ropa.descripcion}}</p>
 									        <div class="media">
+									        	<i class="material-icons">attach_money</i>
+									        	
 									        	<div class="media-body">
-					       							 <p class="card-text"><strong>Precio: </strong> ${{ropa.precio}}</p>
+									        		<p>{{ropa.precio}}</p>
 					       						</div>
 					       					</div>
 					       					<div class="row">
 												<div class="col text-right">
 											        <input name="id_prenda" value="{{ropa.id}}" hidden>
 													<input name="price" value="{{ropa.precio}}" hidden>
-													<div class="row">
-														<div class="col-4">
-					        								<button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="add_prenda">Agregar</button>
-					        							</div>
-													</div>
+													<button type="submit" class="btn btn-primary" name="btn_value" value="add_prenda">Agregar</button>
+					        							
 												</div>
 											</div>
 										</div>
@@ -204,7 +207,7 @@
 </div>	
 <div class="modal fade" id="PrendaMixModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 
     	<div class="modal-content">
 
@@ -231,21 +234,19 @@
 				    					<img class="align-self-center mr-3 little" src="{{ropa.imagen.url}}" height="150">
 				    					<div class="media-body">
  									        <h4 class="mt-0">{{ropa.nombre}}</h4>
-					       					<p class="card-text"><strong>Descripción:</strong>{{ropa.descripcion}}</p>
+					       					<p class="card-text">{{ropa.descripcion}}</p>
 					       					<div class="media">
+					       						<i class="material-icons">attach_money</i>
 									  			<div class="media-body">
-					        						<p class="card-text"><strong>Precio:</strong> ${{ropa.precio}}</p>
+					        						<p >{{ropa.precio}}</p>
 					        					</div>
 					        				</div>	
 					        				<div class="row">
 												<div class="col text-right">
 											        <input name="id_prenda" value="{{ropa.id}}" hidden>
 													<input name="price" value="{{ropa.precio}}" hidden>
-													<div class="row">
-	    												<div class="col-4">
-											        		<button type="submit" class="btn btn-danger btn-lg" name="btn_value" value="add_prenda">Agregar</button>
-											        	</div>
-													</div>
+													<button type="submit" class="btn btn-primary" name="btn_value" value="add_prenda">Agregar</button>
+											        	
 												</div>
 											</div>
 										</div>
