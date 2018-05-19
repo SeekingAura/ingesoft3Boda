@@ -22,7 +22,7 @@ from django.contrib.auth.decorators import login_required
 from .utils import getPriceFormat
 
 @login_required(login_url='index')
-def TableroResumen(request):
+def TableroResumen(request):	
 	user_id = request.user
 	enamorado = Enamorado.objects.get(User_id=user_id)
 	boda = Boda.objects.filter(Enamorado1_id=enamorado.id)
@@ -32,7 +32,7 @@ def TableroResumen(request):
 
 	fiesta = FiestaEvento.objects.get(Boda_id=boda[0].id)
 	ceremonia = CeremoniaEvento.objects.get(Boda_id=boda[0].id)
-	luna = LunaMielEvento.objects.filter(Boda_id=boda[0].id)
+	luna = LunaMielEvento.objects.get(Boda_id=boda[0].id)
 	precio_pareja = int(boda[0].Enamorado1.precio) + int(boda[0].Enamorado2.precio)
 
 
@@ -43,6 +43,19 @@ def TableroResumen(request):
 	entretenimientos = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 	alimentos = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
 	decoraciones = DecoracionCeremoniaCarrito.objects.filter(CeremoniaEvento_id=ceremonia.id)
+
+	actividades_luna = ActividadCarrito.objects.filter(LunaMielEvento_id=luna.id)
+	hoteles_luna = HotelCarrito.objects.filter(LunaMielEvento_id=luna.id)
+
+	print(len(hoteles_luna))
+
+	flag_hotel = False
+	flag_acti = False
+	if len(actividades_luna) > 0:
+		flag_acti = True
+
+	if len(hoteles_luna) > 0:
+		flag_hotel = True
 
 	flag_deco = False
 	if len(decoraciones) > 0:
@@ -75,6 +88,7 @@ def TableroResumen(request):
 
 	AccesorioE1 = AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)
 	AccesorioE2 = AccesorioCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
 
 	flag_belleza1 = False
 	flag_belleza2 = False
@@ -112,7 +126,7 @@ def TableroResumen(request):
 		'ceremonia_id':ceremonia.id,
 		'precio_fiesta': getPriceFormat(fiesta.precio),
 		'precio_ceremonia': getPriceFormat(ceremonia.precio),
-		'precio_luna': getPriceFormat(luna[0].precio),
+		'precio_luna': getPriceFormat(luna.precio),
 		'precio_enamorado': getPriceFormat(boda[0].Enamorado1.precio),
 		'precio_enamorado2': getPriceFormat(boda[0].Enamorado2.precio),
 		'enamoradoNombre': boda[0].Enamorado1,
@@ -127,7 +141,9 @@ def TableroResumen(request):
 		'flag_prenda1': flag_prenda1,
 		'flag_prenda2': flag_prenda2,
 		'flag_accesorio1': flag_accesorio1,
-		'flag_accesorio2': flag_accesorio2		
+		'flag_accesorio2': flag_accesorio2,
+		'flag_activi' : flag_acti,
+		'flag_hotel': flag_hotel		
 	}
 	template = loader.get_template('TableroResumen.html')
 
