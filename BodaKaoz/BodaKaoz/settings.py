@@ -7,7 +7,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ktcj9=lc2t(-d@(0lacuh1#&(tna&=%(obk^1hf@%o+^u4x3r+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
@@ -56,7 +56,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'BodaKaoz.wsgi.application'
-'''
+
 # Database - Only for local test
 DATABASES = {
     'default': {
@@ -75,6 +75,7 @@ DATABASES = {
          'PORT': '5432',
      }
  }
+'''
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {

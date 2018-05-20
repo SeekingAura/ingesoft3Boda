@@ -27,16 +27,16 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		   	<ul class="navbar-nav mr-auto">
 		   		<li class="nav-item">
-		   			<a class="nav-link" href="#">Enamorado</a>
+		   			<a class="nav-link" href={% url 'Pareja:enamorado1' %}>Enamorado - {{ enamoradoNombre.User.first_name }} {{ enamoradoNombre.User.last_name }}</a>
 		   		</li>
 		   		<li class="nav-item">
-		   			<a class="nav-link" href="#">Enamorada</a>
+		   			<a class="nav-link" href="{% url 'Pareja:enamorado2' %}">Enamorado - {{ enamoradoNombre2.User.first_name }} {{ enamoradoNombre2.User.last_name }}</a>
 		   		</li>
 		   		<li class="nav-item ac active">
-		       		<a class="nav-link" href="#">Ceremonia</a>
+		       		<a class="nav-link" href="{% url 'Ceremonia:dashboard' user_id boda_id ceremonia_id %}">Ceremonia</a>
 		   		</li>
 		   		<li class="nav-item">
-		   			<a class="nav-link" href="#">Fiesta</a>
+		   			<a class="nav-link" href="{% url 'Fiesta:dashboard' user_id boda_id fiesta_id %}">Fiesta</a>
 		   		</li>
 		   		<li class="nav-item">
 		   			<a class="nav-link" href="{%  url 'LunaMiel:dashboard' %}">Luna de miel</a>
