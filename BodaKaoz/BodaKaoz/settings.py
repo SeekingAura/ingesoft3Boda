@@ -58,6 +58,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'BodaKaoz.wsgi.application'
 
 # Database - Only for local test
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -75,7 +76,6 @@ DATABASES = {
          'PORT': '5432',
      }
  }
-'''
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
