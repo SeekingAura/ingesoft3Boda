@@ -29,7 +29,7 @@ urlpatterns = [
 	path('pareja/', include('Pareja.urls', namespace="Pareja")),
 	path('Ceremonia/', include('Ceremonia.urls', namespace="Ceremonia")),
 	path('fiesta/', include('Fiesta.urls', namespace="Fiesta")),
-	# path('LunaMiel/', include('LunaMiel.urls', namespace="LunaMiel")),
+	path('LunaMiel/', include('LunaMiel.urls', namespace="LunaMiel")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = handler404View

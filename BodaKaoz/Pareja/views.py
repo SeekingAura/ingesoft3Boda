@@ -22,7 +22,7 @@ from django.contrib.auth.decorators import login_required
 from .utils import getPriceFormat
 
 @login_required(login_url='index')
-def TableroResumen(request):
+def TableroResumen(request):	
 	user_id = request.user
 	enamorado = Enamorado.objects.get(User_id=user_id)
 	boda = Boda.objects.filter(Enamorado1_id=enamorado.id)
@@ -30,24 +30,119 @@ def TableroResumen(request):
 	if len(boda) == 0:
 		boda = Boda.objects.filter(Enamorado2_id=enamorado.id)    
 
-	fiesta = FiestaEvento.objects.filter(Boda_id=boda[0].id)
-	ceremonia = CeremoniaEvento.objects.filter(Boda_id=boda[0].id)
-	luna = LunaMielEvento.objects.filter(Boda_id=boda[0].id)
+	fiesta = FiestaEvento.objects.get(Boda_id=boda[0].id)
+	ceremonia = CeremoniaEvento.objects.get(Boda_id=boda[0].id)
+	luna = LunaMielEvento.objects.get(Boda_id=boda[0].id)
 	precio_pareja = int(boda[0].Enamorado1.precio) + int(boda[0].Enamorado2.precio)
+
+
+	if fiesta.Lugar != None:
+		precio = getPriceFormat(fiesta.Lugar.precio)
+		fiesta.Lugar.precioSTR = precio
+
+	entretenimientos = EntretenimientoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
+	alimentos = AlimentoCarrito.objects.filter(FiestaEvento_id=fiesta.id)
+	decoraciones = DecoracionCeremoniaCarrito.objects.filter(CeremoniaEvento_id=ceremonia.id)
+
+	actividades_luna = ActividadCarrito.objects.filter(LunaMielEvento_id=luna.id)
+	hoteles_luna = HotelCarrito.objects.filter(LunaMielEvento_id=luna.id)
+
+
+	flag_hotel = False
+	flag_acti = False
+	if len(actividades_luna) > 0:
+		flag_acti = True
+
+	if len(hoteles_luna) > 0:
+		flag_hotel = True
+
+	flag_deco = False
+	if len(decoraciones) > 0:
+		flag_deco = True
+
+	precio_entretenimiento = 0
+	for entre in entretenimientos:
+		precio_entretenimiento += entre.Entretenimiento.precio
+	if len(entretenimientos) > 0:
+		precio_entre = (True , getPriceFormat(precio_entretenimiento))
+	else:
+		precio_entre = (False , "")
+
+	precio_alimento = 0
+	for alimento in alimentos:
+		precio_alimento += alimento.subtotal
+	if len(alimentos) > 0:
+		precio_alim = (True, getPriceFormat(precio_alimento))
+	else:
+		precio_alim = (False , "")
+
+	enamorado1 = boda[0].Enamorado1
+	enamorado2 = boda[0].Enamorado2
+
+	bellezasE1 = BellezaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+	bellezasE2 = BellezaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+	prendasE1 = PrendaCarrito.objects.filter(Enamorado_id=enamorado1.id)
+	prendasE2 = PrendaCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+	AccesorioE1 = AccesorioCarrito.objects.filter(Enamorado_id=enamorado1.id)
+	AccesorioE2 = AccesorioCarrito.objects.filter(Enamorado_id=enamorado2.id)
+
+
+	flag_belleza1 = False
+	flag_belleza2 = False
+
+	flag_prenda1 = False
+	flag_prenda2 = False
+
+	flag_accesorio1 = False
+	flag_accesorio2 = False
+
+	if len(prendasE1) > 0:
+		flag_prenda1 = True
+
+	if len(prendasE2) > 0:
+		flag_prenda2 = True
+
+	if len(bellezasE1) > 0:
+		flag_belleza1 = True
+
+	if len(bellezasE2) > 0:
+		flag_belleza2 = True
+
+	if len(AccesorioE1) > 0:
+		flag_accesorio1 = True
+
+	if len(AccesorioE2) > 0:
+		flag_accesorio2 = True
+
 	ctx={
 		'user_id': user_id,
+		'fiesta':fiesta,
+		'ceremonia' : ceremonia,
 		'boda_id':boda[0].id,
-		'fiesta_id':fiesta[0].id,
-		'ceremonia_id':ceremonia[0].id,
-		'precio_fiesta': getPriceFormat(fiesta[0].precio),
-		'precio_ceremonia': getPriceFormat(ceremonia[0].precio),
-		'precio_luna': getPriceFormat(luna[0].precio),
+		'fiesta_id':fiesta.id,
+		'ceremonia_id':ceremonia.id,
+		'precio_fiesta': getPriceFormat(fiesta.precio),
+		'precio_ceremonia': getPriceFormat(ceremonia.precio),
+		'precio_luna': getPriceFormat(luna.precio),
 		'precio_enamorado': getPriceFormat(boda[0].Enamorado1.precio),
 		'precio_enamorado2': getPriceFormat(boda[0].Enamorado2.precio),
 		'enamoradoNombre': boda[0].Enamorado1,
 		'enamoradoNombre2': boda[0].Enamorado2,
 		'precio_pareja': getPriceFormat(precio_pareja),
-		'precio_boda': getPriceFormat(boda[0].precio)
+		'precio_boda': getPriceFormat(boda[0].precio),
+		'precio_entre': precio_entre,
+		'precio_alim': precio_alim,
+		'flag_deco': flag_deco,
+		'flag_belleza1': flag_belleza1,
+		'flag_belleza2': flag_belleza2,
+		'flag_prenda1': flag_prenda1,
+		'flag_prenda2': flag_prenda2,
+		'flag_accesorio1': flag_accesorio1,
+		'flag_accesorio2': flag_accesorio2,
+		'flag_activi' : flag_acti,
+		'flag_hotel': flag_hotel		
 	}
 	template = loader.get_template('TableroResumen.html')
 
@@ -141,7 +236,6 @@ def Enamorado1(request):
 				lista_accesorios.append(a.Accesorio.id)                           
 		#enamorado1.precio=0
 		#enamorado1.save()
-		#print (Bellezas)
 		context = {
 
 			'enamorado' : enamorado1,
@@ -174,7 +268,6 @@ def Enamorado1(request):
 			'enamoradoNombre': enamorado1,
 			'enamoradoNombre2': enamorado2
 		}
-		# print ("contexto", context)
 
 		return HttpResponse(template.render(context, request))    
 	
@@ -456,7 +549,6 @@ def Enamorado2(request):
 				lista_accesorios.append(a.Accesorio.id)                           
 		#enamorado1.precio=0
 		#enamorado1.save()
-		#print (Bellezas)
 		context = {
 
 			'enamorado' : enamorado2,
@@ -489,7 +581,6 @@ def Enamorado2(request):
 			'enamoradoNombre': enamorado1,
 			'enamoradoNombre2': enamorado2
 		}
-		# print ("contexto", context)
 
 		return HttpResponse(template.render(context, request))    
 	
@@ -761,6 +852,7 @@ def Registro(request):
 		error = (False, "")
 		mensaje = (False, "")
 		template = loader.get_template('Pareja/registro.html') # get template
+
 		if request.method == "GET":
 		   
 			
@@ -777,8 +869,10 @@ def Registro(request):
 		if request.method == "POST":
 			#DATOS HOMMBRE
 			nombre_persona1 = request.POST.get("nombreMEN")
+			nombre_persona1=nombre_persona1.title()
 
 			apellido_persona1 = request.POST.get("apellidoMEN")
+			apellido_persona1= apellido_persona1.title()
 
 			documento_persona1 = request.POST.get("identificacionMEN")
 
@@ -788,8 +882,10 @@ def Registro(request):
 
 			#DATOS MUJER
 			nombre_persona2 = request.POST.get("nombreWOMAN")
+			nombre_persona2=nombre_persona2.title()
 
 			apellido_persona2 = request.POST.get("apellidoWOMAN")
+			apellido_persona2=apellido_persona2.title()
 
 			documento_persona2 = request.POST.get("identificacionWOMAN")
 
@@ -799,42 +895,93 @@ def Registro(request):
 
 			contrasena = request.POST.get("password")
 			contrasenaAut = request.POST.get("passwordAut")
-			if contrasena==contrasenaAut:
-
-				# print("holaaa")
-				user1=User.objects.create(first_name=nombre_persona1,last_name=apellido_persona1, email=email1, username=documento_persona1)
-					
-				
-				user1.set_password(contrasena)
-				user1.save()            
-				user2=User.objects.create(first_name=nombre_persona2, last_name=apellido_persona2, email=email2, username=documento_persona2)
-				user2.set_password(contrasena)
-				user2.save()
-
-				#creacion enamorados
-				enamorado1=Enamorado.objects.create(User=user1, cedula=documento_persona1, telefono=telefono1)
-				enamorado1.save()
-				enamorado2=Enamorado.objects.create(User=user2, cedula=documento_persona2, telefono=telefono2)
-				enamorado2.save() 
-				
-				#creacion de Boda
-				Boda1=Boda.objects.create(Enamorado1=enamorado1,Enamorado2=enamorado2)
-				Boda1.save()
-				#CREACION CEREMONIA
-				CeremoniaEvento1=CeremoniaEvento.objects.create(Boda=Boda1)
-				#CREACION FIESTA
-				FiestaEvento1=FiestaEvento.objects.create(Boda=Boda1)
-				#CREACION LUNA DE MIEL
-				LunaMielEvento1=LunaMielEvento.objects.create(Boda=Boda1)
-				
-				mensaje = (True, "La persona fue ingresada en el sistema")
+			
+			users1=User.objects.filter(username=documento_persona1)
+			users2=User.objects.filter(username=documento_persona2)
+			if users1.count()>0 :
+				error=(True,"Identificacion 1 ya existe ")
 			else:
-				error=(True,"Contraseña no coincide")
+				if users2.count()>0 :
+					error=(True,"Identificacion 2 ya existe ")	
+				else:
+					if contrasena==contrasenaAut:
+						if telefono2.isdigit() and telefono1.isdigit():
+							if documento_persona2.isdigit() and documento_persona1.isdigit():
+
+
+								user1=User.objects.create(first_name=nombre_persona1,last_name=apellido_persona1, email=email1, username=documento_persona1)
+									
+								
+								user1.set_password(contrasena)
+								user1.save()            
+								user2=User.objects.create(first_name=nombre_persona2, last_name=apellido_persona2, email=email2, username=documento_persona2)
+								user2.set_password(contrasena)
+								user2.save()
+
+								#creacion enamorados
+								enamorado1=Enamorado.objects.create(User=user1, cedula=documento_persona1, telefono=telefono1)
+								enamorado1.save()
+								enamorado2=Enamorado.objects.create(User=user2, cedula=documento_persona2, telefono=telefono2)
+								enamorado2.save() 
+								
+								#creacion de Boda
+								Boda1=Boda.objects.create(Enamorado1=enamorado1,Enamorado2=enamorado2)
+								Boda1.save()
+								#CREACION CEREMONIA
+								CeremoniaEvento1=CeremoniaEvento.objects.create(Boda=Boda1)
+								#CREACION FIESTA
+								FiestaEvento1=FiestaEvento.objects.create(Boda=Boda1)
+								#CREACION LUNA DE MIEL
+								LunaMielEvento1=LunaMielEvento.objects.create(Boda=Boda1)
+								
+								#REINICIO DE DATOS
+								nombre_persona1 =""
+
+
+								apellido_persona1 =""
+								apellido_persona1 =""
+
+								documento_persona1 =""
+
+								telefono1 = ""
+
+								email1  =""
+
+								#DATOS MUJER
+								nombre_persona2  =""
+								nombre_persona2=""
+
+								apellido_persona2 =""
+								apellido_persona2=""
+
+								documento_persona2 =""
+
+								telefono2 =""
+
+								email2 =""
+															
+								mensaje = (True, "La persona fue ingresada en el sistema")
+							else:
+								error=(True,"La identificacion debe ser numerica")	
+						else:
+							error=(True,"El telefono debe ser numerico")	
+					else:
+						error=(True,"Contraseña no coincide")
 
 			ctx = {
 
 			'mensaje': mensaje,
 			'error': error,
+			'nombre_persona1':nombre_persona1,
+			'apellido_persona1':apellido_persona1,
+			'documento_persona1':documento_persona1,
+			'telefono1': telefono1,
+			'email1':email1,
+			'nombre_persona2':nombre_persona2,
+			'apellido_persona2':apellido_persona2,
+			'documento_persona2':documento_persona2,
+			'telefono2': telefono2,
+			'email2':email2,
 
 			}                  
 			return HttpResponse(template.render(ctx, request))
