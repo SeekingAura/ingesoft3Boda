@@ -35,7 +35,7 @@ class Enamorado(models.Model):
 class Belleza(models.Model):
 	maquillaje=models.CharField(max_length=250)
 	peinado=models.CharField(max_length=250)
-	imagen=models.ImageField(upload_to="Pareja/Belleza", null=True, blank=True, default=None)
+	imagen=models.ImageField(upload_to="Pareja/Belleza")
 	precio=models.BigIntegerField(default=0)
 	class Meta:
 		app_label = 'Pareja'
@@ -54,7 +54,7 @@ class Accesorio(models.Model):
 	nombre=models.CharField(max_length=250)
 	tipoObjeto=models.CharField(max_length=50)# Esto necesita un Choices
 	alquilado=models.BooleanField(default=False)
-	imagen=models.ImageField(upload_to="Pareja/Accesorio", null=True, blank=True, default=None)
+	imagen=models.ImageField(upload_to="Pareja/Accesorio")
 	precio=models.BigIntegerField(default=0)
 	class Meta:
 		app_label = 'Pareja'
@@ -73,7 +73,7 @@ class Prenda(models.Model):
 	nombre=models.CharField(max_length=250)
 	descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
 	talla=models.CharField(max_length=250)
-	imagen=models.ImageField(upload_to="Pareja/Prenda", null=True, blank=True, default=None)
+	imagen=models.ImageField(upload_to="Pareja/Prenda")
 	tipo = models.CharField(choices=TYPE, blank=True , default=None, max_length=50)
 	precio=models.BigIntegerField(default=0)
 	class Meta:

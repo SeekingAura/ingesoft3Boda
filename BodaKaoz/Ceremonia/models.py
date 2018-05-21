@@ -14,7 +14,7 @@ TYPE = (
 class Ministro(models.Model):
 	nombre=models.CharField(max_length=250)
 	tipo=models.CharField(choices=TYPE, max_length=50)
-	imagen=models.ImageField(upload_to="Ceremonia/Ministro", null=True, blank=True, default=None)
+	imagen=models.ImageField(upload_to="Ceremonia/Ministro")
 	precio=models.BigIntegerField(default=0)
 	def __str__(self):
 		return self.nombre+" -> Ministro: {}".format(self.id)
@@ -22,7 +22,7 @@ class Ministro(models.Model):
 class Musica(models.Model):
 	nombre=models.CharField(max_length=250)
 	descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
-	imagen=models.ImageField(upload_to="Ceremonia/Musica", null=True, blank=True, default=None)
+	imagen=models.ImageField(upload_to="Ceremonia/Musica")
 	precio=models.BigIntegerField(default=0)
 	def __str__(self):
 		return self.nombre+" -> Musica: {}".format(self.id)
@@ -40,7 +40,7 @@ class CeremoniaEvento(models.Model):
 class DecoracionCeremonia(models.Model):
 	nombre=models.CharField(max_length=50, null=True, blank=True, default=None)
 	descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
-	imagen=models.ImageField(upload_to="Ceremonia/Decoracion", null=True, blank=True, default=None)
+	imagen=models.ImageField(upload_to="Ceremonia/Decoracion")
 	precio=models.BigIntegerField(default=0)
 	class Meta:
 		verbose_name = "Decoración"

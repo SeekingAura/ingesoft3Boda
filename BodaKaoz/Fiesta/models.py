@@ -14,7 +14,7 @@ class FiestaEvento(models.Model):
 class Alimento(models.Model):
 	nombre=models.CharField(max_length=250)
 	descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
-	imagen=models.ImageField(upload_to="Fiesta/Alimento", null=True, blank=True, default=None)
+	imagen=models.ImageField(upload_to="Fiesta/Alimento")
 	precio=models.BigIntegerField(default=0)
 
 	def __str__(self):
@@ -31,7 +31,7 @@ class AlimentoCarrito(models.Model):
 class Entretenimiento(models.Model):
 	nombre=models.CharField(max_length=250)
 	descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
-	imagen=models.ImageField(upload_to="Fiesta/Entretenimiento", null=True, blank=True, default=None)
+	imagen=models.ImageField(upload_to="Fiesta/Entretenimiento")
 	precio=models.BigIntegerField(default=0)
 
 	def __str__(self):
@@ -46,7 +46,7 @@ class EntretenimientoCarrito(models.Model):
 class DecoracionFiesta(models.Model):
 	nombre=models.CharField(max_length=250, null=True, blank=True, default=None)
 	descripcion=models.TextField(max_length=1000, null=True, blank=True, default=None)
-	imagen=models.ImageField(upload_to="Fiesta/Decoracion", null=True, blank=True, default=None)
+	imagen=models.ImageField(upload_to="Fiesta/Decoracion")
 	precio=models.BigIntegerField(default=0)
 	class Meta:
 		verbose_name = "Decoración"
