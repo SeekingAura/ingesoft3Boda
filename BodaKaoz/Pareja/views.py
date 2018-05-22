@@ -906,7 +906,7 @@ def Registro(request):
 				else:
 					if contrasena==contrasenaAut:
 						if telefono2.isdigit() and telefono1.isdigit():
-							if documento_persona2.isdigit() and documento_persona1.isdigit():
+							if documento_persona2.isdigit() and documento_persona1.isdigit() and documento_persona1[0]!="0" and documento_persona2[0]!="0":
 
 
 								user1=User.objects.create(first_name=nombre_persona1,last_name=apellido_persona1, email=email1, username=documento_persona1)
@@ -962,7 +962,10 @@ def Registro(request):
 															
 								mensaje = (True, "La persona fue ingresada en el sistema")
 							else:
-								error=(True,"La identificacion debe ser numerica")	
+								if(documento_persona1[0]!="0" and documento_persona2[0]!="0"):
+									error=(True,"La identificacion debe ser numerica")	
+								else:
+									error=(True,"La identificacion no puede iniciar con 0")	
 						else:
 							error=(True,"El telefono debe ser numerico")	
 					else:
