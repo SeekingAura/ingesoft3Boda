@@ -13,8 +13,6 @@ from .utils import getPriceFormat
 
 @login_required(login_url='index')
 def fiestaDashboardView(request, user_id , boda_id , fiesta_id):
-	print("request ->", request.user)
-	print("user_id ->", user_id)
 	if str(request.user) != str(user_id):
 		logout(request)
 		return redirect('index')
