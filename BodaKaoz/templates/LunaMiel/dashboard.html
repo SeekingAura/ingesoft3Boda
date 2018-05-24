@@ -2,7 +2,7 @@
 
 {% block name_mod %}
 	<div class="card-header border-dark">
-        <h2 class="text-center">LUNA DE MIEL</h2>
+        Luna de miel
   	</div>
 {% endblock name_mod %}
 
@@ -51,10 +51,10 @@
         </table>
     </div>
     <div class="card-footer">
-        <button type="button" data-toggle="modal" data-target="#modal_actividad_anadir" class="btn btn-success float-right"><i class="fa fa-plus-square"></i> Añadir actividad</button>
+        <button type="button" data-toggle="modal" data-target="#modal_actividad_anadir" class="btn btn-primary float-right">Añadir actividad</button>
     </div>
 </div>
-<div class="card border-dark mt-30">
+<div class="card border-dark mt-2">
     <div class="card-body">
         <h5 class="card-title">Hoteles</h5>
         <table id="tabla_hoteles" class="table table-striped table-bordered" style="width: 100%">
@@ -91,15 +91,17 @@
         </table>
     </div>
     <div class="card-footer">
-        <button type="button" data-toggle="modal" data-target="#modal_hotel_anadir" class="btn btn-success float-right"><i class="fa fa-plus-square"></i> Añadir hotel</button>
+        <button type="button" data-toggle="modal" data-target="#modal_hotel_anadir" class="btn btn-primary float-right">Añadir hotel</button>
     </div>
 </div>
-<div class="row mt-4">
-    <div class="col text-left">
-        <h1>Costo Luna de miel:</h1>
-    </div>
-    <div class="col text-right">
-        <h1 class="display-4 text-info"><strong id="precio_total">${{luna.precio}}</strong></h1>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col text-left">
+            <h2>Costo Luna de miel:</h2>
+        </div>
+        <div class="col text-right">
+            <h1 class="font-weight-light text-info"><strong id="precio_total">${{luna.precio}}</strong></h1>
+        </div>
     </div>
 </div>
 

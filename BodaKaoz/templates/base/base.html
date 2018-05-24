@@ -11,6 +11,7 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="{% static "css/base.css" %}">
 	<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+	<link rel="stylesheet" type="text/css" href="/static/css/Estilo.css">
     {% block styles %}
 	{% endblock styles %}
 
@@ -20,38 +21,47 @@
 	<script src="{% static "js/bootstrap.min.js" %}"></script>
 	{% block scripts %}
 	{% endblock scripts %}
-	<nav class="d-md-none navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #005f93;">
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #005f93;">
+		<div class="row">
+        	<div class="col-2">
+          		<a class="navbar-brand pt-0 pb-0">
+            		<img id="" src="/static/img/KBLogo_header.svg" alt="" height="45">
+          		</a>
+        	</div>
+      	</div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		   	<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		   	<ul class="navbar-nav mr-auto">
-		   		<li class="nav-item">
+		   		<li class="nav-item d-md-none">
 		   			<a class="nav-link" href={% url 'Pareja:enamorado1' %}>Enamorado - {{ enamoradoNombre.User.first_name }} {{ enamoradoNombre.User.last_name }}</a>
 		   		</li>
-		   		<li class="nav-item">
+		   		<li class="nav-item d-md-none">
 		   			<a class="nav-link" href="{% url 'Pareja:enamorado2' %}">Enamorado - {{ enamoradoNombre2.User.first_name }} {{ enamoradoNombre2.User.last_name }}</a>
 		   		</li>
-		   		<li class="nav-item">
+		   		<li class="nav-item d-md-none">
 		       		<a class="nav-link" href="{% url 'Ceremonia:dashboard' user_id boda_id ceremonia_id %}">Ceremonia</a>
 		   		</li>
-		   		<li class="nav-item">
+		   		<li class="nav-item d-md-none">
 		   			<a class="nav-link" href="{% url 'Fiesta:dashboard' user_id boda_id fiesta_id %}">Fiesta</a>
 		   		</li>
-		   		<li class="nav-item">
+		   		<li class="nav-item d-md-none">
 		   			<a class="nav-link" href="{%  url 'LunaMiel:dashboard' %}">Luna de miel</a>
 		   		</li>
-		   		<li class="nav-item">
+		   		<li class="nav-item d-md-none">
 		   			<a class="nav-link" href="{% url 'tableroResumen' %}">Resumen</a>
 				</li>
-				<li class="nav-item">
-						<a class="nav-link" href="{% url 'Pareja:cerrar-sesion' %}">Cerrar Sesión</a>
+				<li class="nav-item d-md-none">
+					<a class="nav-link" href="{% url 'Pareja:cerrar-sesion' %}">Cerrar Sesión</a>
 				</li>   
 		   	</ul>
+            <a class="btn btn-outline-warning d-none d-md-block" href="{% url 'Pareja:cerrar-sesion' %}">Cerrar Sesión</a>
 		</div>
 	</nav>
-	<div class="container container-md-fluid">
-		<div class="row mt-5 pt-4 pt-md-0 mb-4">
+	<div class="container container-md-fluid pt-md-5">
+		<div class="row mt-5 pt-5 pt-md-0 mb-4">
 			<div class="d-none d-md-block col-lg-3 col-md-4 col-sm-12">
 				<div class="card border-dark">
   					<img class="card-img-top" src="{% static 'img/KBLogo_header.svg' %}">
@@ -59,12 +69,12 @@
     					<ul class="list-group list-group-flush">
 						  <li class="list-group-item">
 						  	<a href="{% url 'Pareja:enamorado1' %}" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
-								Enamorado - {{ enamoradoNombre.User.first_name }} {{ enamoradoNombre.User.last_name }}
+								<strong>Enamorado: </strong>{{ enamoradoNombre.User.first_name }} {{ enamoradoNombre.User.last_name }}
 							</a>
 						  </li>
 						  <li class="list-group-item">
 						  	<a href="{% url 'Pareja:enamorado2' %}" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
-								Enamorado - {{ enamoradoNombre2.User.first_name }} {{ enamoradoNombre2.User.last_name }}
+								<strong>Enamorado: </strong>{{ enamoradoNombre2.User.first_name }} {{ enamoradoNombre2.User.last_name }}
 							</a>
 						  </li>
 						  <li class="list-group-item">
@@ -87,11 +97,6 @@
 								Resumen
 							</a>	
 						  </li>
-						  <li class="list-group-item">
-						  	<a href="{% url 'Pareja:cerrar-sesion' %}" class="text-dark" data-toggle="" aria-expanded="true" aria-controls="">
-								Cerrar sesión
-							</a>
-						  </li>
 						</ul>
   					</div>
 				</div>
@@ -100,14 +105,24 @@
 				<div class="card border-dark">
 					{% block name_mod %}		
 					{% endblock name_mod %}
-  				<div class="card-body">
-					<div class="content">
-						{% block content %}
-						{% endblock content %}
-					</div>	
-    			</div>
+  					<div class="card-body">
+						<div class="content">
+							{% block content %}
+							{% endblock content %}
+						</div>	
+    				</div>
+				</div>
 			</div>
 		</div>
 	</div>
+	<footer class="footer">
+    	<div class="container container-md-fluid">
+      		<div class="row">
+        		<div class="col">
+            		<div class="text-light"><img id="" src="/static/img/KBLogo.svg" alt="" height="30">KB 2018. Todos los derechos reservados.</div> 
+        		</div>
+      		</div>
+    	</div>
+  	</footer>
 </body>
 </html>

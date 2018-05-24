@@ -1,8 +1,6 @@
 
 {% load staticfiles %}
-
-<div class="card text-center">
-</div>	
+	
 	{% load staticfiles %}
 
 <div class="card border-dark mb-2">
@@ -29,8 +27,7 @@
 	    					<div class="media-body">
 								<h4 class="mt-0">{{a.Prenda.nombre}}</h4>		  
 								<p class="card-text">{{a.Prenda.descripcion}}</p>
-								<div class="media">
-									
+								<div class="media">									
 									<i class="material-icons">attach_money</i>
 									<div class="media-body">
 								        <p> {{a.Prenda.precio}}</p>
@@ -38,10 +35,10 @@
 								</div>
 								<div class="row">
 									<div class="col text-right">
-									        <input name="carrito_prenda_id" value="{{a.id}}" hidden>
-											<input name="prenda_id" value="{{a.Prenda.id}}" hidden>
-											<input name="price" value="{{a.Prenda.precio}}" hidden>
-									        <button type="submit"  class="btn btn-danger" name="btn_value" value="delete_prenda">Eliminar</button>
+									    <input name="carrito_prenda_id" value="{{a.id}}" hidden>
+										<input name="prenda_id" value="{{a.Prenda.id}}" hidden>
+										<input name="price" value="{{a.Prenda.precio}}" hidden>
+									    <button type="submit"  class="btn btn-danger" name="btn_value" value="delete_prenda">Eliminar</button>
 									</div>
 								</div>	
 						    </div>
@@ -50,26 +47,32 @@
 				</div>     
 	        </form>
 		</div>
-
 		{% endfor %}
 		{% if flag_entre %}
-
-			<div class="card-body text-center">
-	    		<p>¿Aún hay espacio para algo más?</p>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaModal">¡Agregar Prenda!</button>
-			</div>
+		<div class="card-body text-center">
+	    	<p>¿Aún hay espacio para algo más?</p>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaModal">
+				¡Agregar Prenda!
+			</button>
+		</div>
 		{% else %} {% comment %}Cuando no tiene seleccionado uno o más prendas{% endcomment %}
 		<div class="card-body text-center">
 			<h4 class="card-title, tittle-center, font-weight-bold">Deseas agregar alguna Prenda.</h4>
      		<div class="card-body">
-			    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaMasModal">¡Prenda Masculina!</button>
-			    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaFemModal">¡Prenda Femenina!</button>
-			    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#PrendaMixModal">¡Prendas Mixtas!</button>
-
+     			<div class="row">
+     				<div class="col-12 col-lg-4 mb-2">
+			    		<button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#PrendaMasModal">¡Prenda Masculina!</button>
+     				</div>
+     				<div class="col-12 col-lg-4 mb-2">
+			    		<button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#PrendaFemModal">¡Prenda Femenina!</button>
+     				</div>
+     				<div class="col-12 col-lg-4 mb-2">
+			    		<button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#PrendaMixModal">¡Prendas Mixtas!</button>
+     				</div>
+     			</div>
 			</div>
 		</div>
-			
-		    {% endif %}
+		{% endif %}
 	</div>
 </div>
 

@@ -76,6 +76,7 @@ DATABASES = {
          'PORT': '5432',
      }
  }
+ 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {

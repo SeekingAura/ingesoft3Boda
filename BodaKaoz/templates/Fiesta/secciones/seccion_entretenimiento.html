@@ -50,13 +50,11 @@
 	  		</div>
 	  	{% else %} {% comment %}Cuando no tiene seleccionado uno o más entretenimientos{% endcomment %}
 		<div class="card-body text-center">
-		      <h4 class="card-title, tittle-center, font-weight-bold">Aún no tienes agregado algún entretenimiento para tu fiesta.</h4>
 		      <p class="card-text, text-center">¡Presiona en agregar para escoger entretenimiento para tu fiesta!</p>
 		      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EntretenimientoModal">¡Agregar entretenimientos!</button>
 		   </div>
-		</div>
-		{% endif %}
 	</div>
+		{% endif %}
 </div>
 
 <div class="modal fade" id="EntretenimientoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

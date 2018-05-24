@@ -26,26 +26,26 @@
 	 			  <div class="row">
 	 			  	<div class="col text-left">
 	 			  	{% if not fiesta.Fotos %}
-		 			  	<h5 class="text-danger">Fotos no asignadas</h5>
+		 			  	<h5 class="font-italic text-danger">* No se han asignado "Fotos"</h5>
 	 			  	{% endif %}
 
 	 			  	{% if fiesta.Lugar is None %}
-		 			  	<h5 class="text-danger">Lugar no signado</h5>
+		 			  	<h5 class="font-italic text-danger">* No se ha asignado "Lugar"</h5>
 			    	{% endif %}
 			    	{% if not precio_entre.0 %}
-			    		<h5 class="text-danger">Entretenimientos no asignados</h5>
+			    		<h5 class="font-italic text-danger">* No se han asignado "Entretenimientos"</h5>
 			    	{% endif %}
 			    	{% if not precio_alim.0 %}
-			    		<h5 class="text-danger">Alimentos no asignados</h5>	
+			    		<h5 class="font-italic text-danger">* No se han asignado "Alimentos"</h5>
 			    	{% endif %}
 			      </div>
 	 			</div>
 				  <div class="row mt-4">
 				    <div class="col text-left">
-				      <h1>Costo Total:</h1>
+				      <h2>Costo fiesta:</h2>
 				    </div>
-				    <div class="col text-right">
-				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_fiesta}}</strong></h1>
+				    <div class="col text-right align-self-center">
+				      <h1 class="font-weight-light text-info"><strong>${{precio_fiesta}}</strong></h1>
 				    </div>
 				  </div>
 				</div>
@@ -72,28 +72,28 @@
 	 			<div class="row">
 	 			  	<div class="col text-left">
 	 			  	{% if ceremonia.Ministro is None %}
-		 			  	<h5 class="text-danger">Ministro no asignado</h5>
+		 			  	<h5 class="font-italic text-danger">* No se ha asignado "Ministro"</h5>
 	 			  	{% endif %}
 	 			  	{% if ceremonia.Lugar is None %}
-		 			  	<h5 class="text-danger">Lugar no signado</h5>
+		 			  	<h5 class="font-italic text-danger">* No se ha asignado "Lugar"</h5>
 			    	{% endif %}
 			    	{% if ceremonia.Musica is None %}
-			    		<h5 class="text-danger">Musica no asignada</h5>
+			    		<h5 class="font-italic text-danger">* No se ha asignado "Música"</h5>
 			    	{% endif %}
 			    	{% if not ceremonia.Fotos %}
-			    		<h5 class="text-danger">Fotos no asignadas</h5>
+			    		<h5 class="font-italic text-danger">* No se han asignado "Fotos"</h5>
 			    	{% endif %}
 			    	{% if not flag_deco %}
-			    		<h5 class="text-danger">Decoraciones no asignadas</h5>
+			    		<h5 class="font-italic text-danger">* No se han asignado "Decoraciones"</h5>
 			    	{% endif %}
 			      </div>
 	 			</div>
 				  <div class="row mt-4">
 				    <div class="col text-left">
-				      <h1>Costo Ceremonia:</h1>
+				      <h2>Costo ceremonia:</h2>
 				    </div>
-				    <div class="col text-right">
-				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_ceremonia}}</strong></h1>
+				    <div class="col text-right align-self-center">
+				      <h1 class="font-weight-light text-info"><strong>${{precio_ceremonia}}</strong></h1>
 				    </div>
 				  </div>
 				</div>
@@ -120,19 +120,19 @@
 	 			  <div class="row">
 	 			  	<div class="col text-left">
 	 			  	{% if not flag_activi %}
-		 			  	<h5 class="text-danger">Actividades no asignadas</h5>
+		 			  	<h5 class="font-italic text-danger">* No se han asignado "Actividades"</h5>
 	 			  	{% endif %}
 	 			  	{% if not flag_hotel %}
-		 			  	<h5 class="text-danger">Hoteles no signados</h5>
+		 			  	<h5 class="font-italic text-danger">* No se han asignado "Hoteles"</h5>
 			    	{% endif %}
 			      </div>
 	 			</div>
 				  <div class="row mt-4">
 				    <div class="col text-left">
-				      <h1>Costo Luna de miel:</h1>
+				      <h2>Costo luna de miel:</h2>
 				    </div>
-				    <div class="col text-right">
-				      <h1 class="display-4 text-info precioResumen"><strong>${{precio_luna}}</strong></h1>
+				    <div class="col text-right align-self-center">
+				      <h1 class="font-weight-light text-info"><strong>${{precio_luna}}</strong></h1>
 				    </div>
 				  </div>
 				</div>
@@ -156,42 +156,54 @@
 	  	<div class="collapse" id="collapsePareja">
 	 		<div class="card-body">
 	 			<div class="container">
-	 			  <div class="row">
-	 			  	<div class="col text-left">
-	 			  		<small class="lead">enamorado {{enamoradoNombre.User.first_name}} {{enamoradoNombre.User.last_name}}</small><br>
+	 			  <div class="row mb-5">
+	 			  	<div class="col-12 col-lg-6 text-lg-left mb-3">
+	 			  		<h2>{{enamoradoNombre.User.first_name}} {{enamoradoNombre.User.last_name}}</h2>
 	 			  		{% if not flag_belleza1 %}
-	 			  			<h5 class="text-danger">No se han asignado bellezas para este enamorado</h5>
+	 			  			<h5 class="font-italic text-danger">* No se han asignado "Bellezas"</h5>
 	 			  		{% endif %}
 	 			  		{% if not flag_prenda1 %}
-	 			  			<h5 class="text-danger">No se han asignado prendas para este enamorado</h5>
+	 			  			<h5 class="font-italic text-danger">* No se han asignado "Prendas"</h5>
 	 			  		{% endif %}
 	 			  		{% if not flag_accesorio1 %}
-	 			  			<h5 class="text-danger">No se han asignado accesorios</h5>
+	 			  			<h5 class="font-italic text-danger">* No se han asignado "Accesorios"</h5>
 	 			  		{% endif %}
 	 			  	</div>
-	 			  	<div class="col text-right">
-	 			  		<small class="lead">enamorado  {{enamoradoNombre2.User.first_name}} {{enamoradoNombre2.User.last_name}}</small>	<br>
+	 			  	<div class="col-12 col-lg-6 text-lg-right">
+	 			  		<h2>{{enamoradoNombre2.User.first_name}} {{enamoradoNombre2.User.last_name}}</h2>
 	 			  		{% if not flag_belleza2 %}
-	 			  			<h5 class="text-danger">No se han asignado bellezas para este enamorado</h5>
+	 			  			<h5 class="font-italic text-danger">* No se han asignado "Bellezas"</h5>
 	 			  		{% endif %}
 	 			  		{% if not flag_prenda2 %}
-	 			  			<h5 class="text-danger">No se han asignado prendas para este enamorado</h5>
+	 			  			<h5 class="font-italic text-danger">* No se han asignado "Prendas"</h5>
 	 			  		{% endif %}
 	 			  		{% if not flag_accesorio2 %}
-	 			  			<h5 class="text-danger">No se han asignado accesorios</h5>
+	 			  			<h5 class="font-italic text-danger">* No se han asignado "Accesorios"</h5>
 	 			  		{% endif %}
 	 			  	</div>
-	 			  </div><br><br>
-				  <div class="row mt-6">
-				    <div class="col-md-9 text-left">
-				      <h4 >Costo enamorado {{enamoradoNombre.User.first_name}} {{enamoradoNombre.User.last_name}}:</h4>
-				      <h4>Costo enamorado  {{enamoradoNombre2.User.first_name}} {{enamoradoNombre2.User.last_name}}:</h4>
-				      <h3>Costo total pareja:</h3>
+	 			  </div>
+				  <div class="row">
+				    <div class="col text-left">
+				      <h4 >Costo {{enamoradoNombre.User.first_name}}:</h4>
+				    </div> 
+				    <div class="col text-right align-self-center">
+				     	<h3 class="font-weight-light text-info"><strong>${{precio_enamorado}}</strong></h3>
 				    </div>
-				    <div class="col text-right">
-				      <h3 class="text-info precioResumen"><strong>${{precio_enamorado}}</strong></h3>
-				      <h3 class="text-info precioResumen"><strong>${{precio_enamorado2}}</strong></h3>
-				      <h3 class="text-info precioResumen"><strong>${{precio_pareja}}</strong></h3>
+				  </div>
+				  <div class="row">
+				    <div class="col text-left ">
+				      	<h4>Costo {{enamoradoNombre2.User.first_name}}:</h4>
+				     </div>
+				     <div class="col text-right align-self-center">
+				      	<h3 class="font-weight-light text-info"><strong>${{precio_enamorado2}}</strong></h3>
+				     </div>
+				   </div>
+				   <div class="row">
+				    <div class="col text-left">
+				      <h3 class="font-weight-bold">Costo total pareja:</h3>
+				     </div>
+				    <div class="col text-right align-self-center">
+				      <h3 class="font-weight-light text-info"><strong>${{precio_pareja}}</strong></h3>
 				    </div>
 				  </div>
 				</div>
@@ -202,10 +214,10 @@
 	<div class="container">
 	  <div class="row mt-4">
 	    <div class="col text-left">
-	      <h1>Costo Boda:</h1>
+	      <h2>Costo Boda:</h2>
 	    </div>
-	    <div class="col text-right">
-	      <h1 class="display-4 text-info precioResumen"><strong>${{precio_boda}}</strong></h1>
+	    <div class="col text-right align-self-center">
+	      <h1 class="font-weight-light text-info"><strong>${{precio_boda}}</strong></h1>
 	    </div>
 	  </div>
 	</div>
